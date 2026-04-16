@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { aboutCopy, seo, ui, MAILTO, prefixPath } from '../../content/siteContent';
+import { normalizePathname } from '../../lib/i18n';
+
+const locale = 'ko';
+const t = ui[locale];
+const copy = aboutCopy[locale];
+const meta = seo.about[locale];
+const pathname = normalizePathname(Astro.url.pathname);
+---
+
+<BaseLayout title={meta.title} description={meta.description} lang="ko" pathname={pathname}>
+  <div class="flex flex-col min-h-screen">
+    <Header locale={locale} />
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-6 py-16 sm:py-20">
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 mb-10">
+          {t.about.title}
+        </h1>
+
+        <section class="mb-12">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-3">Brand</h2>
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{copy.brandStatement}</p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-3">Mission</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{copy.mission}</p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t.about.whatWeBuildTitle}</h2>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400">
+            {copy.whatWeBuild.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="roadmap" class="mb-12 scroll-mt-24">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t.about.roadmapTitle}</h2>
+          <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-4">{t.about.timelineTitle}</h3>
+          <ul class="space-y-4">
+            {copy.timeline.map((item) => (
+              <li class="flex flex-col sm:flex-row sm:gap-4 text-sm">
+                <span class="font-mono text-gray-500 dark:text-gray-400 shrink-0 w-28">{item.date}</span>
+                <span class="text-gray-700 dark:text-gray-300">
+                  {'internalPath' in item && item.internalPath ? (
+                    <a href={prefixPath(item.internalPath, locale)} class="text-blue-600 dark:text-blue-400 hover:underline">
+                      {item.label}
+                    </a>
+                  ) : item.href ? (
+                    <a href={item.href} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                      {item.label}
+                    </a>
+                  ) : (
+                    item.label
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-8 leading-relaxed">{t.about.privateNote}</p>
+        </section>
+
+        <section class="mb-14">
+          <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-4">{t.about.longTermTitle}</h3>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+            {copy.longTerm.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <a
+          href={MAILTO}
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors"
+        >
+          {t.about.contactCta}
+        </a>
+      </article>
+    </main>
+
+    <Footer locale={locale} />
+  </div>
+</BaseLayout>

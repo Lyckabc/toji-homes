@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { gopediaCopy, seo, ui, MAILTO } from '../../content/siteContent';
+import { normalizePathname } from '../../lib/i18n';
+
+const locale = 'en';
+const t = ui[locale];
+const copy = gopediaCopy[locale];
+const meta = seo.gopedia[locale];
+const pathname = normalizePathname(Astro.url.pathname);
+---
+
+<BaseLayout title={meta.title} description={meta.description} lang="en" pathname={pathname}>
+  <div class="flex flex-col min-h-screen">
+    <Header locale={locale} />
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-6 py-16 sm:py-20">
+        <header class="mb-12">
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 mb-2">gopedia</h1>
+          <p class="text-lg text-gray-500 dark:text-gray-400">{copy.oneLiner}</p>
+          <a
+            href={copy.repo}
+            class="inline-block mt-4 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.projects.repository} ↗
+          </a>
+        </header>
+
+        <section class="mb-10">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.coreFeatures}</h2>
+          <ul class="flex flex-wrap gap-2">
+            {copy.features.map((f) => (
+              <li class="px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-xs font-medium text-gray-700 dark:text-gray-300">
+                {f}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.targetUsers}</h2>
+          <ol class="list-decimal pl-5 space-y-1 text-gray-600 dark:text-gray-400 text-sm">
+            {copy.users.map((u) => (
+              <li>{u}</li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.useCases}</h2>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            {copy.useCases.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.architecture}</h2>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 text-sm font-mono leading-relaxed">
+            {copy.architecture.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.roadmapSnapshot}</h2>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+            {copy.roadmap.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.related}</h2>
+          <ul class="space-y-2">
+            {copy.related.map((r) => (
+              <li>
+                <a href={r.href} class="text-sm text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                  {r.label} ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="mb-14">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{t.projects.demo}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">{copy.demo}</p>
+        </section>
+
+        <a
+          href={MAILTO}
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm font-semibold transition-colors"
+        >
+          {t.about.contactCta}
+        </a>
+      </article>
+    </main>
+
+    <Footer locale={locale} />
+  </div>
+</BaseLayout>
