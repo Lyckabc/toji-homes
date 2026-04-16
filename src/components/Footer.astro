@@ -1,29 +1,51 @@
 ---
-const year = new Date().getFullYear();
+import type { Locale } from '../content/siteContent';
+import { ui, CONTACT_EMAIL, MAILTO } from '../content/siteContent';
 
-const links = [
-  { label: 'Forgejo',  href: 'https://git.toji.homes' },
-  { label: 'Grafana',  href: 'https://grafana.toji.homes' },
-  { label: 'Vault',    href: 'https://vault.toji.homes' },
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = ui[locale];
+
+const quickLinks = [
+  { label: 'Forgejo', href: 'https://git.toji.homes' },
+  { label: 'Grafana', href: 'https://grafana.toji.homes' },
+  { label: 'Vault', href: 'https://vault.toji.homes' },
 ];
+
+const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-gray-200 dark:border-gray-800">
-  <div class="max-w-5xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between gap-4">
-    <span class="text-sm text-gray-400 dark:text-gray-500">
-      © {year} toji.homes
-    </span>
-    <nav class="flex gap-5" aria-label="Footer navigation">
-      {links.map(link => (
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
+<footer class="border-t border-gray-200 dark:border-gray-800 mt-auto">
+  <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
+    <div class="flex flex-col gap-1">
+      <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">{t.footer.brand}</span>
+      <span class="text-xs text-gray-400 dark:text-gray-500">© {year} toji.homes</span>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 dark:border-gray-800 pt-6">
+      <a
+        href={MAILTO}
+        class="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        {t.footer.contact}
+        <span class="text-gray-500 dark:text-gray-400 font-normal">{CONTACT_EMAIL}</span>
+      </a>
+
+      <nav class="flex flex-wrap gap-4" aria-label="Footer navigation">
+        {quickLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
   </div>
 </footer>
