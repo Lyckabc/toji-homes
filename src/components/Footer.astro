@@ -1,50 +1,29 @@
 ---
 const year = new Date().getFullYear();
+
+const links = [
+  { label: 'Forgejo',  href: 'https://git.toji.homes' },
+  { label: 'Grafana',  href: 'https://grafana.toji.homes' },
+  { label: 'Vault',    href: 'https://vault.toji.homes' },
+];
 ---
 
-<footer class="footer">
-  <div class="container footer-inner">
-    <span class="copyright">© {year} toji.homes</span>
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="https://git.toji.homes" target="_blank" rel="noopener noreferrer">Forgejo</a>
-      <a href="https://grafana.toji.homes" target="_blank" rel="noopener noreferrer">Grafana</a>
-      <a href="https://vault.toji.homes" target="_blank" rel="noopener noreferrer">Vault</a>
+<footer class="border-t border-gray-200 dark:border-gray-800">
+  <div class="max-w-5xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between gap-4">
+    <span class="text-sm text-gray-400 dark:text-gray-500">
+      © {year} toji.homes
+    </span>
+    <nav class="flex gap-5" aria-label="Footer navigation">
+      {links.map(link => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
     </nav>
   </div>
 </footer>
-
-<style>
-  .footer {
-    border-top: 1px solid var(--color-border);
-    padding: 24px 0;
-    margin-top: auto;
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .copyright {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-
-  .footer-nav {
-    display: flex;
-    gap: 16px;
-  }
-
-  .footer-nav a {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-  }
-
-  .footer-nav a:hover {
-    color: var(--color-text);
-  }
-</style>

@@ -30,8 +30,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!--
+      다크모드 초기화 — FOUC(흰 화면 깜빡임) 방지를 위해 <body> 이전에 실행
+      우선순위: localStorage 저장값 > prefers-color-scheme > 라이트 모드
+    -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
-  <body>
+  <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
     <slot />
   </body>
 </html>
