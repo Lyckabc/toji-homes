@@ -1,0 +1,50 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="copyright">© {year} toji.homes</span>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="https://git.toji.homes" target="_blank" rel="noopener noreferrer">Forgejo</a>
+      <a href="https://grafana.toji.homes" target="_blank" rel="noopener noreferrer">Grafana</a>
+      <a href="https://vault.toji.homes" target="_blank" rel="noopener noreferrer">Vault</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding: 24px 0;
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .copyright {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer-nav a {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-text);
+  }
+</style>

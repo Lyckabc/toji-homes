@@ -1,0 +1,122 @@
+---
+const navLinks = [
+  { label: 'Services', href: '#services' },
+  { label: 'About',    href: '#about' },
+];
+
+const serviceLinks = [
+  { label: 'Git',        href: 'https://git.toji.homes' },
+  { label: 'Tasks',      href: 'https://task.toji.homes' },
+  { label: 'Monitoring', href: 'https://grafana.toji.homes' },
+];
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="toji.homes home">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect width="28" height="28" rx="6" fill="var(--color-primary)"/>
+        <path d="M7 14L14 7L21 14V22H17V17H11V22H7V14Z" fill="white"/>
+      </svg>
+      <span>toji.homes</span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+
+      <div class="nav-divider" aria-hidden="true"></div>
+
+      {serviceLinks.map(link => (
+        <a href={link.href} class="nav-link nav-link-external" target="_blank" rel="noopener noreferrer">
+          {link.label}
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M1 9L9 1M9 1H4M9 1V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 60px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+    background: var(--color-bg-alt);
+    text-decoration: none;
+  }
+
+  .nav-link-external svg {
+    opacity: 0.5;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--color-border);
+    margin: 0 4px;
+  }
+
+  @media (max-width: 640px) {
+    .nav-link-external {
+      display: none;
+    }
+    .nav-divider {
+      display: none;
+    }
+  }
+</style>

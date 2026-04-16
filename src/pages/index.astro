@@ -1,0 +1,305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const services = [
+  {
+    name: 'Forgejo',
+    description: 'Self-hosted Git service. Source code, CI/CD, and container registry.',
+    href: 'https://git.toji.homes',
+    icon: '⎇',
+  },
+  {
+    name: 'Vikunja',
+    description: 'Task and project management. Kanban boards and to-do lists.',
+    href: 'https://task.toji.homes',
+    icon: '✓',
+  },
+  {
+    name: 'Grafana',
+    description: 'Observability stack. Metrics, logs, and traces in one place.',
+    href: 'https://grafana.toji.homes',
+    icon: '◈',
+  },
+  {
+    name: 'Artifact Registry',
+    description: 'Universal artifact repository for Docker images, packages, and binaries.',
+    href: 'https://artifacts.toji.homes',
+    icon: '⬡',
+  },
+  {
+    name: 'ZITADEL',
+    description: 'Identity and access management. SSO and OIDC for all services.',
+    href: 'https://auth.toji.homes',
+    icon: '⬡',
+  },
+  {
+    name: 'Vault',
+    description: 'Secrets management. Secure storage for credentials and certificates.',
+    href: 'https://vault.toji.homes',
+    icon: '⬡',
+  },
+];
+
+const stack = [
+  { label: 'OpenStack', desc: 'Dalmatian (kolla-ansible)' },
+  { label: 'Kubernetes', desc: 'v1.35' },
+  { label: 'Traefik',   desc: 'Ingress + TLS' },
+  { label: 'Calico',    desc: 'CNI (VXLAN)' },
+  { label: 'Cinder',    desc: 'CSI (SSD + HDD)' },
+  { label: 'Vault',     desc: 'Secrets' },
+];
+---
+
+<BaseLayout
+  title="toji.homes — Homelab Platform"
+  description="A self-hosted homelab platform running on OpenStack and Kubernetes. Git, CI/CD, monitoring, and more."
+>
+  <div class="page">
+    <Header />
+
+    <main>
+      <!-- ── Hero ─────────────────────────────────── -->
+      <section class="hero section">
+        <div class="container">
+          <div class="hero-badge">Self-hosted · On-premises</div>
+          <h1 class="hero-title">Your homelab,<br/>fully orchestrated.</h1>
+          <p class="hero-desc">
+            toji.homes runs on a private OpenStack cluster and Kubernetes.
+            Git, tasks, monitoring, secrets — all under one roof.
+          </p>
+          <div class="hero-actions">
+            <a href="#services" class="btn btn-primary">Explore Services</a>
+            <a href="https://git.toji.homes" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              Open Forgejo ↗
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Services ──────────────────────────────── -->
+      <section class="section" id="services">
+        <div class="container">
+          <h2 class="section-title">Services</h2>
+          <p class="section-subtitle">Everything running on the cluster, accessible via SSO.</p>
+
+          <div class="services-grid">
+            {services.map(service => (
+              <a href={service.href} class="service-card" target="_blank" rel="noopener noreferrer">
+                <div class="service-card-inner">
+                  <h3 class="service-name">{service.name}</h3>
+                  <p class="service-desc">{service.description}</p>
+                </div>
+                <span class="service-arrow" aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- ── About / Stack ─────────────────────────── -->
+      <section class="section section-alt" id="about">
+        <div class="container">
+          <h2 class="section-title">About</h2>
+          <p class="section-subtitle">Built on open-source infrastructure, managed as code.</p>
+
+          <div class="about-grid">
+            <div class="about-text">
+              <p>
+                toji.homes is a fully self-hosted homelab platform.
+                Every service runs on a two-node Kubernetes cluster backed
+                by OpenStack Dalmatian for compute, network, and storage.
+              </p>
+              <p>
+                Infrastructure is declared with OpenTofu (Terraform-compatible),
+                secrets live in Vault, and all access is controlled by ZITADEL
+                with OIDC single sign-on.
+              </p>
+            </div>
+
+            <div class="stack-grid">
+              {stack.map(item => (
+                <div class="stack-item">
+                  <span class="stack-label">{item.label}</span>
+                  <span class="stack-desc">{item.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Hero */
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+
+  .hero-title {
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .hero-desc {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 520px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Services */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .service-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 16px var(--color-card-shadow);
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .service-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .service-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .service-arrow {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: transform 0.15s, color 0.15s;
+  }
+
+  .service-card:hover .service-arrow {
+    transform: translateX(4px);
+    color: var(--color-primary);
+  }
+
+  /* About */
+  .section-alt {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .about-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stack-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 16px;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .stack-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .stack-desc {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .stack-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
+</style>
