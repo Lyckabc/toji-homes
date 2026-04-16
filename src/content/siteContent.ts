@@ -1,6 +1,8 @@
+import { SITE_DOMAIN, siteHost } from '../lib/site';
+
 export type Locale = 'ko' | 'en';
 
-export const CONTACT_EMAIL = 'lyckabc@toji.homes';
+export const CONTACT_EMAIL = `lyckabc@${SITE_DOMAIN}`;
 export const MAILTO = `mailto:${CONTACT_EMAIL}`;
 
 /** TOJI GitHub org ([tojiuni](https://github.com/tojiuni)) */
@@ -10,7 +12,7 @@ export const GITHUB_ORG_URL = 'https://github.com/tojiuni';
 export const serviceEndpoints = [
   {
     key: 'forgejo',
-    href: 'https://git.toji.homes',
+    href: siteHost('git'),
     name: { ko: 'Forgejo', en: 'Forgejo' },
     description: {
       ko: '셀프호스팅 Git. 소스 코드, CI/CD, 컨테이너 레지스트리.',
@@ -19,7 +21,7 @@ export const serviceEndpoints = [
   },
   {
     key: 'vikunja',
-    href: 'https://task.toji.homes',
+    href: siteHost('task'),
     name: { ko: 'Vikunja', en: 'Vikunja' },
     description: {
       ko: '태스크·프로젝트 관리. 칸반과 할 일 목록.',
@@ -28,7 +30,7 @@ export const serviceEndpoints = [
   },
   {
     key: 'grafana',
-    href: 'https://grafana.toji.homes',
+    href: siteHost('grafana'),
     name: { ko: 'Grafana', en: 'Grafana' },
     description: {
       ko: '관측 스택. 메트릭·로그·트레이스를 한곳에.',
@@ -37,7 +39,7 @@ export const serviceEndpoints = [
   },
   {
     key: 'artifacts',
-    href: 'https://artifacts.toji.homes',
+    href: siteHost('artifacts'),
     name: { ko: 'Artifact Registry', en: 'Artifact Registry' },
     description: {
       ko: 'Docker 이미지와 패키지용 아티팩트 저장소.',
@@ -46,7 +48,7 @@ export const serviceEndpoints = [
   },
   {
     key: 'zitadel',
-    href: 'https://auth.toji.homes',
+    href: siteHost('auth'),
     name: { ko: 'ZITADEL', en: 'ZITADEL' },
     description: {
       ko: 'IAM. 모든 서비스용 SSO·OIDC.',
@@ -55,7 +57,7 @@ export const serviceEndpoints = [
   },
   {
     key: 'vault',
-    href: 'https://vault.toji.homes',
+    href: siteHost('vault'),
     name: { ko: 'Vault', en: 'Vault' },
     description: {
       ko: '시크릿 관리. 자격 증명·인증서 보관.',
@@ -142,7 +144,7 @@ export const ui = {
       stackTitle: '스택',
       stackLead: '오픈소스 인프라를 코드로 관리합니다.',
       stackBody1:
-        'toji.homes는 완전히 셀프호스팅된 홈랩 플랫폼입니다. OpenStack Dalmatian 위의 두 노드 Kubernetes에서 서비스가 동작합니다.',
+        `${SITE_DOMAIN}는 완전히 셀프호스팅된 홈랩 플랫폼입니다. OpenStack Dalmatian 위의 두 노드 Kubernetes에서 서비스가 동작합니다.`,
       stackBody2:
         '인프라는 OpenTofu로 선언하고, 시크릿은 Vault에 두며, ZITADEL OIDC로 단일 로그인을 제공합니다.',
     },
@@ -203,7 +205,7 @@ export const ui = {
       stackTitle: 'Stack',
       stackLead: 'Built on open-source infrastructure, managed as code.',
       stackBody1:
-        'toji.homes is a fully self-hosted homelab platform. Every service runs on a two-node Kubernetes cluster backed by OpenStack Dalmatian for compute, network, and storage.',
+        `${SITE_DOMAIN} is a fully self-hosted homelab platform. Every service runs on a two-node Kubernetes cluster backed by OpenStack Dalmatian for compute, network, and storage.`,
       stackBody2:
         'Infrastructure is declared with OpenTofu, secrets live in Vault, and all access is controlled by ZITADEL with OIDC single sign-on.',
     },
@@ -407,6 +409,21 @@ export const gopediaCopy = {
   },
 };
 
+const neunexusServiceLinks = [
+  { label: 'OpenStack Horizon', href: siteHost('openstack') },
+  { label: 'HashiCorp Vault UI', href: siteHost('vault') },
+  { label: 'ZITADEL (SSO/OIDC)', href: siteHost('auth') },
+  { label: 'SpiceDB (authorization)', href: siteHost('spice') },
+  { label: 'Gopedia API', href: siteHost('gopedia') },
+  { label: 'Gopedia MCP', href: siteHost('mcp') },
+  { label: 'Langfuse (LLM observability)', href: siteHost('langfuse') },
+  { label: 'Grafana dashboard', href: siteHost('grafana') },
+  { label: 'Forgejo (Git server)', href: siteHost('git') },
+  { label: 'Vikunja (task manager)', href: siteHost('tasks') },
+  { label: 'Appsmith (low-code)', href: siteHost('apps') },
+  { label: 'artifact-keeper (artifact registry)', href: siteHost('artifacts') },
+] as const;
+
 export const neunexusCopy = {
   ko: {
     tagline: 'Your infra, fully orchestrated.',
@@ -430,20 +447,7 @@ export const neunexusCopy = {
       { label: 'Kubernetes path', href: 'https://github.com/tojiuni/neunexus/tree/main/k8s' },
       { label: 'Docker path', href: 'https://github.com/tojiuni/neunexus/tree/main/docker' },
     ],
-    services: [
-      { label: 'OpenStack Horizon', href: 'https://openstack.toji.homes' },
-      { label: 'HashiCorp Vault UI', href: 'https://vault.toji.homes' },
-      { label: 'ZITADEL (SSO/OIDC)', href: 'https://auth.toji.homes' },
-      { label: 'SpiceDB (authorization)', href: 'https://spice.toji.homes' },
-      { label: 'Gopedia API', href: 'https://gopedia.toji.homes' },
-      { label: 'Gopedia MCP', href: 'https://mcp.toji.homes' },
-      { label: 'Langfuse (LLM observability)', href: 'https://langfuse.toji.homes' },
-      { label: 'Grafana dashboard', href: 'https://grafana.toji.homes' },
-      { label: 'Forgejo (Git server)', href: 'https://git.toji.homes' },
-      { label: 'Vikunja (task manager)', href: 'https://tasks.toji.homes' },
-      { label: 'Appsmith (low-code)', href: 'https://apps.toji.homes' },
-      { label: 'artifact-keeper (artifact registry)', href: 'https://artifacts.toji.homes' },
-    ],
+    services: neunexusServiceLinks,
   },
   en: {
     tagline: 'Your infra, fully orchestrated.',
@@ -464,20 +468,7 @@ export const neunexusCopy = {
       { label: 'Kubernetes path', href: 'https://github.com/tojiuni/neunexus/tree/main/k8s' },
       { label: 'Docker path', href: 'https://github.com/tojiuni/neunexus/tree/main/docker' },
     ],
-    services: [
-      { label: 'OpenStack Horizon', href: 'https://openstack.toji.homes' },
-      { label: 'HashiCorp Vault UI', href: 'https://vault.toji.homes' },
-      { label: 'ZITADEL (SSO/OIDC)', href: 'https://auth.toji.homes' },
-      { label: 'SpiceDB (authorization)', href: 'https://spice.toji.homes' },
-      { label: 'Gopedia API', href: 'https://gopedia.toji.homes' },
-      { label: 'Gopedia MCP', href: 'https://mcp.toji.homes' },
-      { label: 'Langfuse (LLM observability)', href: 'https://langfuse.toji.homes' },
-      { label: 'Grafana dashboard', href: 'https://grafana.toji.homes' },
-      { label: 'Forgejo (Git server)', href: 'https://git.toji.homes' },
-      { label: 'Vikunja (task manager)', href: 'https://tasks.toji.homes' },
-      { label: 'Appsmith (low-code)', href: 'https://apps.toji.homes' },
-      { label: 'artifact-keeper (artifact registry)', href: 'https://artifacts.toji.homes' },
-    ],
+    services: neunexusServiceLinks,
   },
 };
 

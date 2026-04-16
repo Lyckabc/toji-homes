@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '../content/siteContent';
 import { ui, CONTACT_EMAIL, MAILTO } from '../content/siteContent';
+import { SITE_DOMAIN, siteHost } from '../lib/site';
 
 interface Props {
   locale: Locale;
@@ -10,9 +11,9 @@ const { locale } = Astro.props;
 const t = ui[locale];
 
 const quickLinks = [
-  { label: 'Forgejo', href: 'https://git.toji.homes' },
-  { label: 'Grafana', href: 'https://grafana.toji.homes' },
-  { label: 'Vault', href: 'https://vault.toji.homes' },
+  { label: 'Forgejo', href: siteHost('git') },
+  { label: 'Grafana', href: siteHost('grafana') },
+  { label: 'Vault', href: siteHost('vault') },
 ];
 
 const year = new Date().getFullYear();
@@ -22,7 +23,7 @@ const year = new Date().getFullYear();
   <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
     <div class="flex flex-col gap-1">
       <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">{t.footer.brand}</span>
-      <span class="text-xs text-gray-400 dark:text-gray-500">© {year} toji.homes</span>
+      <span class="text-xs text-gray-400 dark:text-gray-500">© {year} {SITE_DOMAIN}</span>
     </div>
 
     <div class="flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 dark:border-gray-800 pt-6">

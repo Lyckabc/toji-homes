@@ -72,17 +72,29 @@ const activeProjects = activeGopedia || activeNeunexus;
         class:list={[
           'relative group',
           '[&_summary::-webkit-details-marker]:hidden [&_summary::marker]:content-none',
+          '[&[open]_summary_svg]:rotate-180',
         ]}
+        data-nav-dropdown
       >
         <summary
           class:list={[
-            'px-2.5 sm:px-3 py-1.5 rounded-md text-sm font-medium cursor-pointer list-none transition-colors',
+            'inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-md text-sm font-medium cursor-pointer list-none transition-colors',
             activeProjects
               ? 'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800'
               : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800',
           ]}
         >
           {t.nav.projects}
+          <svg
+            width="10"
+            height="6"
+            viewBox="0 0 10 6"
+            fill="none"
+            aria-hidden="true"
+            class="opacity-50 shrink-0 transition-transform"
+          >
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
         </summary>
         <div class="absolute left-0 top-full z-50 pt-1 min-w-[11rem]">
           <ul
@@ -205,10 +217,16 @@ const activeProjects = activeGopedia || activeNeunexus;
     }
   });
 
-  document.querySelectorAll('header details').forEach((d) => {
-    d.addEventListener('click', (e) => {
-      const t = e.target;
-      if (t instanceof HTMLAnchorElement) (d as HTMLDetailsElement).open = false;
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!(target instanceof Node)) return;
+    document.querySelectorAll('header details[data-nav-dropdown]').forEach((d) => {
+      const el = d as HTMLDetailsElement;
+      if (!el.contains(target)) {
+        el.open = false;
+      } else if (target instanceof HTMLAnchorElement) {
+        el.open = false;
+      }
     });
   });
 </script>
