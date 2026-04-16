@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { homeCopy, seo, ui, prefixPath, MAILTO } from '../content/siteContent';
-import { normalizePathname } from '../lib/i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { homeCopy, seo, ui, prefixPath, MAILTO } from '../../content/siteContent';
+import { normalizePathname } from '../../lib/i18n';
 
-const locale = 'en';
+const locale = 'ko';
 const t = ui[locale];
 const copy = homeCopy[locale];
 const meta = seo.home[locale];
@@ -13,7 +13,7 @@ const pathname = normalizePathname(Astro.url.pathname);
 const roadmapHref = `${prefixPath('/about', locale)}#roadmap`;
 ---
 
-<BaseLayout title={meta.title} description={meta.description} lang="en" pathname={pathname}>
+<BaseLayout title={meta.title} description={meta.description} lang="ko" pathname={pathname}>
   <div class="flex flex-col min-h-screen">
     <Header locale={locale} />
 

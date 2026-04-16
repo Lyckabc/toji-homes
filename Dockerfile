@@ -12,10 +12,12 @@ COPY . .
 RUN npm run build
 
 # ── Serve stage ────────────────────────────────────────────────────────────────
-# nginx.conf은 K8s ConfigMap으로 런타임 마운트 (/etc/nginx/conf.d/default.conf)
-# 이 이미지는 정적 파일만 포함
+# 로컬·기본 이미지: repo의 nginx/default.conf (디렉터리 URL용 try_files)
+# K8s에서 /etc/nginx/conf.d/default.conf 를 ConfigMap으로 덮어쓰는 경우,
+# 동일하게 `try_files $uri $uri/ $uri/index.html` 를 넣어야 /about 등이 동작합니다.
 FROM nginx:alpine
 
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
