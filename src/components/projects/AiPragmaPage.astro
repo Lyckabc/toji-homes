@@ -11,13 +11,12 @@ interface Props {
 const { locale } = Astro.props;
 const copy = aiPragmaCopy[locale];
 const d = copy.diagram;
-const dc = copy.devCycle;
-const oc = copy.officeCycle;
+const dev = d.devCycleStrip;
+const oc = d.officeCycle;
+const cc = d.cycleCallouts;
+const arch = d.arch;
 const infra = aiPragmaInfraStackLines;
-
-const devBeforeDocs = dc.slice(0, 7);
-const devDocs = dc[7]!;
-const devBrain = dc[8]!;
+const [r1a, r1b, r1c] = oc.row1BeforeRag;
 ---
 
 <div class="ai-pragma-wrap">
@@ -31,52 +30,25 @@ const devBrain = dc[8]!;
     <div id="ai-pragma-agent-cycle" class="sec-label">{d.sections.agentCycle}</div>
     <div class="loops">
       <div class="loop-panel">
-        <div class="loop-title">{d.cycles.dev}</div>
-        <div class="cycle-wrap">
-          <div class="strip">
-            {
-              devBeforeDocs.map((label) => (
-                <>
-                  <div class="step">{label}</div>
-                  <span class="sarr">→</span>
-                </>
-              ))
-            }
-            <div class="step">{devDocs}</div>
-            <div class="larr">
-              <span class="albl">{d.cycles.ingest}</span>
-              <span class="sarr">→</span>
-            </div>
-            <div class="step">{devBrain}</div>
-          </div>
-          <div class="feedback">
-            <div class="fb-line"></div>
-            <span class="fb-label">{d.cycles.feedbackLoop}</span>
-            <div class="fb-line"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="loop-panel">
         <div class="loop-title">{d.cycles.office}</div>
         <div class="cycle-wrap">
-          <div class="office-rows">
+          <div class="cycle-rows">
             <div class="strip">
-              <div class="step">{oc[0]}</div>
+              <div class="step">{r1a}</div>
               <span class="sarr">→</span>
-              <div class="step">{oc[1]}</div>
+              <div class="step">{r1b}</div>
               <span class="sarr">→</span>
-              <div class="step">{oc[2]}</div>
+              <div class="step">{r1c}</div>
               <div class="larr">
                 <span class="albl">{d.cycles.rag}</span>
                 <span class="sarr">→</span>
               </div>
-              <div class="step">{oc[3]}</div>
+              <div class="step">{oc.row1AfterRag}</div>
             </div>
             <div class="down-arr">↓</div>
             <div class="strip indent">
               {
-                oc.slice(4).map((label, idx) => (
+                oc.row2.map((label, idx) => (
                   <>
                     {idx > 0 ? <span class="sarr">→</span> : null}
                     <div class="step">{label}</div>
@@ -85,6 +57,67 @@ const devBrain = dc[8]!;
               }
             </div>
           </div>
+        </div>
+        <div class="loop-callout" role="note">
+          <p>
+            <span class="loop-callout-label">{cc.labels.situation}</span>
+            {cc.office.situation}
+          </p>
+          <p>
+            <span class="loop-callout-label">{cc.labels.scenario}</span>
+            {cc.office.scenario}
+          </p>
+        </div>
+      </div>
+
+      <div class="loop-panel">
+        <div class="loop-title">{d.cycles.dev}</div>
+        <div class="cycle-wrap">
+          <div class="cycle-rows">
+            <div class="strip">
+              {
+                dev.row1.map((label, idx) => (
+                  <>
+                    {idx > 0 ? <span class="sarr">→</span> : null}
+                    <div class="step">{label}</div>
+                  </>
+                ))
+              }
+            </div>
+            <div class="down-arr">↓</div>
+            <div class="strip indent">
+              {
+                dev.row2ThroughMerge.map((label, idx) => (
+                  <>
+                    {idx > 0 ? <span class="sarr">→</span> : null}
+                    <div class="step">{label}</div>
+                  </>
+                ))
+              }
+              <span class="sarr">→</span>
+              <div class="step">{dev.docs}</div>
+              <div class="larr">
+                <span class="albl">{d.cycles.ingest}</span>
+                <span class="sarr">→</span>
+              </div>
+              <div class="step">{dev.brain}</div>
+            </div>
+          </div>
+          <div class="feedback">
+            <div class="fb-line"></div>
+            <span class="fb-label">{d.cycles.feedbackLoop}</span>
+            <div class="fb-line"></div>
+          </div>
+        </div>
+        <div class="loop-callout" role="note">
+          <p>
+            <span class="loop-callout-label">{cc.labels.situation}</span>
+            {cc.dev.situation}
+          </p>
+          <p>
+            <span class="loop-callout-label">{cc.labels.scenario}</span>
+            {cc.dev.scenario}
+          </p>
         </div>
       </div>
     </div>
@@ -97,9 +130,9 @@ const devBrain = dc[8]!;
       <div class="wb-card wb-without">
         <div class="wb-tag">{d.whyBrain.withoutTag}</div>
         <div class="wb-flow">
-          <span class="wbstep">Agent</span>
+          <span class="wbstep">{d.whyBrain.flowAgent}</span>
           <span class="wbarr">→</span>
-          <span class="wbstep">Core</span>
+          <span class="wbstep">{d.whyBrain.flowCore}</span>
           <span class="wbarr">→</span>
           <span class="wbno">✕</span>
         </div>
@@ -108,11 +141,11 @@ const devBrain = dc[8]!;
       <div class="wb-card wb-with">
         <div class="wb-tag">{d.whyBrain.withTag}</div>
         <div class="wb-flow">
-          <span class="wbstep">Agent</span>
+          <span class="wbstep">{d.whyBrain.flowAgent}</span>
           <span class="wbarr">→</span>
-          <span class="wbstep">Core</span>
+          <span class="wbstep">{d.whyBrain.flowCore}</span>
           <span class="wbarr">→</span>
-          <span class="wbstep b">Brain</span>
+          <span class="wbstep b">{d.whyBrain.flowBrain}</span>
           <span class="wbarr">→</span>
           <span class="wbyes">✓</span>
         </div>
@@ -139,27 +172,27 @@ const devBrain = dc[8]!;
     <div id="ai-pragma-architecture" class="sec-label">{d.sections.architecture}</div>
 
     <div class="layer l-iface">
-      <div class="layer-tag">{d.arch.layerInterface}</div>
+      <div class="layer-tag">{arch.layerInterface}</div>
       <div class="box-row">
         <div class="box iface">
-          <span class="bname">Relay</span>
-          <span class="brole">Chat · Group / DM</span>
+          <span class="bname">{arch.interfaceBoxes.relay.name}</span>
+          <span class="brole">{arch.interfaceBoxes.relay.role}</span>
         </div>
         <span class="arr">→</span>
         <div class="box iface">
-          <span class="bname">Core</span>
-          <span class="brole">LLM · Reasoning</span>
+          <span class="bname">{arch.interfaceBoxes.core.name}</span>
+          <span class="brole">{arch.interfaceBoxes.core.role}</span>
         </div>
         <span class="arr">→</span>
         <div class="box iface">
-          <span class="bname">Tracker</span>
-          <span class="brole">Tickets · Tasks</span>
+          <span class="bname">{arch.interfaceBoxes.tracker.name}</span>
+          <span class="brole">{arch.interfaceBoxes.tracker.role}</span>
         </div>
       </div>
       <div class="opt-row">
         <div class="box iface opt">
-          <span class="bname">Lens</span>
-          <span class="brole">Dashboard (opt)</span>
+          <span class="bname">{arch.interfaceBoxes.lens.name}</span>
+          <span class="brole">{arch.interfaceBoxes.lens.role}</span>
         </div>
       </div>
     </div>
@@ -167,47 +200,33 @@ const devBrain = dc[8]!;
     <div class="v-conn">↕</div>
 
     <div class="layer l-agents">
-      <div class="layer-tag">{d.arch.layerAgents}</div>
+      <div class="layer-tag">{arch.layerAgents}</div>
       <div class="agent-tracks">
         <div class="track dev">
-          <span class="track-lbl">Dev</span>
+          <span class="track-lbl">{arch.agentTracks.dev.trackLabel}</span>
           <div class="abox-group">
-            <div class="abox">
-              <span>Triage</span><span class="arole">intent → ticket</span>
-            </div>
-            <div class="abox">
-              <span>Dev</span><span class="arole">code · PR</span>
-            </div>
-            <div class="abox">
-              <span>QA</span><span class="arole">test · bug</span>
-            </div>
-            <div class="abox">
-              <span>Security</span><span class="arole">scan · CVE</span>
-            </div>
-            <div class="abox">
-              <span>Docs</span><span class="arole">ingest · summary</span>
-            </div>
+            {
+              arch.agentTracks.dev.agents.map((a) => (
+                <div class="abox">
+                  <span>{a.name}</span>
+                  <span class="arole">{a.role}</span>
+                </div>
+              ))
+            }
           </div>
         </div>
 
         <div class="track off">
-          <span class="track-lbl">Office</span>
+          <span class="track-lbl">{arch.agentTracks.office.trackLabel}</span>
           <div class="abox-group">
-            <div class="abox">
-              <span>PM</span><span class="arole">roadmap · priority</span>
-            </div>
-            <div class="abox">
-              <span>Knowledge</span><span class="arole">search · RAG</span>
-            </div>
-            <div class="abox">
-              <span>HR</span><span class="arole">onboard · policy</span>
-            </div>
-            <div class="abox">
-              <span>Report</span><span class="arole">digest · status</span>
-            </div>
-            <div class="abox">
-              <span>Meeting</span><span class="arole">notes → tickets</span>
-            </div>
+            {
+              arch.agentTracks.office.agents.map((a) => (
+                <div class="abox">
+                  <span>{a.name}</span>
+                  <span class="arole">{a.role}</span>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -216,19 +235,19 @@ const devBrain = dc[8]!;
     <div class="v-conn">↕</div>
 
     <div class="layer l-found">
-      <div class="layer-tag">{d.arch.layerFoundation}</div>
+      <div class="layer-tag">{arch.layerFoundation}</div>
       <div class="box-row">
         <div class="box found">
-          <span class="bname">Brain</span>
-          <span class="brole">Ingest · RAG</span>
+          <span class="bname">{arch.foundationBoxes.brain.name}</span>
+          <span class="brole">{arch.foundationBoxes.brain.role}</span>
         </div>
         <div class="box found">
-          <span class="bname">Guardian</span>
-          <span class="brole">Auth · SSO</span>
+          <span class="bname">{arch.foundationBoxes.guardian.name}</span>
+          <span class="brole">{arch.foundationBoxes.guardian.role}</span>
         </div>
         <div class="box found">
-          <span class="bname">Infra</span>
-          <span class="brole">K8s · IaC · Vault</span>
+          <span class="bname">{arch.foundationBoxes.infra.name}</span>
+          <span class="brole">{arch.foundationBoxes.infra.role}</span>
         </div>
       </div>
     </div>
@@ -254,7 +273,7 @@ const devBrain = dc[8]!;
     <div class="scale-grid">
       <div class="scale-card">
         <div class="scale-head">
-          <span class="scale-name">Docker</span>
+          <span class="scale-name">{d.infra.scaleDocker}</span>
           <span class="scale-badge">{d.infra.dockerBadge}</span>
         </div>
         <ul class="stack-list">
@@ -266,7 +285,7 @@ const devBrain = dc[8]!;
 
       <div class="scale-card rec">
         <div class="scale-head">
-          <span class="scale-name">Kubernetes</span>
+          <span class="scale-name">{d.infra.scaleKubernetes}</span>
           <span class="scale-badge star">{d.infra.k8sBadge}</span>
         </div>
         <ul class="stack-list">
@@ -278,7 +297,7 @@ const devBrain = dc[8]!;
 
       <div class="scale-card">
         <div class="scale-head">
-          <span class="scale-name">OpenStack</span>
+          <span class="scale-name">{d.infra.scaleOpenStack}</span>
           <span class="scale-badge">{d.infra.openstackBadge}</span>
         </div>
         <ul class="stack-list">

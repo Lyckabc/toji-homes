@@ -32,6 +32,25 @@ export const aiPragmaInfraStackLines = {
   },
 } as const;
 
+/** Dev loop: row1 → ↓ → row2 (QA…Merge → Docs → ingest → Brain). */
+export type AiPragmaDevCycleStrip = {
+  row1: string[];
+  row2ThroughMerge: string[];
+  docs: string;
+  brain: string;
+};
+
+/** Office: row1 Chat→…→Brain →(RAG)→ Answer; row2 Ticket→…→Chat */
+export type AiPragmaOfficeCycle = {
+  row1BeforeRag: [string, string, string];
+  row1AfterRag: string;
+  row2: string[];
+};
+
+export type AiPragmaArchBox = { name: string; role: string };
+
+export type AiPragmaAgentBox = { name: string; role: string };
+
 export type AiPragmaDiagramCopy = {
   hero: { eyebrow: string; title: string; tagline: string };
   sections: {
@@ -42,16 +61,50 @@ export type AiPragmaDiagramCopy = {
     infraStack: string;
   };
   cycles: { dev: string; office: string; feedbackLoop: string; ingest: string; rag: string };
+  devCycleStrip: AiPragmaDevCycleStrip;
+  officeCycle: AiPragmaOfficeCycle;
+  /** Short example: situation + scenario callouts under Office / Dev panels. */
+  cycleCallouts: {
+    labels: { situation: string; scenario: string };
+    office: { situation: string; scenario: string };
+    dev: { situation: string; scenario: string };
+  };
   whyBrain: {
     withoutTag: string;
     withTag: string;
     quoteWithout: string;
     quoteWith: string;
+    /** Flow mini-labels (localizable; product terms may stay Latin in KO). */
+    flowAgent: string;
+    flowCore: string;
+    flowBrain: string;
     differentiators: { title: string; description: string }[];
   };
-  arch: { layerInterface: string; layerAgents: string; layerFoundation: string };
+  arch: {
+    layerInterface: string;
+    layerAgents: string;
+    layerFoundation: string;
+    interfaceBoxes: {
+      relay: AiPragmaArchBox;
+      core: AiPragmaArchBox;
+      tracker: AiPragmaArchBox;
+      lens: AiPragmaArchBox;
+    };
+    foundationBoxes: {
+      brain: AiPragmaArchBox;
+      guardian: AiPragmaArchBox;
+      infra: AiPragmaArchBox;
+    };
+    agentTracks: {
+      dev: { trackLabel: string; agents: AiPragmaAgentBox[] };
+      office: { trackLabel: string; agents: AiPragmaAgentBox[] };
+    };
+  };
   legend: { kw: string; desc: string; cls: 'iface' | 'core' | 'track' | 'brain' | 'auth' | 'infra' | 'lens' }[];
   infra: {
+    scaleDocker: string;
+    scaleKubernetes: string;
+    scaleOpenStack: string;
     dockerBadge: string;
     k8sBadge: string;
     openstackBadge: string;
@@ -86,12 +139,40 @@ export const aiPragmaDiagramEn: AiPragmaDiagramCopy = {
     ingest: 'ingest',
     rag: 'RAG',
   },
+  devCycleStrip: {
+    row1: ['Chat', 'Triage', 'Ticket', 'Dev', 'PR'],
+    row2ThroughMerge: ['QA', 'Merge'],
+    docs: 'Docs',
+    brain: 'Brain',
+  },
+  officeCycle: {
+    row1BeforeRag: ['Chat', 'Knowledge / HR / Meeting', 'Brain'],
+    row1AfterRag: 'Answer',
+    row2: ['Ticket', 'PM', 'Assigned', 'Report', 'Chat'],
+  },
+  cycleCallouts: {
+    labels: { situation: 'Situation', scenario: 'Scenario' },
+    office: {
+      situation:
+        'A new hire asks in chat about company accounts, benefits, and team policies all at once.',
+      scenario:
+        'HR and Knowledge agents pull policies, onboarding docs, and FAQs from Brain, answer in the thread, open tickets when a handoff is needed, reflect assignments and reports, and leave a short summary with links in chat.',
+    },
+    dev: {
+      situation: 'A developer reports in chat that login sessions sometimes drop.',
+      scenario:
+        'Agents turn the conversation into a ticket, ship a fix through PR, then review, QA, and merge. The change is documented and ingested into Brain so later, similar questions cite the past issue and decision.',
+    },
+  },
   whyBrain: {
     withoutTag: 'Without',
     withTag: 'With Brain',
     quoteWithout: '"I have no context about your project, specs, or past decisions."',
     quoteWith:
       '"Based on your spec v2.3, ticket #142 is blocked by the auth migration agreed on 2025-03-12."',
+    flowAgent: 'Agent',
+    flowCore: 'Core',
+    flowBrain: 'Brain',
     differentiators: [
       {
         title: 'Tri-layer Retrieval',
@@ -119,6 +200,39 @@ export const aiPragmaDiagramEn: AiPragmaDiagramCopy = {
     layerInterface: 'Interface',
     layerAgents: 'Agents',
     layerFoundation: 'Foundation',
+    interfaceBoxes: {
+      relay: { name: 'Relay', role: 'Chat · Group / DM' },
+      core: { name: 'Core', role: 'LLM · Reasoning' },
+      tracker: { name: 'Tracker', role: 'Tickets · Tasks' },
+      lens: { name: 'Lens', role: 'Dashboard (opt)' },
+    },
+    foundationBoxes: {
+      brain: { name: 'Brain', role: 'Ingest · RAG' },
+      guardian: { name: 'Guardian', role: 'Auth · SSO' },
+      infra: { name: 'Infra', role: 'K8s · IaC · Vault' },
+    },
+    agentTracks: {
+      dev: {
+        trackLabel: 'Dev',
+        agents: [
+          { name: 'Triage', role: 'intent → ticket' },
+          { name: 'Dev', role: 'code · PR' },
+          { name: 'QA', role: 'test · bug' },
+          { name: 'Security', role: 'scan · CVE' },
+          { name: 'Docs', role: 'ingest · summary' },
+        ],
+      },
+      office: {
+        trackLabel: 'Office',
+        agents: [
+          { name: 'PM', role: 'roadmap · priority' },
+          { name: 'Knowledge', role: 'search · RAG' },
+          { name: 'HR', role: 'onboard · policy' },
+          { name: 'Report', role: 'digest · status' },
+          { name: 'Meeting', role: 'notes → tickets' },
+        ],
+      },
+    },
   },
   legend: [
     {
@@ -158,6 +272,9 @@ export const aiPragmaDiagramEn: AiPragmaDiagramCopy = {
     },
   ],
   infra: {
+    scaleDocker: 'Docker',
+    scaleKubernetes: 'Kubernetes',
+    scaleOpenStack: 'OpenStack',
     dockerBadge: 'Small',
     k8sBadge: 'Medium · ★ Recommended',
     openstackBadge: 'Large',
@@ -192,12 +309,39 @@ export const aiPragmaDiagramKo: AiPragmaDiagramCopy = {
     ingest: 'ingest',
     rag: 'RAG',
   },
+  devCycleStrip: {
+    row1: ['Chat', 'Triage', 'Ticket', 'Dev', 'PR'],
+    row2ThroughMerge: ['QA', 'Merge'],
+    docs: 'Docs',
+    brain: 'Brain',
+  },
+  officeCycle: {
+    row1BeforeRag: ['Chat', 'Knowledge / HR / Meeting', 'Brain'],
+    row1AfterRag: 'Answer',
+    row2: ['Ticket', 'PM', 'Assigned', 'Report', 'Chat'],
+  },
+  cycleCallouts: {
+    labels: { situation: '상황', scenario: '시나리오' },
+    office: {
+      situation: '신규 입사자가 채팅으로 사내 계정·복리후생·팀 규칙을 한꺼번에 묻는다.',
+      scenario:
+        'HR·Knowledge 에이전트가 Brain에서 정책·온보딩 문서·FAQ를 찾아 스레드에서 답을 정리하고, 필요 시 티켓으로 남겨 담당 배정과 리포트에 반영한 뒤 채팅에 요약과 링크를 남긴다.',
+    },
+    dev: {
+      situation: '개발자가 채팅에서 로그인 세션이 가끔 끊긴다고 알린다.',
+      scenario:
+        '에이전트가 대화를 티켓으로 옮기고 수정 PR을 올린 뒤 리뷰·QA·머지까지 진행한다. 변경 요약을 문서에 남기고 수집 파이프라인이 이를 Brain에 넣어, 이후 비슷한 질문에 과거 이슈와 결정이 근거로 붙는다.',
+    },
+  },
   whyBrain: {
     withoutTag: 'Brain 없음',
     withTag: 'Brain 사용',
     quoteWithout: '"프로젝트, spec, 과거 의사결정에 대한 맥락이 없습니다."',
     quoteWith:
       '"spec v2.3 기준으로 ticket #142는 2025-03-12에 합의된 auth migration 때문에 블로킹되어 있습니다."',
+    flowAgent: 'Agent',
+    flowCore: 'Core',
+    flowBrain: 'Brain',
     differentiators: [
       {
         title: '3계층 검색',
@@ -225,6 +369,39 @@ export const aiPragmaDiagramKo: AiPragmaDiagramCopy = {
     layerInterface: '인터페이스',
     layerAgents: '에이전트',
     layerFoundation: '기반 계층',
+    interfaceBoxes: {
+      relay: { name: 'Relay', role: 'Chat · Group / DM' },
+      core: { name: 'Core', role: 'LLM · Reasoning' },
+      tracker: { name: 'Tracker', role: 'Tickets · Tasks' },
+      lens: { name: 'Lens', role: 'Dashboard (opt)' },
+    },
+    foundationBoxes: {
+      brain: { name: 'Brain', role: 'Ingest · RAG' },
+      guardian: { name: 'Guardian', role: 'Auth · SSO' },
+      infra: { name: 'Infra', role: 'K8s · IaC · Vault' },
+    },
+    agentTracks: {
+      dev: {
+        trackLabel: 'Dev',
+        agents: [
+          { name: 'Triage', role: 'intent → ticket' },
+          { name: 'Dev', role: 'code · PR' },
+          { name: 'QA', role: 'test · bug' },
+          { name: 'Security', role: 'scan · CVE' },
+          { name: 'Docs', role: 'ingest · summary' },
+        ],
+      },
+      office: {
+        trackLabel: 'Office',
+        agents: [
+          { name: 'PM', role: 'roadmap · priority' },
+          { name: 'Knowledge', role: 'search · RAG' },
+          { name: 'HR', role: 'onboard · policy' },
+          { name: 'Report', role: 'digest · status' },
+          { name: 'Meeting', role: 'notes → tickets' },
+        ],
+      },
+    },
   },
   legend: [
     {
@@ -264,6 +441,9 @@ export const aiPragmaDiagramKo: AiPragmaDiagramCopy = {
     },
   ],
   infra: {
+    scaleDocker: 'Docker',
+    scaleKubernetes: 'Kubernetes',
+    scaleOpenStack: 'OpenStack',
     dockerBadge: '소(5인이하)',
     k8sBadge: '중(100인이하) · ★ 권장',
     openstackBadge: '대규모(다중서버)',
