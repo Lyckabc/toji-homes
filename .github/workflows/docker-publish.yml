@@ -2,15 +2,19 @@
 # Docker Build & Push — ghcr.io
 #
 # 트리거:
-#   - main 브랜치 push → :latest 태그
-#   - v* 태그 push     → :v1.2.3 + :latest 태그
+#   - main 브랜치 push → :main 태그
+#   - v* 태그 push     → :v1.2.3 + :major.minor 태그
 #
 # 이미지:
 #   ghcr.io/lyckabc/toji-homes:<tag>
 #
-# K8s 배포 업데이트:
-#   services/homepage/variables.tf 의 homepage_image 변수를 새 태그로 변경 후
-#   tofu apply services/homepage/
+# K8s 배포:
+#   build-and-push 완료 후 deploy 잡이 자동으로 kubectl rollout restart 실행
+#   (imagePullPolicy: Always → 재시작 시 새 이미지 자동 pull)
+#   ※ variables.tf / tofu apply 불필요 (이미지 태그 변경 없는 경우)
+#
+# 사전 준비:
+#   GitHub Secret: K8S_SSH_KEY — toji.homes SSH 접속용 private key
 # ─────────────────────────────────────────────────────────────────────────────
 
 name: Docker Build & Push
@@ -67,3 +71,21 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Rollout restart homepage deployment
+        run: |
+          echo "${{ secrets.K8S_SSH_KEY }}" > /tmp/k8s_key
+          chmod 600 /tmp/k8s_key
+          ssh -i /tmp/k8s_key \
+              -p 4321 \
+              -o StrictHostKeyChecking=no \
+              ubuntu@toji.homes \
+              "kubectl rollout restart deployment/homepage -n homepage && \
+               kubectl rollout status deployment/homepage -n homepage --timeout=120s"
+          rm -f /tmp/k8s_key
