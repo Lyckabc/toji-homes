@@ -16,6 +16,7 @@ const home = prefixPath('/', locale);
 const about = prefixPath('/about', locale);
 const gopedia = prefixPath('/projects/gopedia', locale);
 const neunexus = prefixPath('/projects/neunexus', locale);
+const aiPragma = prefixPath('/projects/ai-pragma', locale);
 
 const hrefKo = switchLocalePath(path, 'ko');
 const hrefEn = switchLocalePath(path, 'en');
@@ -24,7 +25,8 @@ const activeHome = p === '/' || p === '/ko';
 const activeAbout = p === '/about' || p === '/ko/about';
 const activeGopedia = p === '/projects/gopedia' || p === '/ko/projects/gopedia';
 const activeNeunexus = p === '/projects/neunexus' || p === '/ko/projects/neunexus';
-const activeProjects = activeGopedia || activeNeunexus;
+const activeAiPragma = p === '/projects/ai-pragma' || p === '/ko/projects/ai-pragma';
+const activeProjects = activeGopedia || activeNeunexus || activeAiPragma;
 ---
 
 <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
@@ -125,6 +127,19 @@ const activeProjects = activeGopedia || activeNeunexus;
                 ]}
               >
                 {t.nav.neunexus}
+              </a>
+            </li>
+            <li>
+              <a
+                href={aiPragma}
+                class:list={[
+                  'block px-3 py-2 text-sm transition-colors',
+                  activeAiPragma
+                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900',
+                ]}
+              >
+                {t.nav.aiPragma}
               </a>
             </li>
           </ul>
