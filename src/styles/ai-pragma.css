@@ -543,6 +543,62 @@ html.dark .ai-pragma-wrap {
   margin: 0.15rem 0;
 }
 
+/* PDF / print: subgrid + nowrap strips break in Chromium print layout; stack panels and allow wrap */
+@media print {
+  .loops {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 1.25rem;
+    column-gap: 0;
+    align-items: start;
+  }
+
+  .loop-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    grid-row: auto;
+    grid-column: 1;
+    grid-template-rows: none;
+    min-width: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .loop-panel:first-child,
+  .loop-panel:last-child {
+    grid-column: 1;
+  }
+
+  .loop-title {
+    margin-bottom: 0;
+  }
+
+  .cycle-wrap {
+    overflow: visible !important;
+    max-width: 100%;
+    padding-bottom: 0;
+  }
+
+  .strip {
+    flex-wrap: wrap;
+    white-space: normal;
+    min-width: 0;
+    row-gap: 0.35rem;
+  }
+
+  .step {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .feedback {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 /* ── LEGEND ──────────────────────────────────── */
 .legend {
   display: grid;
