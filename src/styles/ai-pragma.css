@@ -413,11 +413,14 @@ html.dark .ai-pragma-wrap {
   padding: 1.1rem 1.2rem 1.3rem;
   min-width: 0;
 }
-.loop-panel:first-child {
-  grid-column: 1;
-}
-.loop-panel:last-child {
-  grid-column: 2;
+/* Wide layout only: higher-specificity :last-child would override a plain .loop-panel rule in narrow @media */
+@media (min-width: 901px) {
+  .loop-panel:first-child {
+    grid-column: 1;
+  }
+  .loop-panel:last-child {
+    grid-column: 2;
+  }
 }
 
 /* Narrow frame: Office above Dev (viewport fallback + container query for embedded / split layouts) */
@@ -429,48 +432,63 @@ html.dark .ai-pragma-wrap {
     row-gap: 1.2rem;
   }
 
-  .loop-panel {
+  .loop-panel,
+  .loop-panel:first-child,
+  .loop-panel:last-child {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 0.85rem;
-    grid-template-rows: none;
+    grid: none;
     grid-row: auto;
     grid-column: 1;
+    width: 100%;
+    min-width: 0;
   }
   .loop-panel .loop-title {
     margin-bottom: 0;
   }
 
+  /* Specificity: base .cycle-wrap / .larr / .down-arr come later in this file and were overriding these rules */
+  .ai-pragma-wrap .loop-callout {
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
   /* Agent cycle (Office row1 especially): avoid tall RAG column + cramped horizontal scroll */
-  .cycle-wrap {
+  .ai-pragma-wrap .cycle-wrap {
     overflow-x: visible;
     padding-bottom: 0;
+    width: 100%;
+    min-width: 0;
   }
-  .cycle-rows .strip {
+  .ai-pragma-wrap .cycle-rows .strip {
     flex-wrap: wrap;
     white-space: normal;
     min-width: 0;
     row-gap: 0.45rem;
     justify-content: center;
   }
-  .cycle-rows .strip .step {
+  .ai-pragma-wrap .cycle-rows .strip .step {
     white-space: normal;
     word-break: keep-all;
     overflow-wrap: anywhere;
     text-align: center;
   }
-  .cycle-rows .strip .sarr {
+  .ai-pragma-wrap .cycle-rows .strip .sarr {
     align-self: center;
   }
-  .larr {
+  .ai-pragma-wrap .larr {
     flex-direction: row;
     align-items: center;
     gap: 0.2rem;
   }
-  .strip.indent {
+  .ai-pragma-wrap .strip.indent {
     padding-left: 0.35rem;
   }
-  .down-arr {
+  .ai-pragma-wrap .down-arr {
     padding-left: 0;
     justify-content: center;
     width: 100%;
@@ -485,47 +503,61 @@ html.dark .ai-pragma-wrap {
     row-gap: 1.2rem;
   }
 
-  .loop-panel {
+  .loop-panel,
+  .loop-panel:first-child,
+  .loop-panel:last-child {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 0.85rem;
-    grid-template-rows: none;
+    grid: none;
     grid-row: auto;
     grid-column: 1;
+    width: 100%;
+    min-width: 0;
   }
   .loop-panel .loop-title {
     margin-bottom: 0;
   }
 
-  .cycle-wrap {
+  .ai-pragma-wrap .loop-callout {
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  .ai-pragma-wrap .cycle-wrap {
     overflow-x: visible;
     padding-bottom: 0;
+    width: 100%;
+    min-width: 0;
   }
-  .cycle-rows .strip {
+  .ai-pragma-wrap .cycle-rows .strip {
     flex-wrap: wrap;
     white-space: normal;
     min-width: 0;
     row-gap: 0.45rem;
     justify-content: center;
   }
-  .cycle-rows .strip .step {
+  .ai-pragma-wrap .cycle-rows .strip .step {
     white-space: normal;
     word-break: keep-all;
     overflow-wrap: anywhere;
     text-align: center;
   }
-  .cycle-rows .strip .sarr {
+  .ai-pragma-wrap .cycle-rows .strip .sarr {
     align-self: center;
   }
-  .larr {
+  .ai-pragma-wrap .larr {
     flex-direction: row;
     align-items: center;
     gap: 0.2rem;
   }
-  .strip.indent {
+  .ai-pragma-wrap .strip.indent {
     padding-left: 0.35rem;
   }
-  .down-arr {
+  .ai-pragma-wrap .down-arr {
     padding-left: 0;
     justify-content: center;
     width: 100%;
