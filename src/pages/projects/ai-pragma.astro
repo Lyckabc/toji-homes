@@ -1,0 +1,974 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { seo } from '../../content/siteContent';
+import { normalizePathname } from '../../lib/i18n';
+
+const locale = 'en';
+const meta = seo.aiPragma[locale];
+const pathname = normalizePathname(Astro.url.pathname);
+---
+
+<BaseLayout title={meta.title} description={meta.description} lang="en" pathname={pathname}>
+  <div class="flex flex-col min-h-screen">
+    <Header locale={locale} />
+
+    <main class="flex-1">
+      <div class="ai-pragma-wrap">
+
+  <!-- ── HEADER ──────────────────────────────────── -->
+  <header>
+    <div class="eyebrow">System Architecture</div>
+    <h1>AI-Agent Project Management</h1>
+    <p>Expert agents collaborate via chat &middot; act on tickets &middot; learn from knowledge</p>
+  </header>
+
+  <!-- ── AGENT CYCLE ─────────────────────────────── -->
+  <section>
+    <div class="sec-label">Agent Cycle</div>
+    <div class="loops">
+
+      <!-- Dev Cycle -->
+      <div class="loop-panel">
+        <div class="loop-title">Dev</div>
+        <div class="cycle-wrap">
+          <div class="strip">
+            <div class="step">Chat</div>
+            <span class="sarr">→</span>
+            <div class="step">Triage</div>
+            <span class="sarr">→</span>
+            <div class="step">Ticket</div>
+            <span class="sarr">→</span>
+            <div class="step">Dev</div>
+            <span class="sarr">→</span>
+            <div class="step">PR</div>
+            <span class="sarr">→</span>
+            <div class="step">QA</div>
+            <span class="sarr">→</span>
+            <div class="step">Merge</div>
+            <span class="sarr">→</span>
+            <div class="step">Docs</div>
+            <div class="larr"><span class="albl">ingest</span><span class="sarr">→</span></div>
+            <div class="step">Brain</div>
+          </div>
+          <div class="feedback">
+            <div class="fb-line"></div>
+            <span class="fb-label">↖ feedback loop</span>
+            <div class="fb-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Office Cycle -->
+      <div class="loop-panel">
+        <div class="loop-title">Office</div>
+        <div class="cycle-wrap">
+          <div class="office-rows">
+            <div class="strip">
+              <div class="step">Chat</div>
+              <span class="sarr">→</span>
+              <div class="step">Knowledge / HR / Meeting</div>
+              <span class="sarr">→</span>
+              <div class="step">Brain</div>
+              <div class="larr"><span class="albl">RAG</span><span class="sarr">→</span></div>
+              <div class="step">Answer</div>
+            </div>
+            <div class="down-arr">↓</div>
+            <div class="strip indent">
+              <div class="step">Ticket</div>
+              <span class="sarr">→</span>
+              <div class="step">PM</div>
+              <span class="sarr">→</span>
+              <div class="step">Assigned</div>
+              <span class="sarr">→</span>
+              <div class="step">Report</div>
+              <span class="sarr">→</span>
+              <div class="step">Chat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── WHY BRAIN ────────────────────────────────── -->
+  <section>
+    <div class="sec-label">Why Brain?</div>
+
+    <div class="wb-cols">
+      <div class="wb-card wb-without">
+        <div class="wb-tag">Without</div>
+        <div class="wb-flow">
+          <span class="wbstep">Agent</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep">Core</span>
+          <span class="wbarr">→</span>
+          <span class="wbno">✕</span>
+        </div>
+        <p class="wb-quote">"I have no context about your project, specs, or past decisions."</p>
+      </div>
+      <div class="wb-card wb-with">
+        <div class="wb-tag">With Brain</div>
+        <div class="wb-flow">
+          <span class="wbstep">Agent</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep">Core</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep b">Brain</span>
+          <span class="wbarr">→</span>
+          <span class="wbyes">✓</span>
+        </div>
+        <p class="wb-quote">"Based on your spec v2.3, ticket #142 is blocked by the auth migration agreed on 2025-03-12."</p>
+      </div>
+    </div>
+
+    <div class="diff-grid">
+      <div class="diff-item">
+        <div class="diff-dot"></div>
+        <div>
+          <strong>Tri-layer Retrieval</strong>
+          <p>Vector (semantic similarity) + Graph (relationship traversal) + SQL (structural hierarchy) — not just "find similar text"</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-dot"></div>
+        <div>
+          <strong>Structure-aware Chunking</strong>
+          <p>Documents parsed into hierarchy (section → paragraph → sentence); RAG returns the chunk and its parent context — richer, more accurate agent prompts</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-dot"></div>
+        <div>
+          <strong>Stable Knowledge</strong>
+          <p>Idempotent ingestion via stable entity IDs — re-processing a document never creates duplicates or knowledge drift</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-dot"></div>
+        <div>
+          <strong>Self-growing</strong>
+          <p>Every cycle feeds back: merged PRs, meeting summaries, and decisions are ingested — Brain grows smarter with each loop</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ARCHITECTURE ────────────────────────────── -->
+  <section>
+    <div class="sec-label">Architecture</div>
+
+    <!-- ROW 1: Interface -->
+    <div class="layer l-iface">
+      <div class="layer-tag">Interface</div>
+      <div class="box-row">
+        <div class="box iface">
+          <span class="bname">Relay</span>
+          <span class="brole">Chat · Group / DM</span>
+        </div>
+        <span class="arr">→</span>
+        <div class="box iface">
+          <span class="bname">Core</span>
+          <span class="brole">LLM · Reasoning</span>
+        </div>
+        <span class="arr">→</span>
+        <div class="box iface">
+          <span class="bname">Tracker</span>
+          <span class="brole">Tickets · Tasks</span>
+        </div>
+      </div>
+      <div class="opt-row">
+        <div class="box iface opt">
+          <span class="bname">Lens</span>
+          <span class="brole">Dashboard (opt)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-conn">↕</div>
+
+    <!-- ROW 2: Agents -->
+    <div class="layer l-agents">
+      <div class="layer-tag">Agents</div>
+      <div class="agent-tracks">
+
+        <div class="track dev">
+          <span class="track-lbl">Dev</span>
+          <div class="abox-group">
+            <div class="abox"><span>Triage</span><span class="arole">intent → ticket</span></div>
+            <div class="abox"><span>Dev</span><span class="arole">code · PR</span></div>
+            <div class="abox"><span>QA</span><span class="arole">test · bug</span></div>
+            <div class="abox"><span>Security</span><span class="arole">scan · CVE</span></div>
+            <div class="abox"><span>Docs</span><span class="arole">ingest · summary</span></div>
+          </div>
+        </div>
+
+        <div class="track off">
+          <span class="track-lbl">Office</span>
+          <div class="abox-group">
+            <div class="abox"><span>PM</span><span class="arole">roadmap · priority</span></div>
+            <div class="abox"><span>Knowledge</span><span class="arole">search · RAG</span></div>
+            <div class="abox"><span>HR</span><span class="arole">onboard · policy</span></div>
+            <div class="abox"><span>Report</span><span class="arole">digest · status</span></div>
+            <div class="abox"><span>Meeting</span><span class="arole">notes → tickets</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="v-conn">↕</div>
+
+    <!-- ROW 3: Foundation -->
+    <div class="layer l-found">
+      <div class="layer-tag">Foundation</div>
+      <div class="box-row">
+        <div class="box found">
+          <span class="bname">Brain</span>
+          <span class="brole">Ingest · RAG</span>
+        </div>
+        <div class="box found">
+          <span class="bname">Guardian</span>
+          <span class="brole">Auth · SSO</span>
+        </div>
+        <div class="box found">
+          <span class="bname">Infra</span>
+          <span class="brole">K8s · IaC · Vault</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LEGEND ──────────────────────────────────── -->
+  <section>
+    <div class="sec-label">Components</div>
+    <div class="legend">
+      <div class="lcard c-iface">
+        <span class="lkw">Relay</span>
+        <span class="ldesc">Chat interface — group &amp; DM. Agent entry point for users.</span>
+      </div>
+      <div class="lcard c-core">
+        <span class="lkw">Core</span>
+        <span class="ldesc">LLM reasoning layer. Interprets intent, generates responses, decides next action.</span>
+      </div>
+      <div class="lcard c-track">
+        <span class="lkw">Tracker</span>
+        <span class="ldesc">Ticket &amp; task engine. Source of truth for all work and assignments.</span>
+      </div>
+      <div class="lcard c-brain">
+        <span class="lkw">Brain</span>
+        <span class="ldesc">Knowledge engine. Ingest pipeline ingests docs; RAG retrieves relevant context for agents.</span>
+      </div>
+      <div class="lcard c-auth">
+        <span class="lkw">Guardian</span>
+        <span class="ldesc">SSO &amp; identity. Manages authentication and relationship-based access control.</span>
+      </div>
+      <div class="lcard c-infra">
+        <span class="lkw">Infra</span>
+        <span class="ldesc">Infrastructure orchestration — container platform, IaC, secrets management.</span>
+      </div>
+      <div class="lcard c-lens opt-card">
+        <span class="lkw">Lens (opt)</span>
+        <span class="ldesc">Dashboard &amp; viewer. Optional visual interface for project &amp; metric overview.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFRA STACK ───────────────────────────────── -->
+  <section>
+    <div class="sec-label">Infra Stack</div>
+
+    <div class="scale-grid">
+
+      <!-- Docker -->
+      <div class="scale-card">
+        <div class="scale-head">
+          <span class="scale-name">Docker</span>
+          <span class="scale-badge">Small</span>
+        </div>
+        <ul class="stack-list">
+          <li class="req">Docker Compose</li>
+          <li class="req">Traefik (reverse proxy)</li>
+          <li class="req">Vault (secrets)</li>
+          <li class="req">cert-manager · Let's Encrypt</li>
+          <div class="stack-divider"></div>
+          <li class="rec">GitHub Actions (CI/CD)</li>
+          <li class="rec">GHCR (registry)</li>
+        </ul>
+      </div>
+
+      <!-- Kubernetes (Recommended) -->
+      <div class="scale-card rec">
+        <div class="scale-head">
+          <span class="scale-name">Kubernetes</span>
+          <span class="scale-badge star">Medium · ★ Recommended</span>
+        </div>
+        <ul class="stack-list">
+          <li class="req">Kubernetes (kubeadm)</li>
+          <li class="req">OpenTofu (IaC)</li>
+          <li class="req">Vault + Agent Injector</li>
+          <li class="req">Traefik (Ingress)</li>
+          <li class="req">cert-manager (TLS)</li>
+          <li class="req">CSI Storage (SSD · HDD)</li>
+          <div class="stack-divider"></div>
+          <li class="rec">Calico (CNI)</li>
+          <li class="rec">GHCR · GitHub Actions</li>
+          <li class="rec">Prometheus · Loki · Grafana</li>
+        </ul>
+      </div>
+
+      <!-- OpenStack -->
+      <div class="scale-card">
+        <div class="scale-head">
+          <span class="scale-name">OpenStack</span>
+          <span class="scale-badge">Large</span>
+        </div>
+        <ul class="stack-list">
+          <li class="req">All K8s tier items</li>
+          <li class="req">Nova · Neutron · Keystone</li>
+          <li class="req">Cinder (iSCSI block storage)</li>
+          <li class="req">Octavia (LB · Amphora)</li>
+          <li class="req">OpenStack CCM + Cinder CSI</li>
+          <div class="stack-divider"></div>
+          <li class="rec">kolla-ansible (deploy)</li>
+          <li class="rec">Glance (image registry)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Data Layer -->
+    <div class="data-row">
+      <div class="data-row-head">Data Layer — all scales</div>
+
+      <div class="data-row-group">
+        <span class="pill-cat">Required</span>
+        <span class="pill req">PostgreSQL</span>
+        <span class="pill req">Qdrant · Vector</span>
+        <span class="pill req">TypeDB · Graph</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat">Recommended</span>
+        <span class="pill rec">Redis</span>
+        <span class="pill rec">Loki · Grafana</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat opt-cat">Workflow (opt)</span>
+        <span class="pill opt">Temporal</span>
+        <span class="pill opt">n8n</span>
+        <span class="pill opt">Airflow</span>
+        <span class="pill opt">···</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat opt-cat">Stream (opt)</span>
+        <span class="pill opt">Redpanda</span>
+        <span class="pill opt">Kafka</span>
+        <span class="pill opt">···</span>
+      </div>
+
+      <div class="infra-legend">
+        <span><i class="dot-req"></i> Required</span>
+        <span><i class="dot-rec"></i> Recommended</span>
+        <span><i class="dot-opt"></i> Optional</span>
+      </div>
+    </div>
+  </section>
+
+      </div>
+
+      <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0d1117;
+      --surface:      #161b22;
+      --border:       #21262d;
+      --accent:       #4a9eff;
+      --accent-dim:   #2a5a99;
+      --text:         #e6edf3;
+      --muted:        #8b949e;
+
+      --iface-bg:     #152030;
+      --iface-border: #2d4a6a;
+      --iface-box:    #0e1825;
+
+      --dev-bg:       #121e12;
+      --dev-border:   #2a5a2a;
+      --dev-box:      #0a150a;
+
+      --off-bg:       #141e14;
+      --off-border:   #365a36;
+      --off-box:      #0c180c;
+
+      --found-bg:     #1a0f26;
+      --found-border: #3a1a5a;
+      --found-box:    #120a1e;
+    }
+
+    .ai-pragma-wrap {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 2.5rem 0 5rem;
+      width: 92vw;
+      max-width: 1280px;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+
+    /* ── Header ─────────────────────────────────── */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    header h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* ── Section label ───────────────────────────── */
+    .sec-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    section { margin-bottom: 3rem; }
+
+    /* ── ARCHITECTURE ────────────────────────────── */
+
+    .layer {
+      border: 1px solid;
+      border-radius: 10px;
+      padding: 1rem 1.2rem 1.2rem;
+    }
+    .layer-tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 0.9rem;
+    }
+
+    /* Interface */
+    .l-iface  { background: var(--iface-bg);  border-color: var(--iface-border); }
+    /* Agents */
+    .l-agents { background: var(--dev-bg);    border-color: var(--dev-border);   }
+    /* Foundation */
+    .l-found  { background: var(--found-bg);  border-color: var(--found-border); }
+
+    /* Row connector */
+    .v-conn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0;
+      color: var(--accent-dim);
+      font-size: 0.75rem;
+    }
+    .v-conn::before,
+    .v-conn::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: var(--accent-dim);
+      opacity: 0.35;
+    }
+
+    /* Box row */
+    .box-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+    }
+
+    /* Component box */
+    .box {
+      border: 1px solid;
+      border-radius: 7px;
+      padding: 0.55rem 1rem;
+      text-align: center;
+      min-width: 95px;
+    }
+    .box .bname {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .box .brole {
+      display: block;
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .box.iface { background: var(--iface-box); border-color: var(--iface-border); }
+    .box.found { background: var(--found-box); border-color: var(--found-border); }
+
+    /* Optional box */
+    .box.opt {
+      border-style: dashed;
+      border-color: #3a3a3a;
+      opacity: 0.45;
+    }
+
+    /* Optional box row (below main flow) */
+    .opt-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.6rem;
+    }
+
+    /* H arrow */
+    .arr {
+      color: var(--accent);
+      font-size: 1rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* Agent layer internals */
+    .agent-tracks { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 0.9rem;
+      border-radius: 7px;
+    }
+    .track.dev   { background: var(--dev-box); border: 1px solid var(--dev-border); }
+    .track.off   { background: var(--off-box); border: 1px solid var(--off-border); }
+
+    .track-lbl {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .abox-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .abox {
+      border-radius: 5px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid;
+    }
+    .abox .arole {
+      display: block;
+      font-size: 0.58rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 0.05rem;
+    }
+    .track.dev .abox { background: #0c1a0c; border-color: var(--dev-border); }
+    .track.off .abox { background: #0e1a0e; border-color: var(--off-border); }
+
+    /* ── AGENT CYCLE ─────────────────────────────── */
+    .loops {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    @media (max-width: 780px) { .loops { grid-template-columns: 1fr; } }
+
+    .loop-panel {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem 1.3rem;
+    }
+    .loop-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Cycle strip */
+    .cycle-wrap { overflow-x: auto; padding-bottom: 0.3rem; }
+
+    .strip {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      white-space: nowrap;
+      min-width: max-content;
+    }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.28rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .sarr {
+      color: var(--accent);
+      font-size: 0.78rem;
+      flex-shrink: 0;
+    }
+
+    /* Feedback arc (dev) */
+    .feedback {
+      margin-top: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .fb-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-dim), transparent);
+      opacity: 0.4;
+    }
+    .fb-label {
+      font-size: 0.58rem;
+      color: var(--accent-dim);
+      white-space: nowrap;
+    }
+
+    /* Office cycle: two rows */
+    .office-rows { display: flex; flex-direction: column; gap: 0.55rem; }
+    .office-rows .strip { padding-left: 0; }
+    .strip.indent { padding-left: 1.2rem; }
+
+    .down-arr {
+      display: flex;
+      padding-left: 1.8rem;
+      color: var(--accent);
+      font-size: 0.78rem;
+      margin: 0.15rem 0;
+    }
+
+    /* ── LEGEND ──────────────────────────────────── */
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 0.7rem;
+    }
+
+    .lcard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 0.8rem 0.9rem;
+    }
+    .lcard.opt-card {
+      border-style: dashed;
+      border-color: #333;
+      opacity: 0.45;
+    }
+    .lcard .lkw {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .lcard .ldesc {
+      font-size: 0.63rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* color accents on legend keywords */
+    .lcard.c-iface  .lkw { color: #5ba3f5; }
+    .lcard.c-brain  .lkw { color: #6db56d; }
+    .lcard.c-auth   .lkw { color: #c678dd; }
+    .lcard.c-infra  .lkw { color: #e5c07b; }
+    .lcard.c-core   .lkw { color: #61afef; }
+    .lcard.c-track  .lkw { color: #e06c75; }
+    .lcard.c-lens   .lkw { color: var(--muted); }
+
+    /* ── LABELED ARROW (cycle strips) ───────────── */
+    .larr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+    .albl {
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #6db56d;
+      line-height: 1.2;
+    }
+    .larr .sarr { line-height: 1; }
+
+    /* ── WHY BRAIN ───────────────────────────────── */
+    .wb-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    @media (max-width: 600px) { .wb-cols { grid-template-columns: 1fr; } }
+
+    .wb-card {
+      border: 1px solid;
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+    }
+    .wb-without { border-color: #3a2020; background: #160c0c; }
+    .wb-with    { border-color: #1e3a1e; background: #0c160c; }
+
+    .wb-tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+    }
+    .wb-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.28rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .wbstep {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .wbstep.b { border-color: #2d5a2d; background: #0c1a0c; color: #6db56d; }
+    .wbarr    { color: var(--accent-dim); font-size: 0.78rem; }
+    .wbno     { font-size: 0.95rem; color: #e06c75; }
+    .wbyes    { font-size: 0.95rem; color: #6db56d; }
+    .wb-quote {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.45;
+      border-left: 2px solid #2a2a2a;
+      padding-left: 0.6rem;
+    }
+
+    /* Differentiators grid */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 0.65rem;
+    }
+    .diff-item {
+      display: flex;
+      gap: 0.65rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 0.75rem 0.9rem;
+      align-items: flex-start;
+    }
+    .diff-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #6db56d;
+      flex-shrink: 0;
+      margin-top: 0.35rem;
+    }
+    .diff-item strong {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 0.18rem;
+      color: var(--text);
+    }
+    .diff-item p {
+      font-size: 0.62rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* ── INFRA STACK ─────────────────────────────── */
+    .scale-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+    @media (max-width: 720px) { .scale-grid { grid-template-columns: 1fr; } }
+
+    .scale-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      background: var(--surface);
+    }
+    .scale-card.rec {
+      border-color: #2d5a8a;
+      background: #0e1825;
+      position: relative;
+    }
+
+    .scale-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .scale-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .scale-badge {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      background: #21262d;
+      color: var(--muted);
+    }
+    .scale-badge.star {
+      background: #1a3a5a;
+      color: #5ba3f5;
+    }
+
+    .stack-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+    }
+    .stack-list li {
+      font-size: 0.68rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text);
+    }
+    .stack-list li::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .stack-list li.req::before  { background: #5ba3f5; }
+    .stack-list li.rec::before  { background: #3a5a3a; }
+    .stack-list li.rec          { color: var(--muted); }
+
+    .stack-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0.45rem 0;
+    }
+
+    /* Data layer row */
+    .data-row {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      background: var(--surface);
+    }
+    .data-row-head {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+    .data-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.55rem;
+    }
+    .pill {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.18rem 0.6rem;
+      border-radius: 20px;
+      border: 1px solid;
+    }
+    .pill.req { border-color: #2d4a6a; background: #0e1825; color: #5ba3f5; }
+    .pill.rec { border-color: #2a3a2a; background: #111e11; color: #6db56d; }
+    .pill.opt { border-color: #3a3a22; background: #1a1a0e; color: #b8a050; border-style: dashed; }
+
+    .data-row-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .data-row-group:last-of-type { margin-bottom: 0.55rem; }
+
+    .pill-cat {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      min-width: 72px;
+      flex-shrink: 0;
+    }
+    .pill-cat.opt-cat { color: #7a7040; }
+
+    .infra-legend {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.58rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .infra-legend span { display: flex; align-items: center; gap: 0.3rem; }
+    .dot-req { width: 6px; height: 6px; border-radius: 50%; background: #5ba3f5; display: inline-block; }
+    .dot-rec { width: 6px; height: 6px; border-radius: 50%; background: #3a5a3a; display: inline-block; }
+    .dot-opt { width: 6px; height: 6px; border-radius: 50%; background: #7a7040; display: inline-block; }
+      </style>
+    </main>
+
+    <Footer locale={locale} />
+  </div>
+</BaseLayout>
