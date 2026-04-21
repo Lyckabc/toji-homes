@@ -1,0 +1,346 @@
+---
+import type { Locale } from '../../content/siteContent';
+import { aiPragmaCopy } from '../../content/siteContent';
+import { aiPragmaInfraStackLines } from '../../content/aiPragmaDiagram';
+import '../../styles/ai-pragma.css';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = aiPragmaCopy[locale];
+const d = copy.diagram;
+const dev = d.devCycleStrip;
+const oc = d.officeCycle;
+const cc = d.cycleCallouts;
+const arch = d.arch;
+const infra = aiPragmaInfraStackLines;
+const [r1a, r1b, r1c] = oc.row1BeforeRag;
+---
+
+<div class="ai-pragma-wrap">
+  <div class="ai-pragma-hero">
+    <div class="eyebrow">{d.hero.eyebrow}</div>
+    <h1>{d.hero.title}</h1>
+    <p>{d.hero.tagline}</p>
+  </div>
+
+  <section aria-labelledby="ai-pragma-agent-cycle">
+    <div id="ai-pragma-agent-cycle" class="sec-label">{d.sections.agentCycle}</div>
+    <div class="loops">
+      <div class="loop-panel">
+        <div class="loop-title">{d.cycles.office}</div>
+        <div class="cycle-wrap">
+          <div class="cycle-rows">
+            <div class="strip">
+              <div class="step">{r1a}</div>
+              <span class="sarr">→</span>
+              <div class="step">{r1b}</div>
+              <span class="sarr">→</span>
+              <div class="step">{r1c}</div>
+              <div class="larr">
+                <span class="albl">{d.cycles.rag}</span>
+                <span class="sarr">→</span>
+              </div>
+              <div class="step">{oc.row1AfterRag}</div>
+            </div>
+            <div class="down-arr">↓</div>
+            <div class="strip indent">
+              {
+                oc.row2.map((label, idx) => (
+                  <>
+                    {idx > 0 ? <span class="sarr">→</span> : null}
+                    <div class="step">{label}</div>
+                  </>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+        <div class="loop-callout" role="note">
+          <p>
+            <span class="loop-callout-label">{cc.labels.situation}</span>
+            {cc.office.situation}
+          </p>
+          <p>
+            <span class="loop-callout-label">{cc.labels.scenario}</span>
+            {cc.office.scenario}
+          </p>
+        </div>
+      </div>
+
+      <div class="loop-panel">
+        <div class="loop-title">{d.cycles.dev}</div>
+        <div class="cycle-wrap">
+          <div class="cycle-rows">
+            <div class="strip">
+              {
+                dev.row1.map((label, idx) => (
+                  <>
+                    {idx > 0 ? <span class="sarr">→</span> : null}
+                    <div class="step">{label}</div>
+                  </>
+                ))
+              }
+            </div>
+            <div class="down-arr">↓</div>
+            <div class="strip indent">
+              {
+                dev.row2ThroughMerge.map((label, idx) => (
+                  <>
+                    {idx > 0 ? <span class="sarr">→</span> : null}
+                    <div class="step">{label}</div>
+                  </>
+                ))
+              }
+              <span class="sarr">→</span>
+              <div class="step">{dev.docs}</div>
+              <div class="larr">
+                <span class="albl">{d.cycles.ingest}</span>
+                <span class="sarr">→</span>
+              </div>
+              <div class="step">{dev.brain}</div>
+            </div>
+          </div>
+          <div class="feedback">
+            <div class="fb-line"></div>
+            <span class="fb-label">{d.cycles.feedbackLoop}</span>
+            <div class="fb-line"></div>
+          </div>
+        </div>
+        <div class="loop-callout" role="note">
+          <p>
+            <span class="loop-callout-label">{cc.labels.situation}</span>
+            {cc.dev.situation}
+          </p>
+          <p>
+            <span class="loop-callout-label">{cc.labels.scenario}</span>
+            {cc.dev.scenario}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-why-brain">
+    <div id="ai-pragma-why-brain" class="sec-label">{d.sections.whyBrain}</div>
+
+    <div class="wb-cols">
+      <div class="wb-card wb-without">
+        <div class="wb-tag">{d.whyBrain.withoutTag}</div>
+        <div class="wb-flow">
+          <span class="wbstep">{d.whyBrain.flowAgent}</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep">{d.whyBrain.flowCore}</span>
+          <span class="wbarr">→</span>
+          <span class="wbno">✕</span>
+        </div>
+        <p class="wb-quote">{d.whyBrain.quoteWithout}</p>
+      </div>
+      <div class="wb-card wb-with">
+        <div class="wb-tag">{d.whyBrain.withTag}</div>
+        <div class="wb-flow">
+          <span class="wbstep">{d.whyBrain.flowAgent}</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep">{d.whyBrain.flowCore}</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep b">{d.whyBrain.flowBrain}</span>
+          <span class="wbarr">→</span>
+          <span class="wbyes">✓</span>
+        </div>
+        <p class="wb-quote">{d.whyBrain.quoteWith}</p>
+      </div>
+    </div>
+
+    <div class="diff-grid">
+      {
+        d.whyBrain.differentiators.map((item) => (
+          <div class="diff-item">
+            <div class="diff-dot" />
+            <div>
+              <strong>{item.title}</strong>
+              <p>{item.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-architecture">
+    <div id="ai-pragma-architecture" class="sec-label">{d.sections.architecture}</div>
+
+    <div class="layer l-iface">
+      <div class="layer-tag">{arch.layerInterface}</div>
+      <div class="box-row">
+        <div class="box iface">
+          <span class="bname">{arch.interfaceBoxes.relay.name}</span>
+          <span class="brole">{arch.interfaceBoxes.relay.role}</span>
+        </div>
+        <span class="arr">→</span>
+        <div class="box iface">
+          <span class="bname">{arch.interfaceBoxes.core.name}</span>
+          <span class="brole">{arch.interfaceBoxes.core.role}</span>
+        </div>
+        <span class="arr">→</span>
+        <div class="box iface">
+          <span class="bname">{arch.interfaceBoxes.tracker.name}</span>
+          <span class="brole">{arch.interfaceBoxes.tracker.role}</span>
+        </div>
+      </div>
+      <div class="opt-row">
+        <div class="box iface opt">
+          <span class="bname">{arch.interfaceBoxes.lens.name}</span>
+          <span class="brole">{arch.interfaceBoxes.lens.role}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-conn">↕</div>
+
+    <div class="layer l-agents">
+      <div class="layer-tag">{arch.layerAgents}</div>
+      <div class="agent-tracks">
+        <div class="track dev">
+          <span class="track-lbl">{arch.agentTracks.dev.trackLabel}</span>
+          <div class="abox-group">
+            {
+              arch.agentTracks.dev.agents.map((a) => (
+                <div class="abox">
+                  <span>{a.name}</span>
+                  <span class="arole">{a.role}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="track off">
+          <span class="track-lbl">{arch.agentTracks.office.trackLabel}</span>
+          <div class="abox-group">
+            {
+              arch.agentTracks.office.agents.map((a) => (
+                <div class="abox">
+                  <span>{a.name}</span>
+                  <span class="arole">{a.role}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-conn">↕</div>
+
+    <div class="layer l-found">
+      <div class="layer-tag">{arch.layerFoundation}</div>
+      <div class="box-row">
+        <div class="box found">
+          <span class="bname">{arch.foundationBoxes.brain.name}</span>
+          <span class="brole">{arch.foundationBoxes.brain.role}</span>
+        </div>
+        <div class="box found">
+          <span class="bname">{arch.foundationBoxes.guardian.name}</span>
+          <span class="brole">{arch.foundationBoxes.guardian.role}</span>
+        </div>
+        <div class="box found">
+          <span class="bname">{arch.foundationBoxes.infra.name}</span>
+          <span class="brole">{arch.foundationBoxes.infra.role}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-components">
+    <div id="ai-pragma-components" class="sec-label">{d.sections.components}</div>
+    <div class="legend">
+      {
+        d.legend.map((item) => (
+          <div class:list={['lcard', `c-${item.cls}`, item.cls === 'lens' && 'opt-card']}>
+            <span class="lkw">{item.kw}</span>
+            <span class="ldesc">{item.desc}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-infra">
+    <div id="ai-pragma-infra" class="sec-label">{d.sections.infraStack}</div>
+
+    <div class="scale-grid">
+      <div class="scale-card">
+        <div class="scale-head">
+          <span class="scale-name">{d.infra.scaleDocker}</span>
+          <span class="scale-badge">{d.infra.dockerBadge}</span>
+        </div>
+        <ul class="stack-list">
+          {infra.docker.req.map((line) => <li class="req">{line}</li>)}
+          <div class="stack-divider" />
+          {infra.docker.rec.map((line) => <li class="rec">{line}</li>)}
+        </ul>
+      </div>
+
+      <div class="scale-card rec">
+        <div class="scale-head">
+          <span class="scale-name">{d.infra.scaleKubernetes}</span>
+          <span class="scale-badge star">{d.infra.k8sBadge}</span>
+        </div>
+        <ul class="stack-list">
+          {infra.kubernetes.req.map((line) => <li class="req">{line}</li>)}
+          <div class="stack-divider" />
+          {infra.kubernetes.rec.map((line) => <li class="rec">{line}</li>)}
+        </ul>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-head">
+          <span class="scale-name">{d.infra.scaleOpenStack}</span>
+          <span class="scale-badge">{d.infra.openstackBadge}</span>
+        </div>
+        <ul class="stack-list">
+          {infra.openStack.req.map((line) => <li class="req">{line}</li>)}
+          <div class="stack-divider" />
+          {infra.openStack.rec.map((line) => <li class="rec">{line}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="data-row-head">{d.infra.dataLayerHead}</div>
+
+      <div class="data-row-group">
+        <span class="pill-cat">{d.infra.pillRequired}</span>
+        <span class="pill req">PostgreSQL</span>
+        <span class="pill req">Qdrant · Vector</span>
+        <span class="pill req">TypeDB · Graph</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat">{d.infra.pillRecommended}</span>
+        <span class="pill rec">Redis</span>
+        <span class="pill rec">Loki · Grafana</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat opt-cat">{d.infra.pillWorkflowOpt}</span>
+        <span class="pill opt">Temporal</span>
+        <span class="pill opt">n8n</span>
+        <span class="pill opt">Airflow</span>
+        <span class="pill opt">···</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat opt-cat">{d.infra.pillStreamOpt}</span>
+        <span class="pill opt">Redpanda</span>
+        <span class="pill opt">Kafka</span>
+        <span class="pill opt">···</span>
+      </div>
+
+      <div class="infra-legend">
+        <span><i class="dot-req" /> {d.infra.legendRequired}</span>
+        <span><i class="dot-rec" /> {d.infra.legendRecommended}</span>
+        <span><i class="dot-opt" /> {d.infra.legendOptional}</span>
+      </div>
+    </div>
+  </section>
+</div>

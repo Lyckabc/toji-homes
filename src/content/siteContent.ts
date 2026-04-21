@@ -1,4 +1,5 @@
 import { SITE_DOMAIN, siteHost } from '../lib/site';
+import { aiPragmaDiagramEn, aiPragmaDiagramKo } from './aiPragmaDiagram';
 
 export type Locale = 'ko' | 'en';
 
@@ -116,6 +117,16 @@ export const seo = {
       description: 'Enterprise Infrastructure as Code. Your infra, fully orchestrated.',
     },
   },
+  aiPragma: {
+    ko: {
+      title: 'TOJI | ai-pragma',
+      description: 'AI-Agent 기반 자동화 프로젝트 관리 시스템.',
+    },
+    en: {
+      title: 'TOJI | ai-pragma',
+      description: 'AI-Agent automated project management system.',
+    },
+  },
 } as const;
 
 export const ui = {
@@ -126,6 +137,7 @@ export const ui = {
       projects: '프로젝트',
       gopedia: 'gopedia',
       neunexus: 'neunexus',
+      aiPragma: 'ai-pragma',
       git: 'Git',
       enquiry: '문의',
     },
@@ -187,6 +199,7 @@ export const ui = {
       projects: 'Projects',
       gopedia: 'gopedia',
       neunexus: 'neunexus',
+      aiPragma: 'ai-pragma',
       git: 'Git',
       enquiry: 'Enquiry',
     },
@@ -261,6 +274,12 @@ export const homeCopy = {
         description: 'enterprise Infrastructure as Code manage project',
         summary: 'Your infra, fully orchestrated.',
       },
+      {
+        slug: 'ai-pragma' as const,
+        title: 'ai-pragma',
+        description: 'AI-Agent 자동화 프로젝트 관리',
+        summary: '전문가 에이전트가 채팅 협업과 티켓 실행을 반복하며 지식으로 계속 학습합니다.',
+      },
     ],
   },
   en: {
@@ -281,6 +300,12 @@ export const homeCopy = {
         title: 'neunexus',
         description: 'enterprise Infrastructure as Code manage project',
         summary: 'Your infra, fully orchestrated.',
+      },
+      {
+        slug: 'ai-pragma' as const,
+        title: 'ai-pragma',
+        description: 'AI-Agent Automated Project Management',
+        summary: 'Expert agents collaborate in chat, execute tickets, and learn through each cycle.',
       },
     ],
   },
@@ -406,6 +431,31 @@ export const gopediaCopy = {
       { label: 'MCP integration', href: 'https://github.com/tojiuni/gopedia_mcp' },
     ],
     demo: 'Demo asset status: video available',
+  },
+};
+
+export const aiPragmaCopy = {
+  ko: {
+    oneLiner: 'AI-Agent 자동화 프로젝트 관리',
+    summary: '전문가 에이전트가 채팅 협업, 티켓 실행, 지식 학습을 하나의 루프로 통합합니다.',
+    highlights: [
+      '채팅에서 의도 파악 후 티켓으로 자동 전환',
+      '개발/QA/문서화 사이클이 연결된 에이전트 협업',
+      '병합 결과와 회의 기록을 지식으로 재수집',
+    ],
+    foundation: ['Relay (Chat Interface)', 'Core (Reasoning)', 'Tracker (Ticket Engine)', 'Brain (Ingest + RAG)'],
+    diagram: aiPragmaDiagramKo,
+  },
+  en: {
+    oneLiner: 'AI-Agent Automated Project Management',
+    summary: 'Expert agents unify chat collaboration, ticket execution, and knowledge learning in one loop.',
+    highlights: [
+      'Convert chat intent into actionable tickets automatically',
+      'Connect Dev/QA/Docs cycles through collaborating agents',
+      'Re-ingest merged outcomes and meeting notes as knowledge',
+    ],
+    foundation: ['Relay (Chat Interface)', 'Core (Reasoning)', 'Tracker (Ticket Engine)', 'Brain (Ingest + RAG)'],
+    diagram: aiPragmaDiagramEn,
   },
 };
 
