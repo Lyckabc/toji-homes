@@ -1,7 +1,17 @@
 #!/usr/bin/env node
 /**
- * Serves dist/ locally, opens /projects/ai-pragma/, hides site header/footer, prints to PDF.
+ * Serves dist/ locally, opens ai-pragma (locale), hides site header/footer, prints to PDF.
+ *
  * Run: npm run build && npm run pdf:ai-pragma
+ *
+ * Options (all optional):
+ *   --locale=ko|en     Page locale (default: ko)
+ *   --theme=light|dark Matches site html.dark (default: light)
+ *   --scale=0.9        PDF content scale, 0.1–2 (default: 0.9)
+ *   --out=PATH         Output file (default: data/ai-pragma-content.pdf)
+ *
+ * Examples:
+ *   node scripts/export-ai-pragma-pdf.mjs --locale=en --theme=dark --scale=1
  */
 import http from 'node:http';
 import fs from 'node:fs';
@@ -10,7 +20,9 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.join(__dirname, '..', 'dist');
+const repoRoot = path.join(__dirname, '..');
+const root = path.join(repoRoot, 'dist');
+const dataDir = path.join(repoRoot, 'data');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -27,6 +39,63 @@ const MIME = {
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
 };
+
+/** @param {string[]} argv */
+function parseOpts(argv) {
+  /** @type {{ locale: 'ko' | 'en'; theme: 'light' | 'dark'; scale: number; out: string | null }} */
+  const opts = {
+    locale: 'ko',
+    theme: 'light',
+    scale: 0.9,
+    out: null,
+  };
+
+  for (const raw of argv) {
+    if (raw === '-h' || raw === '--help') {
+      console.log(`Usage: node scripts/export-ai-pragma-pdf.mjs [options]
+
+  --locale=ko|en     (default: ko)
+  --theme=light|dark (default: light)
+  --scale=NUMBER     0.1–2 (default: 0.9)
+  --out=PATH         (default: data/ai-pragma-content.pdf)
+`);
+      process.exit(0);
+    }
+    if (raw.startsWith('--locale=')) {
+      const v = raw.slice('--locale='.length).toLowerCase();
+      if (v !== 'ko' && v !== 'en') {
+        console.error(`Invalid --locale=${v} (use ko or en)`);
+        process.exit(1);
+      }
+      opts.locale = v;
+      continue;
+    }
+    if (raw.startsWith('--theme=')) {
+      const v = raw.slice('--theme='.length).toLowerCase();
+      if (v !== 'light' && v !== 'dark') {
+        console.error(`Invalid --theme=${v} (use light or dark)`);
+        process.exit(1);
+      }
+      opts.theme = v;
+      continue;
+    }
+    if (raw.startsWith('--scale=')) {
+      const n = Number(raw.slice('--scale='.length));
+      if (!Number.isFinite(n) || n < 0.1 || n > 2) {
+        console.error('Invalid --scale (use a number between 0.1 and 2)');
+        process.exit(1);
+      }
+      opts.scale = n;
+      continue;
+    }
+    if (raw.startsWith('--out=')) {
+      opts.out = path.resolve(raw.slice('--out='.length));
+      continue;
+    }
+  }
+
+  return opts;
+}
 
 function resolvePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split('?')[0]);
@@ -68,47 +137,57 @@ function startServer() {
   });
 }
 
-const defaultOut = path.join(root, 'projects', 'ai-pragma', 'ai-pragma-content.pdf');
-const outArg = process.argv.find((a) => a.startsWith('--out='));
-const outputPath = outArg ? path.resolve(outArg.slice('--out='.length)) : defaultOut;
+const opts = parseOpts(process.argv.slice(2));
+const defaultOut = path.join(dataDir, 'ai-pragma-content.pdf');
+const outputPath = opts.out ?? defaultOut;
+
+const pagePath =
+  opts.locale === 'ko'
+    ? path.join(root, 'ko', 'projects', 'ai-pragma', 'index.html')
+    : path.join(root, 'projects', 'ai-pragma', 'index.html');
+const urlPath = opts.locale === 'ko' ? '/ko/projects/ai-pragma/' : '/projects/ai-pragma/';
+
+if (!fs.existsSync(pagePath)) {
+  console.error(`Missing ${path.relative(repoRoot, pagePath)} — run: npm run build`);
+  process.exit(1);
+}
 
 const { server, port } = await startServer();
-const url = `http://127.0.0.1:${port}/projects/ai-pragma/`;
+const url = `http://127.0.0.1:${port}${urlPath}`;
 
 let browser;
 try {
-  if (!fs.existsSync(path.join(root, 'projects', 'ai-pragma', 'index.html'))) {
-    console.error('Missing dist/projects/ai-pragma/index.html — run: npm run build');
-    process.exit(1);
-  }
 
   browser = await chromium.launch();
   const page = await browser.newPage();
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(url, { waitUntil: 'networkidle' });
 
-  await page.evaluate(() => {
-    document.documentElement.classList.remove('dark');
-  });
+  await page.evaluate((theme) => {
+    const rootEl = document.documentElement;
+    if (theme === 'dark') rootEl.classList.add('dark');
+    else rootEl.classList.remove('dark');
+  }, opts.theme);
+
   await page.addStyleTag({
     content: `
-      @media print {
-        header, footer { display: none !important; }
-        main { min-height: 0 !important; }
-      }
       header, footer { display: none !important; }
       main { min-height: 0 !important; }
+      body > div.flex { min-height: 0 !important; }
     `,
   });
+  await page.emulateMedia({ media: 'print' });
 
   await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
   await page.pdf({
     path: outputPath,
     format: 'A4',
     printBackground: true,
+    scale: opts.scale,
     margin: { top: '12mm', right: '12mm', bottom: '12mm', left: '12mm' },
   });
 
-  console.log(`Wrote ${outputPath}`);
+  console.log(`Wrote ${outputPath} (locale=${opts.locale}, theme=${opts.theme}, scale=${opts.scale})`);
 } finally {
   await browser?.close();
   await new Promise((r) => server.close(r));
