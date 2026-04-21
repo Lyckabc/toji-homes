@@ -437,6 +437,41 @@ html.dark .ai-pragma-wrap {
   .loop-panel .loop-title {
     margin-bottom: 0;
   }
+
+  /* Agent cycle (Office row1 especially): avoid tall RAG column + cramped horizontal scroll on narrow viewports */
+  .cycle-wrap {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+  .cycle-rows .strip {
+    flex-wrap: wrap;
+    white-space: normal;
+    min-width: 0;
+    row-gap: 0.45rem;
+    justify-content: center;
+  }
+  .cycle-rows .strip .step {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  .cycle-rows .strip .sarr {
+    align-self: center;
+  }
+  .larr {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .strip.indent {
+    padding-left: 0.35rem;
+  }
+  .down-arr {
+    padding-left: 0;
+    justify-content: center;
+    width: 100%;
+  }
 }
 .loop-title {
   font-size: 0.62rem;
