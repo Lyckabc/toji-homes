@@ -94,6 +94,9 @@
   max-width: 1024px;
   margin: 0 auto;
   border-radius: 10px;
+  /* Agent cycle: stack Office / Dev by content width (narrow iframe, split view), not only viewport */
+  container-type: inline-size;
+  container-name: ai-pragma;
 }
 
 html.dark .ai-pragma-wrap {
@@ -401,15 +404,6 @@ html.dark .ai-pragma-wrap {
   row-gap: 0.85rem;
   align-items: stretch;
 }
-@media (max-width: 780px) {
-  .loops {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-auto-rows: auto;
-    row-gap: 1.2rem;
-  }
-}
-
 .loop-panel {
   display: grid;
   grid-template-rows: subgrid;
@@ -419,23 +413,154 @@ html.dark .ai-pragma-wrap {
   padding: 1.1rem 1.2rem 1.3rem;
   min-width: 0;
 }
-.loop-panel:first-child {
-  grid-column: 1;
+/* Wide layout only: higher-specificity :last-child would override a plain .loop-panel rule in narrow @media */
+@media (min-width: 901px) {
+  .loop-panel:first-child {
+    grid-column: 1;
+  }
+  .loop-panel:last-child {
+    grid-column: 2;
+  }
 }
-.loop-panel:last-child {
-  grid-column: 2;
-}
-@media (max-width: 780px) {
-  .loop-panel {
+
+/* Narrow frame: Office above Dev (viewport fallback + container query for embedded / split layouts) */
+@media (max-width: 900px) {
+  .loops {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+    row-gap: 1.2rem;
+  }
+
+  .loop-panel,
+  .loop-panel:first-child,
+  .loop-panel:last-child {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 0.85rem;
-    grid-template-rows: none;
+    grid: none;
     grid-row: auto;
     grid-column: 1;
+    width: 100%;
+    min-width: 0;
   }
   .loop-panel .loop-title {
     margin-bottom: 0;
+  }
+
+  /* Specificity: base .cycle-wrap / .larr / .down-arr come later in this file and were overriding these rules */
+  .ai-pragma-wrap .loop-callout {
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  /* Agent cycle (Office row1 especially): avoid tall RAG column + cramped horizontal scroll */
+  .ai-pragma-wrap .cycle-wrap {
+    overflow-x: visible;
+    padding-bottom: 0;
+    width: 100%;
+    min-width: 0;
+  }
+  .ai-pragma-wrap .cycle-rows .strip {
+    flex-wrap: wrap;
+    white-space: normal;
+    min-width: 0;
+    row-gap: 0.45rem;
+    justify-content: center;
+  }
+  .ai-pragma-wrap .cycle-rows .strip .step {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  .ai-pragma-wrap .cycle-rows .strip .sarr {
+    align-self: center;
+  }
+  .ai-pragma-wrap .larr {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .ai-pragma-wrap .strip.indent {
+    padding-left: 0.35rem;
+  }
+  .ai-pragma-wrap .down-arr {
+    padding-left: 0;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@container ai-pragma (max-width: 900px) {
+  .loops {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+    row-gap: 1.2rem;
+  }
+
+  .loop-panel,
+  .loop-panel:first-child,
+  .loop-panel:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    grid: none;
+    grid-row: auto;
+    grid-column: 1;
+    width: 100%;
+    min-width: 0;
+  }
+  .loop-panel .loop-title {
+    margin-bottom: 0;
+  }
+
+  .ai-pragma-wrap .loop-callout {
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  .ai-pragma-wrap .cycle-wrap {
+    overflow-x: visible;
+    padding-bottom: 0;
+    width: 100%;
+    min-width: 0;
+  }
+  .ai-pragma-wrap .cycle-rows .strip {
+    flex-wrap: wrap;
+    white-space: normal;
+    min-width: 0;
+    row-gap: 0.45rem;
+    justify-content: center;
+  }
+  .ai-pragma-wrap .cycle-rows .strip .step {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  .ai-pragma-wrap .cycle-rows .strip .sarr {
+    align-self: center;
+  }
+  .ai-pragma-wrap .larr {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .ai-pragma-wrap .strip.indent {
+    padding-left: 0.35rem;
+  }
+  .ai-pragma-wrap .down-arr {
+    padding-left: 0;
+    justify-content: center;
+    width: 100%;
   }
 }
 .loop-title {
