@@ -7,11 +7,15 @@
     "build": "astro build",
     "preview": "astro preview",
     "verify": "npm run build",
+    "pdf:ai-pragma": "node scripts/export-ai-pragma-pdf.mjs",
     "astro": "astro"
   },
   "dependencies": {
     "astro": "^5.0.0",
     "tailwindcss": "^4.0.0",
     "@tailwindcss/vite": "^4.0.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
   }
 }
