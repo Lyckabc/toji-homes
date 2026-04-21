@@ -1,0 +1,327 @@
+---
+import type { Locale } from '../../content/siteContent';
+import { aiPragmaCopy } from '../../content/siteContent';
+import { aiPragmaInfraStackLines } from '../../content/aiPragmaDiagram';
+import '../../styles/ai-pragma.css';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = aiPragmaCopy[locale];
+const d = copy.diagram;
+const dc = copy.devCycle;
+const oc = copy.officeCycle;
+const infra = aiPragmaInfraStackLines;
+
+const devBeforeDocs = dc.slice(0, 7);
+const devDocs = dc[7]!;
+const devBrain = dc[8]!;
+---
+
+<div class="ai-pragma-wrap">
+  <div class="ai-pragma-hero">
+    <div class="eyebrow">{d.hero.eyebrow}</div>
+    <h1>{d.hero.title}</h1>
+    <p>{d.hero.tagline}</p>
+  </div>
+
+  <section aria-labelledby="ai-pragma-agent-cycle">
+    <div id="ai-pragma-agent-cycle" class="sec-label">{d.sections.agentCycle}</div>
+    <div class="loops">
+      <div class="loop-panel">
+        <div class="loop-title">{d.cycles.dev}</div>
+        <div class="cycle-wrap">
+          <div class="strip">
+            {
+              devBeforeDocs.map((label) => (
+                <>
+                  <div class="step">{label}</div>
+                  <span class="sarr">→</span>
+                </>
+              ))
+            }
+            <div class="step">{devDocs}</div>
+            <div class="larr">
+              <span class="albl">{d.cycles.ingest}</span>
+              <span class="sarr">→</span>
+            </div>
+            <div class="step">{devBrain}</div>
+          </div>
+          <div class="feedback">
+            <div class="fb-line"></div>
+            <span class="fb-label">{d.cycles.feedbackLoop}</span>
+            <div class="fb-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loop-panel">
+        <div class="loop-title">{d.cycles.office}</div>
+        <div class="cycle-wrap">
+          <div class="office-rows">
+            <div class="strip">
+              <div class="step">{oc[0]}</div>
+              <span class="sarr">→</span>
+              <div class="step">{oc[1]}</div>
+              <span class="sarr">→</span>
+              <div class="step">{oc[2]}</div>
+              <div class="larr">
+                <span class="albl">{d.cycles.rag}</span>
+                <span class="sarr">→</span>
+              </div>
+              <div class="step">{oc[3]}</div>
+            </div>
+            <div class="down-arr">↓</div>
+            <div class="strip indent">
+              {
+                oc.slice(4).map((label, idx) => (
+                  <>
+                    {idx > 0 ? <span class="sarr">→</span> : null}
+                    <div class="step">{label}</div>
+                  </>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-why-brain">
+    <div id="ai-pragma-why-brain" class="sec-label">{d.sections.whyBrain}</div>
+
+    <div class="wb-cols">
+      <div class="wb-card wb-without">
+        <div class="wb-tag">{d.whyBrain.withoutTag}</div>
+        <div class="wb-flow">
+          <span class="wbstep">Agent</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep">Core</span>
+          <span class="wbarr">→</span>
+          <span class="wbno">✕</span>
+        </div>
+        <p class="wb-quote">{d.whyBrain.quoteWithout}</p>
+      </div>
+      <div class="wb-card wb-with">
+        <div class="wb-tag">{d.whyBrain.withTag}</div>
+        <div class="wb-flow">
+          <span class="wbstep">Agent</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep">Core</span>
+          <span class="wbarr">→</span>
+          <span class="wbstep b">Brain</span>
+          <span class="wbarr">→</span>
+          <span class="wbyes">✓</span>
+        </div>
+        <p class="wb-quote">{d.whyBrain.quoteWith}</p>
+      </div>
+    </div>
+
+    <div class="diff-grid">
+      {
+        d.whyBrain.differentiators.map((item) => (
+          <div class="diff-item">
+            <div class="diff-dot" />
+            <div>
+              <strong>{item.title}</strong>
+              <p>{item.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-architecture">
+    <div id="ai-pragma-architecture" class="sec-label">{d.sections.architecture}</div>
+
+    <div class="layer l-iface">
+      <div class="layer-tag">{d.arch.layerInterface}</div>
+      <div class="box-row">
+        <div class="box iface">
+          <span class="bname">Relay</span>
+          <span class="brole">Chat · Group / DM</span>
+        </div>
+        <span class="arr">→</span>
+        <div class="box iface">
+          <span class="bname">Core</span>
+          <span class="brole">LLM · Reasoning</span>
+        </div>
+        <span class="arr">→</span>
+        <div class="box iface">
+          <span class="bname">Tracker</span>
+          <span class="brole">Tickets · Tasks</span>
+        </div>
+      </div>
+      <div class="opt-row">
+        <div class="box iface opt">
+          <span class="bname">Lens</span>
+          <span class="brole">Dashboard (opt)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-conn">↕</div>
+
+    <div class="layer l-agents">
+      <div class="layer-tag">{d.arch.layerAgents}</div>
+      <div class="agent-tracks">
+        <div class="track dev">
+          <span class="track-lbl">Dev</span>
+          <div class="abox-group">
+            <div class="abox">
+              <span>Triage</span><span class="arole">intent → ticket</span>
+            </div>
+            <div class="abox">
+              <span>Dev</span><span class="arole">code · PR</span>
+            </div>
+            <div class="abox">
+              <span>QA</span><span class="arole">test · bug</span>
+            </div>
+            <div class="abox">
+              <span>Security</span><span class="arole">scan · CVE</span>
+            </div>
+            <div class="abox">
+              <span>Docs</span><span class="arole">ingest · summary</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="track off">
+          <span class="track-lbl">Office</span>
+          <div class="abox-group">
+            <div class="abox">
+              <span>PM</span><span class="arole">roadmap · priority</span>
+            </div>
+            <div class="abox">
+              <span>Knowledge</span><span class="arole">search · RAG</span>
+            </div>
+            <div class="abox">
+              <span>HR</span><span class="arole">onboard · policy</span>
+            </div>
+            <div class="abox">
+              <span>Report</span><span class="arole">digest · status</span>
+            </div>
+            <div class="abox">
+              <span>Meeting</span><span class="arole">notes → tickets</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-conn">↕</div>
+
+    <div class="layer l-found">
+      <div class="layer-tag">{d.arch.layerFoundation}</div>
+      <div class="box-row">
+        <div class="box found">
+          <span class="bname">Brain</span>
+          <span class="brole">Ingest · RAG</span>
+        </div>
+        <div class="box found">
+          <span class="bname">Guardian</span>
+          <span class="brole">Auth · SSO</span>
+        </div>
+        <div class="box found">
+          <span class="bname">Infra</span>
+          <span class="brole">K8s · IaC · Vault</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-components">
+    <div id="ai-pragma-components" class="sec-label">{d.sections.components}</div>
+    <div class="legend">
+      {
+        d.legend.map((item) => (
+          <div class:list={['lcard', `c-${item.cls}`, item.cls === 'lens' && 'opt-card']}>
+            <span class="lkw">{item.kw}</span>
+            <span class="ldesc">{item.desc}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-pragma-infra">
+    <div id="ai-pragma-infra" class="sec-label">{d.sections.infraStack}</div>
+
+    <div class="scale-grid">
+      <div class="scale-card">
+        <div class="scale-head">
+          <span class="scale-name">Docker</span>
+          <span class="scale-badge">{d.infra.dockerBadge}</span>
+        </div>
+        <ul class="stack-list">
+          {infra.docker.req.map((line) => <li class="req">{line}</li>)}
+          <div class="stack-divider" />
+          {infra.docker.rec.map((line) => <li class="rec">{line}</li>)}
+        </ul>
+      </div>
+
+      <div class="scale-card rec">
+        <div class="scale-head">
+          <span class="scale-name">Kubernetes</span>
+          <span class="scale-badge star">{d.infra.k8sBadge}</span>
+        </div>
+        <ul class="stack-list">
+          {infra.kubernetes.req.map((line) => <li class="req">{line}</li>)}
+          <div class="stack-divider" />
+          {infra.kubernetes.rec.map((line) => <li class="rec">{line}</li>)}
+        </ul>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-head">
+          <span class="scale-name">OpenStack</span>
+          <span class="scale-badge">{d.infra.openstackBadge}</span>
+        </div>
+        <ul class="stack-list">
+          {infra.openStack.req.map((line) => <li class="req">{line}</li>)}
+          <div class="stack-divider" />
+          {infra.openStack.rec.map((line) => <li class="rec">{line}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="data-row-head">{d.infra.dataLayerHead}</div>
+
+      <div class="data-row-group">
+        <span class="pill-cat">{d.infra.pillRequired}</span>
+        <span class="pill req">PostgreSQL</span>
+        <span class="pill req">Qdrant · Vector</span>
+        <span class="pill req">TypeDB · Graph</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat">{d.infra.pillRecommended}</span>
+        <span class="pill rec">Redis</span>
+        <span class="pill rec">Loki · Grafana</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat opt-cat">{d.infra.pillWorkflowOpt}</span>
+        <span class="pill opt">Temporal</span>
+        <span class="pill opt">n8n</span>
+        <span class="pill opt">Airflow</span>
+        <span class="pill opt">···</span>
+      </div>
+      <div class="data-row-group">
+        <span class="pill-cat opt-cat">{d.infra.pillStreamOpt}</span>
+        <span class="pill opt">Redpanda</span>
+        <span class="pill opt">Kafka</span>
+        <span class="pill opt">···</span>
+      </div>
+
+      <div class="infra-legend">
+        <span><i class="dot-req" /> {d.infra.legendRequired}</span>
+        <span><i class="dot-rec" /> {d.infra.legendRecommended}</span>
+        <span><i class="dot-opt" /> {d.infra.legendOptional}</span>
+      </div>
+    </div>
+  </section>
+</div>

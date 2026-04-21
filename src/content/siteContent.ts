@@ -1,4 +1,5 @@
 import { SITE_DOMAIN, siteHost } from '../lib/site';
+import { aiPragmaDiagramEn, aiPragmaDiagramKo } from './aiPragmaDiagram';
 
 export type Locale = 'ko' | 'en';
 
@@ -455,6 +456,7 @@ export const aiPragmaCopy = {
       'Chat',
     ],
     foundation: ['Relay (Chat Interface)', 'Core (Reasoning)', 'Tracker (Ticket Engine)', 'Brain (Ingest + RAG)'],
+    diagram: aiPragmaDiagramKo,
   },
   en: {
     oneLiner: 'AI-Agent Automated Project Management',
@@ -477,6 +479,7 @@ export const aiPragmaCopy = {
       'Chat',
     ],
     foundation: ['Relay (Chat Interface)', 'Core (Reasoning)', 'Tracker (Ticket Engine)', 'Brain (Ingest + RAG)'],
+    diagram: aiPragmaDiagramEn,
   },
 };
 
