@@ -71,6 +71,10 @@ const { title = 'Gopedia — 세계수에서 자라는 지식', description = '�
     margin-bottom:64px;align-items:end;
   }
   @media(max-width:880px){.gp-section-head{grid-template-columns:1fr;gap:24px}}
+  @media(max-width:640px){
+    .gp-section{padding:60px 0}
+    .gp-section-title{font-size:clamp(26px,6vw,42px)}
+  }
   .gp-section-num{
     font-family:var(--mono);font-size:11px;
     letter-spacing:.3em;color:var(--moss);text-transform:uppercase;
