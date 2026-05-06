@@ -1,0 +1,57 @@
+<footer class="gp-footer">
+  <div class="gp-wrap">
+    <div class="gp-foot-grid">
+      <div>
+        <div class="gp-foot-brand">
+          <svg class="gp-brand-mark" viewBox="0 0 32 32" fill="none" style="width:28px;height:28px">
+            <path d="M16 3 L16 29" stroke="#c5d99a" stroke-width="1.2"/>
+            <path d="M16 9 Q9 12 7 19 M16 9 Q23 12 25 19 M16 16 Q11 19 9 25 M16 16 Q21 19 23 25" stroke="#c5d99a" stroke-width="0.9" fill="none"/>
+            <circle cx="16" cy="3" r="2" fill="#c5d99a"/>
+            <circle cx="7" cy="19" r="1.4" fill="#7a9a4a"/><circle cx="25" cy="19" r="1.4" fill="#7a9a4a"/>
+            <circle cx="9" cy="25" r="1.2" fill="#7a9a4a"/><circle cx="23" cy="25" r="1.2" fill="#7a9a4a"/>
+          </svg>
+          <span>Gopedia</span>
+        </div>
+        <p class="gp-foot-tag" data-ko-block>한 그루의 세계수 아래에서,<br/>모든 답은 어디서 왔는지를 안다.</p>
+        <p class="gp-foot-tag" data-en-block>Beneath one World Tree,<br/>every answer knows where it grew.</p>
+      </div>
+
+      <div>
+        <h5 data-ko-block>제품</h5><h5 data-en-block>Product</h5>
+        <ul>
+          <li><a href="#values"><span data-ko-block>철학</span><span data-en-block>Philosophy</span></a></li>
+          <li><a href="#scenarios"><span data-ko-block>시나리오</span><span data-en-block>Scenarios</span></a></li>
+          <li><a href="#quality"><span data-ko-block>품질 지표</span><span data-en-block>Quality</span></a></li>
+          <li><a href="#roadmap"><span data-ko-block>로드맵</span><span data-en-block>Roadmap</span></a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 data-ko-block>시작하기</h5><h5 data-en-block>Get started</h5>
+        <ul>
+          <li><a href="https://toji.homes"><span data-ko-block>TOJI 홈</span><span data-en-block>TOJI Home</span></a></li>
+          <li><a href="https://github.com/tojiuni/gopedia">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gp-foot-bot">
+      <span>&copy; 2025 GOPEDIA</span>
+      <span data-ko-block>세계수 아래 &mdash; 서울 &middot; 도쿄 &middot; 싱가포르</span>
+      <span data-en-block>under the world tree &mdash; seoul &middot; tokyo &middot; singapore</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .gp-footer{background:var(--ink);color:var(--paper);padding:80px 0 40px}
+  .gp-foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  @media(max-width:760px){.gp-foot-grid{grid-template-columns:1fr}}
+  .gp-foot-brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:22px;font-weight:500;color:var(--paper)}
+  .gp-footer h5{font-family:var(--sans);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,241,234,.5);font-weight:500;margin:0 0 16px}
+  .gp-footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif);font-size:15px;line-height:1.9;color:rgba(244,241,234,.85)}
+  .gp-footer ul a{text-decoration:none}
+  .gp-footer ul a:hover{color:#c5d99a}
+  .gp-foot-tag{font-family:var(--display);font-style:italic;font-size:22px;line-height:1.4;color:rgba(244,241,234,.85);max-width:360px;margin-top:16px}
+  .gp-foot-bot{margin-top:60px;padding-top:24px;border-top:1px solid rgba(244,241,234,.12);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:rgba(244,241,234,.5);letter-spacing:.08em}
+</style>

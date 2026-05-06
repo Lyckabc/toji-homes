@@ -1,0 +1,220 @@
+<nav class="gp-nav">
+  <div class="gp-wrap gp-nav-row">
+    <div class="gp-brand">
+      <svg class="gp-brand-mark" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3 L16 29" stroke="var(--moss)" stroke-width="1.2"/>
+        <path d="M16 9 Q9 12 7 19 M16 9 Q23 12 25 19 M16 16 Q11 19 9 25 M16 16 Q21 19 23 25" stroke="var(--moss)" stroke-width="0.9" fill="none"/>
+        <circle cx="16" cy="3" r="2" fill="var(--moss)"/>
+        <circle cx="7" cy="19" r="1.4" fill="var(--leaf)"/>
+        <circle cx="25" cy="19" r="1.4" fill="var(--leaf)"/>
+        <circle cx="9" cy="25" r="1.2" fill="var(--leaf)"/>
+        <circle cx="23" cy="25" r="1.2" fill="var(--leaf)"/>
+      </svg>
+      <span>Gopedia</span>
+    </div>
+    <ul class="gp-nav-links">
+      <li><a href="#values"><span data-ko-block>철학</span><span data-en-block>Philosophy</span></a></li>
+      <li><a href="#scenarios"><span data-ko-block>시나리오</span><span data-en-block>Scenarios</span></a></li>
+      <li><a href="#quality"><span data-ko-block>품질</span><span data-en-block>Quality</span></a></li>
+      <li><a href="#roadmap"><span data-ko-block>로드맵</span><span data-en-block>Roadmap</span></a></li>
+    </ul>
+    <div class="gp-nav-controls">
+      <!-- Theme switcher -->
+      <div class="gp-theme-switch" role="group" aria-label="Theme">
+        <button class="gp-theme-dot active" data-theme="moss" title="Moss" style="--dot:#3a5a3a;--dot-bg:#f4f1ea"><span></span></button>
+        <button class="gp-theme-dot" data-theme="twilight" title="Twilight" style="--dot:#a8c98a;--dot-bg:#1a1f1a"><span></span></button>
+        <button class="gp-theme-dot" data-theme="parchment" title="Parchment" style="--dot:#6b5a2a;--dot-bg:#f7f1e1"><span></span></button>
+        <button class="gp-theme-dot" data-theme="ash" title="Ash" style="--dot:#4a5a4a;--dot-bg:#ebe9e4"><span></span></button>
+      </div>
+      <!-- Lang toggle -->
+      <div class="gp-lang-toggle" role="group" aria-label="Language">
+        <button class="active" data-lang-set="ko">KO</button>
+        <button data-lang-set="en">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .gp-nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--paper) 72%, transparent);
+    border-bottom:1px solid var(--rule-2);
+    transition:background .4s ease;
+  }
+  .gp-nav-row{
+    display:flex;align-items:center;justify-content:space-between;height:64px;
+  }
+  .gp-brand{
+    display:flex;align-items:center;gap:12px;
+    font-family:var(--display);font-size:22px;font-weight:500;letter-spacing:.02em;
+  }
+  .gp-brand-mark{width:28px;height:28px}
+  .gp-nav-links{
+    display:flex;gap:28px;list-style:none;padding:0;margin:0;
+    font-family:var(--sans);font-size:13px;color:var(--ink-2);
+    font-weight:400;letter-spacing:.04em;
+  }
+  .gp-nav-links a{text-decoration:none}
+  .gp-nav-links a:hover{color:var(--moss)}
+  .gp-nav-controls{display:flex;align-items:center;gap:16px}
+
+  /* Theme dots */
+  .gp-theme-switch{display:flex;align-items:center;gap:6px}
+  .gp-theme-dot{
+    width:22px;height:22px;border-radius:50%;border:0;cursor:pointer;padding:0;
+    background:var(--dot-bg);position:relative;
+    outline:2px solid transparent;outline-offset:2px;
+    transition:outline-color .2s ease,transform .2s ease;
+  }
+  .gp-theme-dot span{
+    display:block;width:12px;height:12px;border-radius:50%;
+    background:var(--dot);margin:5px auto;
+  }
+  .gp-theme-dot:hover{transform:scale(1.15)}
+  .gp-theme-dot.active{outline-color:var(--moss)}
+
+  /* Lang toggle */
+  .gp-lang-toggle{
+    display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;
+  }
+  .gp-lang-toggle button{
+    background:transparent;border:0;padding:6px 12px;color:var(--ink-2);cursor:pointer;
+    transition:background .3s ease,color .3s ease;
+  }
+  .gp-lang-toggle button.active{background:var(--ink);color:var(--paper)}
+  @media(max-width:720px){
+    .gp-nav-links{display:none}
+    .gp-nav-controls{gap:10px}
+    .gp-theme-dot{width:18px;height:18px}
+    .gp-theme-dot span{width:10px;height:10px;margin:4px auto}
+  }
+</style>
+
+<script>
+  // ─── Palettes ───
+  const PALETTES: Record<string, Record<string, string>> = {
+    moss:      {paper:"#f4f1ea",paper2:"#ede8db",paper3:"#e3dccb",ink:"#1f2418",ink2:"#3a4234",moss:"#3a5a3a",moss2:"#5a7a4a",leaf:"#7a9a4a",bark:"#6b4a2a",bark2:"#8a6a3a",bloom:"#c45a3a",gold:"#b8923a",rule:"rgba(31,36,24,.18)",rule2:"rgba(31,36,24,.10)",navBg:"rgba(244,241,234,.72)"},
+    twilight:  {paper:"#1a1f1a",paper2:"#232a23",paper3:"#2a332a",ink:"#f0ebd8",ink2:"#c5cab6",moss:"#a8c98a",moss2:"#8aaa6a",leaf:"#c5d99a",bark:"#d4b87a",bark2:"#b89860",bloom:"#e89a6a",gold:"#d4b87a",rule:"rgba(240,235,216,.18)",rule2:"rgba(240,235,216,.10)",navBg:"rgba(26,31,26,.78)"},
+    parchment: {paper:"#f7f1e1",paper2:"#efe6cf",paper3:"#e5d9bf",ink:"#2a1f12",ink2:"#4a3a24",moss:"#6b5a2a",moss2:"#8a7a3a",leaf:"#a89048",bark:"#7a4a2a",bark2:"#9a6a3a",bloom:"#b85a2a",gold:"#c89a3a",rule:"rgba(42,31,18,.18)",rule2:"rgba(42,31,18,.10)",navBg:"rgba(247,241,225,.72)"},
+    ash:       {paper:"#ebe9e4",paper2:"#dedbd3",paper3:"#d0cdc4",ink:"#1a1a1a",ink2:"#3a3a3a",moss:"#4a5a4a",moss2:"#5a6a5a",leaf:"#7a8a7a",bark:"#5a4a3a",bark2:"#7a6a5a",bloom:"#8a5a4a",gold:"#8a7a5a",rule:"rgba(26,26,26,.18)",rule2:"rgba(26,26,26,.10)",navBg:"rgba(235,233,228,.72)"},
+  };
+
+  function applyTheme(name: string) {
+    const p = PALETTES[name];
+    if (!p) return;
+    const r = document.documentElement.style;
+    r.setProperty('--paper', p.paper);
+    r.setProperty('--paper-2', p.paper2);
+    r.setProperty('--paper-3', p.paper3);
+    r.setProperty('--ink', p.ink);
+    r.setProperty('--ink-2', p.ink2);
+    r.setProperty('--moss', p.moss);
+    r.setProperty('--moss-2', p.moss2);
+    r.setProperty('--leaf', p.leaf);
+    r.setProperty('--bark', p.bark);
+    r.setProperty('--bark-2', p.bark2);
+    r.setProperty('--bloom', p.bloom);
+    r.setProperty('--gold', p.gold);
+    r.setProperty('--rule', p.rule);
+    r.setProperty('--rule-2', p.rule2);
+
+    // Update nav background
+    const nav = document.querySelector('.gp-nav') as HTMLElement | null;
+    if (nav) nav.style.background = p.navBg;
+
+    // Update footer for dark themes
+    const footer = document.querySelector('.gp-footer') as HTMLElement | null;
+    if (footer) {
+      footer.style.background = name === 'twilight' ? '#0d120d' : p.ink;
+    }
+
+    // Update WorldTree SVG ink colors
+    document.querySelectorAll('#worldtree .ink-stroke').forEach((el) => {
+      (el as SVGElement).style.stroke = p.ink;
+    });
+    document.querySelectorAll('#worldtree .ink-splat').forEach((el) => {
+      (el as SVGElement).setAttribute('fill', p.ink);
+    });
+    document.querySelectorAll('#worldtree .ink-leaf').forEach((el) => {
+      (el as SVGElement).setAttribute('fill', p.moss);
+    });
+    document.querySelectorAll('#worldtree .data-drop').forEach((el) => {
+      (el as SVGElement).style.fill = p.moss;
+    });
+    document.querySelectorAll('#worldtree .xylem-flow').forEach((el) => {
+      (el as SVGElement).style.stroke = p.moss;
+    });
+    document.querySelectorAll('#worldtree .xylem-bead').forEach((el) => {
+      (el as SVGElement).style.fill = p.moss;
+    });
+    document.querySelectorAll('#worldtree .phloem-flow').forEach((el) => {
+      (el as SVGElement).style.stroke = p.bloom;
+    });
+    document.querySelectorAll('#worldtree .petal').forEach((el) => {
+      (el as SVGElement).style.fill = p.bloom;
+    });
+
+    // Update SVG text labels
+    document.querySelectorAll('#worldtree .phase-tag text').forEach((el) => {
+      (el as SVGElement).setAttribute('fill', p.moss);
+    });
+    document.querySelectorAll('#worldtree .flow-tag text').forEach((el) => {
+      (el as SVGElement).setAttribute('fill', p.bloom);
+    });
+
+    // Update fruit colors
+    document.querySelectorAll('#worldtree .ink-fruit').forEach((el) => {
+      const cur = el.getAttribute('fill');
+      if (cur && (cur.startsWith('#c4') || cur.startsWith('#e8') || cur.startsWith('#b8') || cur.startsWith('#8a'))) {
+        // bloom-colored fruits
+        if (cur === '#b8923a' || cur === '#d4b87a' || cur === '#c89a3a' || cur === '#8a7a5a') {
+          (el as SVGElement).setAttribute('fill', p.gold);
+        } else {
+          (el as SVGElement).setAttribute('fill', p.bloom);
+        }
+      }
+    });
+
+    // Moon gradient
+    const moonStops = document.querySelectorAll('#moon stop');
+    moonStops.forEach((s) => {
+      s.setAttribute('stop-color', p.ink);
+    });
+
+    // Persist
+    localStorage.setItem('gp-theme', name);
+
+    // Update active dot
+    document.querySelectorAll('.gp-theme-dot').forEach((d) =>
+      d.classList.toggle('active', (d as HTMLElement).dataset.theme === name)
+    );
+  }
+
+  // Theme dot clicks
+  document.querySelectorAll('.gp-theme-dot').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyTheme((btn as HTMLElement).dataset.theme!);
+    });
+  });
+
+  // Restore saved theme
+  const saved = localStorage.getItem('gp-theme');
+  if (saved && PALETTES[saved]) {
+    applyTheme(saved);
+  }
+
+  // ─── Language toggle ───
+  document.querySelectorAll('.gp-lang-toggle button').forEach((b) => {
+    b.addEventListener('click', () => {
+      const next = (b as HTMLElement).dataset.langSet!;
+      document.body.dataset.lang = next;
+      document.documentElement.lang = next;
+      document.querySelectorAll('.gp-lang-toggle button').forEach((x) =>
+        x.classList.toggle('active', x === b)
+      );
+    });
+  });
+</script>
