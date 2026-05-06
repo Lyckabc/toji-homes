@@ -1,4 +1,4 @@
-<nav class="sticky top-0 z-50 border-b border-[var(--rule-2)] transition-colors duration-400"
+<nav id="gp-nav" class="sticky top-0 z-50 border-b border-[var(--rule-2)] transition-colors duration-[400ms]"
      style="background:color-mix(in srgb,var(--paper) 72%,transparent);backdrop-filter:blur(8px)">
   <div class="relative z-[2] max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-16">
 
@@ -37,8 +37,8 @@
       <!-- Lang toggle -->
       <div class="flex border border-[var(--rule)] rounded-full overflow-hidden font-[var(--sans)] text-[11px] font-medium tracking-[.08em]"
            role="group" aria-label="Language">
-        <button class="gp-lang-btn active bg-[var(--ink)] text-[var(--paper)] px-3 py-1.5 border-0 cursor-pointer transition-colors duration-300" data-lang-set="ko">KO</button>
-        <button class="gp-lang-btn bg-transparent text-[var(--ink-2)] px-3 py-1.5 border-0 cursor-pointer transition-colors duration-300" data-lang-set="en">EN</button>
+        <button class="gp-lang-btn active px-3 py-1.5 border-0 cursor-pointer transition-colors duration-300" data-lang-set="ko">KO</button>
+        <button class="gp-lang-btn px-3 py-1.5 border-0 cursor-pointer transition-colors duration-300" data-lang-set="en">EN</button>
       </div>
     </div>
   </div>
@@ -63,6 +63,10 @@
     .gp-theme-dot { width: 17px; height: 17px; }
     .gp-theme-dot span { width: 9px; height: 9px; margin: 4px auto; }
   }
+
+  /* Lang toggle active state — managed by JS class toggle */
+  .gp-lang-btn { background: transparent; color: var(--ink-2); }
+  .gp-lang-btn.active { background: var(--ink); color: var(--paper); }
 </style>
 
 <script>
@@ -85,7 +89,7 @@
     r.setProperty('--bloom',   p.bloom);   r.setProperty('--gold',    p.gold);
     r.setProperty('--rule',    p.rule);    r.setProperty('--rule-2',  p.rule2);
 
-    const nav = document.querySelector('nav') as HTMLElement | null;
+    const nav = document.querySelector('#gp-nav') as HTMLElement | null;
     if (nav) nav.style.background = p.navBg;
 
     const footer = document.querySelector('.gp-footer') as HTMLElement | null;
@@ -126,12 +130,9 @@
       const next = (b as HTMLElement).dataset.langSet!;
       document.body.dataset.lang = next;
       document.documentElement.lang = next;
-      document.querySelectorAll('.gp-lang-btn').forEach((x) => {
-        const isActive = x === b;
-        x.classList.toggle('active', isActive);
-        (x as HTMLElement).style.background = isActive ? 'var(--ink)' : 'transparent';
-        (x as HTMLElement).style.color = isActive ? 'var(--paper)' : 'var(--ink-2)';
-      });
+      document.querySelectorAll('.gp-lang-btn').forEach((x) =>
+        x.classList.toggle('active', x === b)
+      );
     });
   });
 </script>
