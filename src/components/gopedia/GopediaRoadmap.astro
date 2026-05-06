@@ -1,63 +1,82 @@
-<section id="roadmap" class="gp-roadmap">
-  <div class="gp-wrap">
-    <div class="gp-section-head">
+<section id="roadmap" class="relative z-[2] bg-[var(--paper)] py-20 md:py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-12">
+
+    <!-- Section head -->
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-16 mb-16 items-end">
       <div>
-        <div class="gp-section-num">IV &middot; Roadmap</div>
-        <h2 class="gp-section-title" data-ko-block>나무는 계속<br/>자라납니다</h2>
-        <h2 class="gp-section-title" data-en-block>The tree keeps<br/>growing</h2>
+        <div class="font-[var(--mono)] text-[11px] tracking-[.3em] text-[var(--moss)] uppercase">IV &middot; Roadmap</div>
+        <h2 class="font-[var(--display)] font-normal mt-3 mb-0 leading-[1.05] tracking-[-0.01em] text-[var(--ink)]"
+            style="font-size:clamp(34px,3.8vw,56px)" data-ko-block>
+          나무는 계속<br/>자라납니다
+        </h2>
+        <h2 class="font-[var(--display)] font-normal mt-3 mb-0 leading-[1.05] tracking-[-0.01em] text-[var(--ink)]"
+            style="font-size:clamp(34px,3.8vw,56px)" data-en-block>
+          The tree keeps<br/>growing
+        </h2>
       </div>
-      <p class="gp-section-sub" data-ko-block>검증(Verify) &rarr; 확장(Expand) &rarr; 연결(Connect) — 세 계절을 거쳐 Gopedia는 한 그루의 나무에서 한 조직의 신경계로 자랍니다.</p>
-      <p class="gp-section-sub" data-en-block>Verify &rarr; Expand &rarr; Connect — across three seasons, Gopedia grows from a single tree into the nervous system of an entire organization.</p>
+      <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)] max-w-[560px] m-0" data-ko-block>검증(Verify) &rarr; 확장(Expand) &rarr; 연결(Connect) — 세 계절을 거쳐 Gopedia는 한 그루의 나무에서 한 조직의 신경계로 자랍니다.</p>
+      <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)] max-w-[560px] m-0" data-en-block>Verify &rarr; Expand &rarr; Connect — across three seasons, Gopedia grows from a single tree into the nervous system of an entire organization.</p>
     </div>
 
-    <div class="gp-road-track">
-      <div class="gp-road-line"></div>
-      <div class="gp-road-grid">
-        <article class="gp-road-step cur">
-          <div class="gp-road-stage">Now &middot; Verify</div>
-          <h4 data-ko-block><em>뿌리</em>를 단단히</h4>
-          <h4 data-en-block>Tighten the <em>roots</em></h4>
-          <p data-ko-block>정확한 인용, 측정 가능한 IR 품질, 출처 추적이 가능한 답변. 나무가 흔들려도 뿌리는 흔들리지 않게.</p>
-          <p data-en-block>Accurate citations, measurable IR quality, traceable provenance. The canopy may sway — the roots must not.</p>
-          <div class="gp-road-tags"><span class="gp-road-tag">Citation</span><span class="gp-road-tag">IR Eval</span><span class="gp-road-tag">Provenance</span></div>
+    <!-- Timeline -->
+    <div class="relative pt-14 pb-10">
+      <!-- Horizontal connector line (hidden on mobile) -->
+      <div class="absolute top-[50%] left-0 right-0 h-px bg-[var(--rule)] -translate-y-1/2 hidden md:block"></div>
+
+      <div class="relative grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Now · Verify -->
+        <article class="relative bg-[var(--paper)] border border-[var(--rule)] p-6">
+          <div class="absolute -top-[7px] left-6 w-3 h-3 rounded-full bg-[var(--moss)] border border-[var(--moss)]"></div>
+          <div class="font-[var(--mono)] text-[10.5px] tracking-[.25em] text-[var(--moss)] uppercase">Now &middot; Verify</div>
+          <h4 class="font-[var(--display)] font-medium leading-[1.15] mt-2 mb-2.5 text-[var(--ink)]"
+              style="font-size:clamp(20px,2vw,26px)" data-ko-block><em class="italic text-[var(--moss)]">뿌리</em>를 단단히</h4>
+          <h4 class="font-[var(--display)] font-medium leading-[1.15] mt-2 mb-2.5 text-[var(--ink)]"
+              style="font-size:clamp(20px,2vw,26px)" data-en-block>Tighten the <em class="italic text-[var(--moss)]">roots</em></h4>
+          <p class="font-[var(--serif)] text-sm leading-[1.7] text-[var(--ink-2)] m-0 mb-3.5" data-ko-block>정확한 인용, 측정 가능한 IR 품질, 출처 추적이 가능한 답변. 나무가 흔들려도 뿌리는 흔들리지 않게.</p>
+          <p class="font-[var(--serif)] text-sm leading-[1.7] text-[var(--ink-2)] m-0 mb-3.5" data-en-block>Accurate citations, measurable IR quality, traceable provenance. The canopy may sway — the roots must not.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Citation</span>
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">IR Eval</span>
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Provenance</span>
+          </div>
         </article>
 
-        <article class="gp-road-step">
-          <div class="gp-road-stage">Next &middot; Expand</div>
-          <h4 data-ko-block><em>가지</em>를 사방으로</h4>
-          <h4 data-en-block>Branches in <em>every direction</em></h4>
-          <p data-ko-block>코드·이미지·표·음성까지 — 텍스트 너머의 잎사귀들을 같은 줄기에 매답니다. 멀티모달 RAG, 코드 그래프, 다이어그램 이해.</p>
-          <p data-en-block>Code, images, tables, audio — leaves beyond text, hung on the same stem. Multimodal RAG, code graph, diagram understanding.</p>
-          <div class="gp-road-tags"><span class="gp-road-tag">Multimodal</span><span class="gp-road-tag">Code Graph</span><span class="gp-road-tag">Diagrams</span></div>
+        <!-- Next · Expand -->
+        <article class="relative bg-[var(--paper)] border border-[var(--rule)] p-6">
+          <div class="absolute -top-[7px] left-6 w-3 h-3 rounded-full bg-[var(--paper)] border border-[var(--moss)]"></div>
+          <div class="font-[var(--mono)] text-[10.5px] tracking-[.25em] text-[var(--moss)] uppercase">Next &middot; Expand</div>
+          <h4 class="font-[var(--display)] font-medium leading-[1.15] mt-2 mb-2.5 text-[var(--ink)]"
+              style="font-size:clamp(20px,2vw,26px)" data-ko-block><em class="italic text-[var(--moss)]">가지</em>를 사방으로</h4>
+          <h4 class="font-[var(--display)] font-medium leading-[1.15] mt-2 mb-2.5 text-[var(--ink)]"
+              style="font-size:clamp(20px,2vw,26px)" data-en-block>Branches in <em class="italic text-[var(--moss)]">every direction</em></h4>
+          <p class="font-[var(--serif)] text-sm leading-[1.7] text-[var(--ink-2)] m-0 mb-3.5" data-ko-block>코드·이미지·표·음성까지 — 텍스트 너머의 잎사귀들을 같은 줄기에 매답니다. 멀티모달 RAG, 코드 그래프, 다이어그램 이해.</p>
+          <p class="font-[var(--serif)] text-sm leading-[1.7] text-[var(--ink-2)] m-0 mb-3.5" data-en-block>Code, images, tables, audio — leaves beyond text, hung on the same stem. Multimodal RAG, code graph, diagram understanding.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Multimodal</span>
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Code Graph</span>
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Diagrams</span>
+          </div>
         </article>
 
-        <article class="gp-road-step future">
-          <div class="gp-road-stage">Later &middot; Connect</div>
-          <h4 data-ko-block><em>숲</em>을 이루다</h4>
-          <h4 data-en-block>Become a <em>forest</em></h4>
-          <p data-ko-block>나무 한 그루가 아닌 숲. 부서·자회사·파트너 사이에서 지식이 안전하게 오가는 신경계로 진화합니다.</p>
-          <p data-en-block>Not one tree, but a forest. Knowledge flows safely between teams, subsidiaries, and partners — an organizational nervous system.</p>
-          <div class="gp-road-tags"><span class="gp-road-tag">Federation</span><span class="gp-road-tag">Agents</span><span class="gp-road-tag">Governance</span></div>
+        <!-- Later · Connect -->
+        <article class="relative bg-[var(--paper)] border border-[var(--rule)] border-dashed p-6">
+          <div class="absolute -top-[7px] left-6 w-3 h-3 rounded-full bg-[var(--paper)] border border-dashed border-[var(--moss)]"></div>
+          <div class="font-[var(--mono)] text-[10.5px] tracking-[.25em] text-[var(--moss)] uppercase">Later &middot; Connect</div>
+          <h4 class="font-[var(--display)] font-medium leading-[1.15] mt-2 mb-2.5 text-[var(--ink)]"
+              style="font-size:clamp(20px,2vw,26px)" data-ko-block><em class="italic text-[var(--moss)]">숲</em>을 이루다</h4>
+          <h4 class="font-[var(--display)] font-medium leading-[1.15] mt-2 mb-2.5 text-[var(--ink)]"
+              style="font-size:clamp(20px,2vw,26px)" data-en-block>Become a <em class="italic text-[var(--moss)]">forest</em></h4>
+          <p class="font-[var(--serif)] text-sm leading-[1.7] text-[var(--ink-2)] m-0 mb-3.5" data-ko-block>나무 한 그루가 아닌 숲. 부서·자회사·파트너 사이에서 지식이 안전하게 오가는 신경계로 진화합니다.</p>
+          <p class="font-[var(--serif)] text-sm leading-[1.7] text-[var(--ink-2)] m-0 mb-3.5" data-en-block>Not one tree, but a forest. Knowledge flows safely between teams, subsidiaries, and partners — an organizational nervous system.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Federation</span>
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Agents</span>
+            <span class="font-[var(--mono)] text-[10.5px] text-[var(--bark-2)] border border-[var(--rule)] px-2 py-0.5 rounded-full">Governance</span>
+          </div>
         </article>
+
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .gp-roadmap{background:var(--paper);padding:100px 0}
-  .gp-road-track{position:relative;margin-top:24px;padding:60px 0 40px}
-  .gp-road-line{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--rule);transform:translateY(-50%)}
-  .gp-road-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-  @media(max-width:760px){.gp-road-grid{grid-template-columns:1fr;gap:24px}.gp-road-line{display:none}}
-  .gp-road-step{background:var(--paper);padding:24px;border:1px solid var(--rule);position:relative}
-  .gp-road-step::before{content:"";position:absolute;top:-7px;left:24px;width:12px;height:12px;background:var(--paper);border:1px solid var(--moss);border-radius:50%}
-  .gp-road-step.cur::before{background:var(--moss)}
-  .gp-road-step.future::before{border-style:dashed}
-  .gp-road-stage{font-family:var(--mono);font-size:10.5px;letter-spacing:.25em;color:var(--moss);text-transform:uppercase}
-  .gp-road-step h4{font-family:var(--display);font-weight:500;font-size:26px;margin:8px 0 10px;line-height:1.15}
-  .gp-road-step h4 em{font-style:italic;color:var(--moss)}
-  .gp-road-step p{font-family:var(--serif);font-size:14px;line-height:1.7;color:var(--ink-2);margin:0 0 14px}
-  .gp-road-tags{display:flex;gap:6px;flex-wrap:wrap}
-  .gp-road-tag{font-family:var(--mono);font-size:10.5px;color:var(--bark-2);border:1px solid var(--rule);padding:3px 8px;border-radius:999px}
-</style>

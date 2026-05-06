@@ -1,58 +1,69 @@
-<footer class="gp-footer">
-  <div class="gp-wrap">
-    <div class="gp-foot-grid">
+<footer class="gp-footer relative z-[2] pt-20 pb-10 md:pt-20 md:pb-10"
+        style="background:var(--ink);color:var(--paper)">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-12">
+
+    <!-- 3-column grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr] gap-10">
+
+      <!-- Brand -->
       <div>
-        <div class="gp-foot-brand">
-          <svg class="gp-brand-mark" viewBox="0 0 32 32" fill="none" style="width:28px;height:28px">
+        <div class="flex items-center gap-3 font-[var(--display)] text-[22px] font-medium"
+             style="color:var(--paper)">
+          <svg viewBox="0 0 32 32" fill="none" class="w-7 h-7 shrink-0">
             <path d="M16 3 L16 29" stroke="#c5d99a" stroke-width="1.2"/>
-            <path d="M16 9 Q9 12 7 19 M16 9 Q23 12 25 19 M16 16 Q11 19 9 25 M16 16 Q21 19 23 25" stroke="#c5d99a" stroke-width="0.9" fill="none"/>
+            <path d="M16 9 Q9 12 7 19 M16 9 Q23 12 25 19 M16 16 Q11 19 9 25 M16 16 Q21 19 23 25"
+                  stroke="#c5d99a" stroke-width="0.9" fill="none"/>
             <circle cx="16" cy="3" r="2" fill="#c5d99a"/>
-            <circle cx="7" cy="19" r="1.4" fill="#7a9a4a"/><circle cx="25" cy="19" r="1.4" fill="#7a9a4a"/>
-            <circle cx="9" cy="25" r="1.2" fill="#7a9a4a"/><circle cx="23" cy="25" r="1.2" fill="#7a9a4a"/>
+            <circle cx="7"  cy="19" r="1.4" fill="#7a9a4a"/>
+            <circle cx="25" cy="19" r="1.4" fill="#7a9a4a"/>
+            <circle cx="9"  cy="25" r="1.2" fill="#7a9a4a"/>
+            <circle cx="23" cy="25" r="1.2" fill="#7a9a4a"/>
           </svg>
           <span>Gopedia</span>
         </div>
-        <p class="gp-foot-tag" data-ko-block>한 그루의 세계수 아래에서,<br/>모든 답은 어디서 왔는지를 안다.</p>
-        <p class="gp-foot-tag" data-en-block>Beneath one World Tree,<br/>every answer knows where it grew.</p>
+        <p class="font-[var(--display)] italic leading-[1.4] mt-4 max-w-[360px]"
+           style="font-size:clamp(16px,2vw,22px);color:color-mix(in srgb,var(--paper) 85%,transparent)"
+           data-ko-block>한 그루의 세계수 아래에서,<br/>모든 답은 어디서 왔는지를 안다.</p>
+        <p class="font-[var(--display)] italic leading-[1.4] mt-4 max-w-[360px]"
+           style="font-size:clamp(16px,2vw,22px);color:color-mix(in srgb,var(--paper) 85%,transparent)"
+           data-en-block>Beneath one World Tree,<br/>every answer knows where it grew.</p>
       </div>
 
+      <!-- Product links -->
       <div>
-        <h5 data-ko-block>제품</h5><h5 data-en-block>Product</h5>
-        <ul>
-          <li><a href="#values"><span data-ko-block>철학</span><span data-en-block>Philosophy</span></a></li>
-          <li><a href="#scenarios"><span data-ko-block>시나리오</span><span data-en-block>Scenarios</span></a></li>
-          <li><a href="#quality"><span data-ko-block>품질 지표</span><span data-en-block>Quality</span></a></li>
-          <li><a href="#roadmap"><span data-ko-block>로드맵</span><span data-en-block>Roadmap</span></a></li>
+        <h5 class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase font-medium mb-4"
+            style="color:color-mix(in srgb,var(--paper) 50%,transparent)" data-ko-block>제품</h5>
+        <h5 class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase font-medium mb-4"
+            style="color:color-mix(in srgb,var(--paper) 50%,transparent)" data-en-block>Product</h5>
+        <ul class="list-none p-0 m-0 font-[var(--serif)] text-[15px] leading-[1.9]"
+            style="color:color-mix(in srgb,var(--paper) 85%,transparent)">
+          <li><a href="#values"    class="no-underline hover:opacity-70 transition-opacity"><span data-ko-block>철학</span><span data-en-block>Philosophy</span></a></li>
+          <li><a href="#scenarios" class="no-underline hover:opacity-70 transition-opacity"><span data-ko-block>시나리오</span><span data-en-block>Scenarios</span></a></li>
+          <li><a href="#quality"   class="no-underline hover:opacity-70 transition-opacity"><span data-ko-block>품질 지표</span><span data-en-block>Quality</span></a></li>
+          <li><a href="#roadmap"   class="no-underline hover:opacity-70 transition-opacity"><span data-ko-block>로드맵</span><span data-en-block>Roadmap</span></a></li>
         </ul>
       </div>
 
+      <!-- Get started -->
       <div>
-        <h5 data-ko-block>시작하기</h5><h5 data-en-block>Get started</h5>
-        <ul>
-          <li><a href="https://toji.homes"><span data-ko-block>TOJI 홈</span><span data-en-block>TOJI Home</span></a></li>
-          <li><a href="https://github.com/tojiuni/gopedia">GitHub</a></li>
+        <h5 class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase font-medium mb-4"
+            style="color:color-mix(in srgb,var(--paper) 50%,transparent)" data-ko-block>시작하기</h5>
+        <h5 class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase font-medium mb-4"
+            style="color:color-mix(in srgb,var(--paper) 50%,transparent)" data-en-block>Get started</h5>
+        <ul class="list-none p-0 m-0 font-[var(--serif)] text-[15px] leading-[1.9]"
+            style="color:color-mix(in srgb,var(--paper) 85%,transparent)">
+          <li><a href="https://toji.homes" class="no-underline hover:opacity-70 transition-opacity"><span data-ko-block>TOJI 홈</span><span data-en-block>TOJI Home</span></a></li>
+          <li><a href="https://github.com/tojiuni/gopedia" class="no-underline hover:opacity-70 transition-opacity">GitHub</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="gp-foot-bot">
+    <!-- Bottom bar -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mt-14 pt-6 font-[var(--mono)] text-[11px] tracking-[.08em]"
+         style="border-top:1px solid color-mix(in srgb,var(--paper) 12%,transparent);color:color-mix(in srgb,var(--paper) 50%,transparent)">
       <span>&copy; 2025 GOPEDIA</span>
       <span data-ko-block>세계수 아래 &mdash; 서울 &middot; 도쿄 &middot; 싱가포르</span>
       <span data-en-block>under the world tree &mdash; seoul &middot; tokyo &middot; singapore</span>
     </div>
   </div>
 </footer>
-
-<style>
-  .gp-footer{background:var(--ink);color:var(--paper);padding:80px 0 40px}
-  .gp-foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
-  @media(max-width:760px){.gp-foot-grid{grid-template-columns:1fr}}
-  .gp-foot-brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:22px;font-weight:500;color:var(--paper)}
-  .gp-footer h5{font-family:var(--sans);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 50%,transparent);font-weight:500;margin:0 0 16px}
-  .gp-footer ul{list-style:none;padding:0;margin:0;font-family:var(--serif);font-size:15px;line-height:1.9;color:color-mix(in srgb,var(--paper) 85%,transparent)}
-  .gp-footer ul a{text-decoration:none}
-  .gp-footer ul a:hover{color:var(--leaf,#c5d99a)}
-  .gp-foot-tag{font-family:var(--display);font-style:italic;font-size:22px;line-height:1.4;color:color-mix(in srgb,var(--paper) 85%,transparent);max-width:360px;margin-top:16px}
-  .gp-foot-bot{margin-top:60px;padding-top:24px;border-top:1px solid color-mix(in srgb,var(--paper) 12%,transparent);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:color-mix(in srgb,var(--paper) 50%,transparent);letter-spacing:.08em;flex-wrap:wrap;gap:8px}
-  @media(max-width:480px){.gp-foot-bot{flex-direction:column;align-items:flex-start}}
-</style>
