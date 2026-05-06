@@ -191,12 +191,11 @@ const l = labels[locale];
       </g>
     </svg>
 
-    <!-- Phase legend — bilingual for JS lang toggle -->
     <div class="phase-legend" id="phase-legend" aria-hidden="true">
-      <span data-phase="1"><i></i><span data-ko-block>Root &middot; 입력</span><span data-en-block>Root &middot; Insert</span></span>
-      <span data-phase="2"><i></i><span data-ko-block>Phloem &middot; 적재</span><span data-en-block>Phloem &middot; Ingest</span></span>
-      <span data-phase="3"><i></i><span data-ko-block>Xylem &middot; 활용</span><span data-en-block>Xylem &middot; Use</span></span>
-      <span data-phase="4"><i></i><span data-ko-block>Fruit &middot; 산출</span><span data-en-block>Fruit &middot; Output</span></span>
+      <span data-phase="1"><i></i>Root &middot; Insert</span>
+      <span data-phase="2"><i></i>Phloem &middot; Ingest</span>
+      <span data-phase="3"><i></i>Xylem &middot; RAG</span>
+      <span data-phase="4"><i></i>Fruit &middot; Output</span>
     </div>
   </div>
 </div>
@@ -239,10 +238,10 @@ const l = labels[locale];
   .petal{fill:var(--bloom,#c45a3a);opacity:0;animation:petal 12s linear infinite}
   @keyframes petal{0%,85%{opacity:0;transform:translate(0,0) rotate(0)}88%{opacity:.8}100%{opacity:0;transform:translate(var(--px,0),80px) rotate(180deg)}}
 
-  .phase-legend{position:absolute;left:0;right:0;bottom:-2.5rem;display:flex;justify-content:center;gap:1.25rem;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2,#3a4234);opacity:.7}
-  .phase-legend span{display:inline-flex;align-items:center;gap:6px;opacity:.45;transition:opacity .4s ease,color .4s ease}
-  .phase-legend span i{width:7px;height:7px;border-radius:50%;background:var(--moss,#3a5a3a);display:inline-block}
-  .phase-legend span.on{opacity:1;color:var(--moss,#3a5a3a)}
+  .phase-legend{position:absolute;left:0;right:0;bottom:-2.5rem;display:flex;justify-content:center;gap:1.25rem;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss,#3a5a3a)}
+  .phase-legend [data-phase]{display:inline-flex;align-items:center;gap:6px;opacity:.55;transition:opacity .4s ease,color .4s ease}
+  .phase-legend [data-phase] i{width:7px;height:7px;border-radius:50%;background:var(--moss,#3a5a3a);display:inline-block}
+  .phase-legend [data-phase].on{opacity:1;color:var(--moss,#3a5a3a);font-weight:500}
 
   @media(max-width:640px){.ink-tree{max-width:340px}.phase-legend{gap:8px;font-size:9px;bottom:-2rem}}
 </style>
