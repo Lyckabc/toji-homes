@@ -1,0 +1,88 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'Gopedia — 세계수에서 자라는 지식', description = '엔터프라이즈 지식 그래프 플랫폼. 온톨로지 + RAG 기반 데이터 관리.' } = Astro.props;
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" />
+</head>
+<body data-lang="ko">
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  :root{
+    --paper:#f4f1ea;--paper-2:#ede8db;--paper-3:#e3dccb;
+    --ink:#1f2418;--ink-2:#3a4234;
+    --moss:#3a5a3a;--moss-2:#5a7a4a;--leaf:#7a9a4a;
+    --bark:#6b4a2a;--bark-2:#8a6a3a;
+    --bloom:#c45a3a;--gold:#b8923a;
+    --rule:rgba(31,36,24,.18);--rule-2:rgba(31,36,24,.10);
+    --serif:"Noto Serif KR","Cormorant Garamond",serif;
+    --display:"Cormorant Garamond","Noto Serif KR",serif;
+    --sans:"Noto Sans KR",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-weight:400;line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    transition:background .5s ease,color .5s ease;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background-image:
+      radial-gradient(rgba(60,50,30,.04) 1px,transparent 1px),
+      radial-gradient(rgba(60,50,30,.025) 1px,transparent 1px);
+    background-size:3px 3px,7px 7px;background-position:0 0,1px 2px;
+    mix-blend-mode:multiply;z-index:1;
+  }
+  a{color:inherit}
+  ::selection{background:var(--moss);color:var(--paper)}
+  .gp-wrap{max-width:1280px;margin:0 auto;padding:0 48px;position:relative;z-index:2}
+  @media(max-width:720px){.gp-wrap{padding:0 24px}}
+
+  /* Bilingual toggle */
+  [data-en-block],[data-ko-block]{display:block}
+  body[data-lang="ko"] [data-en-block]{display:none}
+  body[data-lang="en"] [data-ko-block]{display:none}
+
+  /* Section chrome */
+  .gp-section{position:relative;padding:100px 0}
+  .gp-section-head{
+    display:grid;grid-template-columns:1fr 2fr;gap:60px;
+    margin-bottom:64px;align-items:end;
+  }
+  @media(max-width:880px){.gp-section-head{grid-template-columns:1fr;gap:24px}}
+  .gp-section-num{
+    font-family:var(--mono);font-size:11px;
+    letter-spacing:.3em;color:var(--moss);text-transform:uppercase;
+  }
+  .gp-section-title{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(34px,3.8vw,56px);line-height:1.05;
+    letter-spacing:-0.01em;margin:12px 0 0;
+  }
+  .gp-section-title em{font-style:italic;color:var(--moss)}
+  .gp-section-sub{
+    font-family:var(--serif);font-size:16px;line-height:1.7;
+    color:var(--ink-2);max-width:560px;
+  }
+</style>

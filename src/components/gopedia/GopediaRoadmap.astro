@@ -1,0 +1,63 @@
+<section id="roadmap" class="gp-roadmap">
+  <div class="gp-wrap">
+    <div class="gp-section-head">
+      <div>
+        <div class="gp-section-num">IV &middot; Roadmap</div>
+        <h2 class="gp-section-title" data-ko-block>나무는 계속<br/>자라납니다</h2>
+        <h2 class="gp-section-title" data-en-block>The tree keeps<br/>growing</h2>
+      </div>
+      <p class="gp-section-sub" data-ko-block>검증(Verify) &rarr; 확장(Expand) &rarr; 연결(Connect) — 세 계절을 거쳐 Gopedia는 한 그루의 나무에서 한 조직의 신경계로 자랍니다.</p>
+      <p class="gp-section-sub" data-en-block>Verify &rarr; Expand &rarr; Connect — across three seasons, Gopedia grows from a single tree into the nervous system of an entire organization.</p>
+    </div>
+
+    <div class="gp-road-track">
+      <div class="gp-road-line"></div>
+      <div class="gp-road-grid">
+        <article class="gp-road-step cur">
+          <div class="gp-road-stage">Now &middot; Verify</div>
+          <h4 data-ko-block><em>뿌리</em>를 단단히</h4>
+          <h4 data-en-block>Tighten the <em>roots</em></h4>
+          <p data-ko-block>정확한 인용, 측정 가능한 IR 품질, 출처 추적이 가능한 답변. 나무가 흔들려도 뿌리는 흔들리지 않게.</p>
+          <p data-en-block>Accurate citations, measurable IR quality, traceable provenance. The canopy may sway — the roots must not.</p>
+          <div class="gp-road-tags"><span class="gp-road-tag">Citation</span><span class="gp-road-tag">IR Eval</span><span class="gp-road-tag">Provenance</span></div>
+        </article>
+
+        <article class="gp-road-step">
+          <div class="gp-road-stage">Next &middot; Expand</div>
+          <h4 data-ko-block><em>가지</em>를 사방으로</h4>
+          <h4 data-en-block>Branches in <em>every direction</em></h4>
+          <p data-ko-block>코드·이미지·표·음성까지 — 텍스트 너머의 잎사귀들을 같은 줄기에 매답니다. 멀티모달 RAG, 코드 그래프, 다이어그램 이해.</p>
+          <p data-en-block>Code, images, tables, audio — leaves beyond text, hung on the same stem. Multimodal RAG, code graph, diagram understanding.</p>
+          <div class="gp-road-tags"><span class="gp-road-tag">Multimodal</span><span class="gp-road-tag">Code Graph</span><span class="gp-road-tag">Diagrams</span></div>
+        </article>
+
+        <article class="gp-road-step future">
+          <div class="gp-road-stage">Later &middot; Connect</div>
+          <h4 data-ko-block><em>숲</em>을 이루다</h4>
+          <h4 data-en-block>Become a <em>forest</em></h4>
+          <p data-ko-block>나무 한 그루가 아닌 숲. 부서·자회사·파트너 사이에서 지식이 안전하게 오가는 신경계로 진화합니다.</p>
+          <p data-en-block>Not one tree, but a forest. Knowledge flows safely between teams, subsidiaries, and partners — an organizational nervous system.</p>
+          <div class="gp-road-tags"><span class="gp-road-tag">Federation</span><span class="gp-road-tag">Agents</span><span class="gp-road-tag">Governance</span></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gp-roadmap{background:var(--paper);padding:100px 0}
+  .gp-road-track{position:relative;margin-top:24px;padding:60px 0 40px}
+  .gp-road-line{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--rule);transform:translateY(-50%)}
+  .gp-road-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  @media(max-width:760px){.gp-road-grid{grid-template-columns:1fr;gap:24px}.gp-road-line{display:none}}
+  .gp-road-step{background:var(--paper);padding:24px;border:1px solid var(--rule);position:relative}
+  .gp-road-step::before{content:"";position:absolute;top:-7px;left:24px;width:12px;height:12px;background:var(--paper);border:1px solid var(--moss);border-radius:50%}
+  .gp-road-step.cur::before{background:var(--moss)}
+  .gp-road-step.future::before{border-style:dashed}
+  .gp-road-stage{font-family:var(--mono);font-size:10.5px;letter-spacing:.25em;color:var(--moss);text-transform:uppercase}
+  .gp-road-step h4{font-family:var(--display);font-weight:500;font-size:26px;margin:8px 0 10px;line-height:1.15}
+  .gp-road-step h4 em{font-style:italic;color:var(--moss)}
+  .gp-road-step p{font-family:var(--serif);font-size:14px;line-height:1.7;color:var(--ink-2);margin:0 0 14px}
+  .gp-road-tags{display:flex;gap:6px;flex-wrap:wrap}
+  .gp-road-tag{font-family:var(--mono);font-size:10.5px;color:var(--bark-2);border:1px solid var(--rule);padding:3px 8px;border-radius:999px}
+</style>

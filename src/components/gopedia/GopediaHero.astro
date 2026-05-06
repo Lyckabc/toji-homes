@@ -1,0 +1,87 @@
+---
+import GopediaWorldTree from '../projects/GopediaWorldTree.astro';
+---
+
+<header class="gp-hero">
+  <div class="gp-wrap gp-hero-grid">
+    <div>
+      <span class="gp-eyebrow">
+        <span data-ko-block>지식의 세계수</span>
+        <span data-en-block>The World Tree of Knowledge</span>
+      </span>
+      <h1 class="gp-hero-title" data-ko-block>
+        흩어진 문서가<br/>
+        한 그루의 <em>나무</em>로<br/>
+        자라납니다.
+      </h1>
+      <h1 class="gp-hero-title" data-en-block>
+        Scattered docs<br/>
+        grow into a single<br/>
+        living <em>tree</em>.
+      </h1>
+      <p class="gp-hero-lede" data-ko-block>
+        <strong>Gopedia</strong>는 조직의 모든 지식을 하나의 세계수로 엮어내는 RAG 플랫폼입니다.
+        뿌리에서 줄기로, 줄기에서 가지로 — 문서·코드·대화가 의미의 결을 따라 연결되고,
+        필요한 순간 잎과 열매처럼 답변이 맺힙니다.
+      </p>
+      <p class="gp-hero-lede" data-en-block>
+        <strong>Gopedia</strong> weaves your organization's knowledge into a single World Tree.
+        From root to stem to canopy, documents, code, and conversations connect along the grain of meaning —
+        and answers ripen like leaves and fruit, exactly when you reach for them.
+      </p>
+      <div class="gp-hero-cta">
+        <a class="gp-btn gp-btn-primary" href="#scenarios">
+          <span data-ko-block>시나리오 보기</span>
+          <span data-en-block>See it in action</span>
+          <span class="gp-arrow">&rarr;</span>
+        </a>
+        <a class="gp-btn gp-btn-ghost" href="#values">
+          <span data-ko-block>설계 철학</span>
+          <span data-en-block>Design philosophy</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gp-tree-stage">
+      <GopediaWorldTree locale="ko" />
+    </div>
+  </div>
+</header>
+
+<style>
+  .gp-hero{position:relative;padding:80px 0 160px;overflow:hidden}
+  .gp-hero-grid{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;
+  }
+  @media(max-width:980px){.gp-hero-grid{grid-template-columns:1fr}}
+  .gp-eyebrow{
+    font-family:var(--sans);font-size:11px;letter-spacing:.35em;
+    text-transform:uppercase;color:var(--moss);
+    display:inline-flex;align-items:center;gap:12px;
+  }
+  .gp-eyebrow::before{content:"";width:28px;height:1px;background:var(--moss);display:inline-block}
+  .gp-hero-title{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(44px,5.6vw,84px);line-height:1.02;
+    letter-spacing:-0.01em;margin:22px 0 28px;color:var(--ink);
+  }
+  .gp-hero-title em{font-style:italic;color:var(--moss);font-family:var(--display)}
+  .gp-hero-lede{
+    font-family:var(--serif);font-size:17px;line-height:1.7;
+    max-width:520px;color:var(--ink-2);
+  }
+  .gp-hero-cta{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap}
+  .gp-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.06em;
+    padding:14px 22px;text-decoration:none;border-radius:2px;
+    transition:transform .2s ease,background .2s ease;
+  }
+  .gp-btn-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+  .gp-btn-primary:hover{background:var(--moss);border-color:var(--moss)}
+  .gp-btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+  .gp-btn-ghost:hover{border-color:var(--ink)}
+  .gp-arrow{display:inline-block;transition:transform .25s ease}
+  .gp-btn:hover .gp-arrow{transform:translateX(4px)}
+  .gp-tree-stage{position:relative;width:100%;max-width:560px;margin-left:auto}
+</style>

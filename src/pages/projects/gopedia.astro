@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import GopediaWorldTree from '../../components/projects/GopediaWorldTree.astro';
 import { gopediaCopy, seo, ui, MAILTO } from '../../content/siteContent';
 import { normalizePathname } from '../../lib/i18n';
 
@@ -30,6 +31,8 @@ const pathname = normalizePathname(Astro.url.pathname);
             {t.projects.repository} ↗
           </a>
         </header>
+
+        <GopediaWorldTree locale="en" />
 
         <section class="mb-10">
           <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t.projects.coreFeatures}</h2>

@@ -1,0 +1,277 @@
+---
+/**
+ * GopediaWorldTree — 수묵화(ink-wash painting) style World Tree SVG
+ * Original design from reference HTML.
+ * 12-second 4-phase cycle:
+ *   0–3s  Root insert   3–6s  Phloem down-flow
+ *   6–9s  Xylem up-flow 9–12s Fruit / flower bloom
+ */
+interface Props { locale?: 'ko' | 'en'; }
+const { locale = 'en' } = Astro.props;
+const labels = {
+  ko: { root: 'Root · 입력', phloem: 'Phloem · 적재', xylem: 'Xylem · 활용', fruit: 'Fruit · 산출' },
+  en: { root: 'Root · Insert', phloem: 'Phloem · Ingest', xylem: 'Xylem · Use', fruit: 'Fruit · Output' },
+};
+const l = labels[locale];
+---
+
+<div class="ink-tree-wrap">
+  <div class="ink-tree">
+    <svg viewBox="0 0 560 640" id="worldtree" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <filter id="brush" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6"/>
+        </filter>
+        <filter id="wash" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3"/>
+        </filter>
+        <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#1f2418" stop-opacity=".06"/>
+          <stop offset="100%" stop-color="#1f2418" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Distant moon -->
+      <circle cx="430" cy="120" r="60" fill="url(#moon)"/>
+
+      <!-- Soft ink wash blots (수묵 번짐) -->
+      <g class="ink-wash">
+        <ellipse class="ink-splat" cx="280" cy="200" rx="170" ry="110" fill="#1f2418" opacity=".18"/>
+        <ellipse class="ink-splat" cx="220" cy="170" rx="80" ry="50" fill="#1f2418" opacity=".22" style="animation-delay:1.6s"/>
+        <ellipse class="ink-splat" cx="340" cy="180" rx="70" ry="45" fill="#1f2418" opacity=".22" style="animation-delay:1.8s"/>
+        <ellipse class="ink-splat" cx="280" cy="540" rx="180" ry="14" fill="#1f2418" opacity=".15" style="animation-delay:1.2s"/>
+      </g>
+
+      <!-- Roots -->
+      <g filter="url(#brush)">
+        <path class="ink-stroke s-1" d="M 280 540 C 260 555, 220 562, 170 568 C 130 572, 95 575, 60 590" stroke-width="2.4"/>
+        <path class="ink-stroke s-1" d="M 280 540 C 300 555, 340 562, 390 568 C 430 572, 465 575, 500 590" stroke-width="2.4"/>
+        <path class="ink-stroke s-2" d="M 280 540 C 270 565, 245 580, 210 600" stroke-width="1.6" opacity=".75"/>
+        <path class="ink-stroke s-2" d="M 280 540 C 290 565, 315 580, 350 600" stroke-width="1.6" opacity=".75"/>
+        <path class="ink-stroke s-2" d="M 280 540 L 280 612" stroke-width="1.4" opacity=".7"/>
+        <path class="ink-stroke s-2" d="M 170 568 C 150 580, 130 595, 110 615" stroke-width="1.2" opacity=".55"/>
+        <path class="ink-stroke s-2" d="M 390 568 C 410 580, 430 595, 450 615" stroke-width="1.2" opacity=".55"/>
+      </g>
+
+      <!-- Trunk -->
+      <g filter="url(#brush)">
+        <path class="ink-stroke s-1 trunk-main" d="M 280 540 C 278 460, 282 380, 280 300 L 280 200" stroke-width="5"/>
+      </g>
+
+      <!-- Major branches + crown -->
+      <g class="crown-sway" filter="url(#brush)">
+        <path class="ink-stroke s-3" d="M 280 300 C 240 280, 200 260, 150 230 C 130 220, 110 210, 90 195" stroke-width="2.6"/>
+        <path class="ink-stroke s-3" d="M 280 300 C 320 280, 360 260, 410 230 C 430 220, 450 210, 470 195" stroke-width="2.6"/>
+        <path class="ink-stroke s-4" d="M 280 250 C 250 230, 220 215, 180 195 C 160 185, 145 175, 130 160" stroke-width="1.8"/>
+        <path class="ink-stroke s-4" d="M 280 250 C 310 230, 340 215, 380 195 C 400 185, 415 175, 430 160" stroke-width="1.8"/>
+        <path class="ink-stroke s-5" d="M 280 200 C 260 180, 240 160, 220 130 C 210 115, 200 105, 190 90" stroke-width="1.4"/>
+        <path class="ink-stroke s-5" d="M 280 200 C 300 180, 320 160, 340 130 C 350 115, 360 105, 370 90" stroke-width="1.4"/>
+        <path class="ink-stroke s-5" d="M 280 200 C 280 170, 280 140, 280 110 C 280 90, 280 75, 280 60" stroke-width="1.4"/>
+
+        <!-- Twigs -->
+        <path class="ink-stroke s-6" d="M 150 230 C 130 225, 115 228, 100 235" stroke-width=".9" opacity=".75"/>
+        <path class="ink-stroke s-6" d="M 410 230 C 430 225, 445 228, 460 235" stroke-width=".9" opacity=".75"/>
+        <path class="ink-stroke s-6" d="M 220 130 C 215 120, 208 115, 200 110" stroke-width=".9" opacity=".75"/>
+        <path class="ink-stroke s-6" d="M 340 130 C 345 120, 352 115, 360 110" stroke-width=".9" opacity=".75"/>
+        <path class="ink-stroke s-6" d="M 180 195 C 168 188, 160 185, 150 184" stroke-width=".8" opacity=".7"/>
+        <path class="ink-stroke s-6" d="M 380 195 C 392 188, 400 185, 410 184" stroke-width=".8" opacity=".7"/>
+
+        <!-- Phase 3: ink leaves -->
+        <g>
+          <ellipse class="ink-leaf" cx="90" cy="195" rx="9" ry="5" fill="#3a5a3a" opacity=".85" transform="rotate(-30 90 195)" style="animation-delay:0s"/>
+          <ellipse class="ink-leaf" cx="470" cy="195" rx="9" ry="5" fill="#3a5a3a" opacity=".85" transform="rotate(30 470 195)" style="animation-delay:0s"/>
+          <ellipse class="ink-leaf" cx="130" cy="160" rx="8" ry="4.5" fill="#3a5a3a" opacity=".85" transform="rotate(-25 130 160)" style="animation-delay:.15s"/>
+          <ellipse class="ink-leaf" cx="430" cy="160" rx="8" ry="4.5" fill="#3a5a3a" opacity=".85" transform="rotate(25 430 160)" style="animation-delay:.15s"/>
+          <ellipse class="ink-leaf" cx="190" cy="90" rx="7" ry="4" fill="#3a5a3a" opacity=".85" transform="rotate(-20 190 90)" style="animation-delay:.25s"/>
+          <ellipse class="ink-leaf" cx="370" cy="90" rx="7" ry="4" fill="#3a5a3a" opacity=".85" transform="rotate(20 370 90)" style="animation-delay:.25s"/>
+          <ellipse class="ink-leaf" cx="100" cy="235" rx="6" ry="3" fill="#3a5a3a" opacity=".75" transform="rotate(-35 100 235)" style="animation-delay:.3s"/>
+          <ellipse class="ink-leaf" cx="460" cy="235" rx="6" ry="3" fill="#3a5a3a" opacity=".75" transform="rotate(35 460 235)" style="animation-delay:.3s"/>
+          <ellipse class="ink-leaf" cx="200" cy="110" rx="5" ry="2.5" fill="#3a5a3a" opacity=".75" transform="rotate(-15 200 110)" style="animation-delay:.35s"/>
+          <ellipse class="ink-leaf" cx="360" cy="110" rx="5" ry="2.5" fill="#3a5a3a" opacity=".75" transform="rotate(15 360 110)" style="animation-delay:.35s"/>
+          <ellipse class="ink-leaf" cx="160" cy="180" rx="6" ry="3" fill="#3a5a3a" opacity=".75" transform="rotate(-30 160 180)" style="animation-delay:.4s"/>
+          <ellipse class="ink-leaf" cx="400" cy="180" rx="6" ry="3" fill="#3a5a3a" opacity=".75" transform="rotate(30 400 180)" style="animation-delay:.4s"/>
+          <ellipse class="ink-leaf" cx="240" cy="150" rx="5" ry="2.5" fill="#3a5a3a" opacity=".75" transform="rotate(-20 240 150)" style="animation-delay:.45s"/>
+          <ellipse class="ink-leaf" cx="320" cy="150" rx="5" ry="2.5" fill="#3a5a3a" opacity=".75" transform="rotate(20 320 150)" style="animation-delay:.45s"/>
+          <ellipse class="ink-leaf" cx="280" cy="78" rx="6" ry="3" fill="#3a5a3a" opacity=".85" style="animation-delay:.5s"/>
+        </g>
+
+        <!-- Phase 4: fruits / flowers -->
+        <g>
+          <circle class="ink-fruit" data-color="bloom" cx="280" cy="60" r="6" fill="#c45a3a" style="animation-delay:0s"/>
+          <circle class="ink-fruit" data-color="ink" cx="280" cy="60" r="2.4" fill="#1f2418" opacity=".6" style="animation-delay:0s"/>
+          <circle class="ink-fruit" data-color="bloom" cx="220" cy="92" r="4.5" fill="#c45a3a" style="animation-delay:.1s"/>
+          <circle class="ink-fruit" data-color="bloom" cx="340" cy="92" r="4.5" fill="#c45a3a" style="animation-delay:.1s"/>
+          <circle class="ink-fruit" data-color="gold" cx="130" cy="160" r="4" fill="#b8923a" style="animation-delay:.2s"/>
+          <circle class="ink-fruit" data-color="gold" cx="430" cy="160" r="4" fill="#b8923a" style="animation-delay:.2s"/>
+
+          <!-- 5-petal plum-blossom flowers (수묵 매화) -->
+          <g class="ink-fruit ink-flower" style="animation-delay:.15s; transform-origin: 90px 195px;">
+            <circle data-color="bloom" cx="86" cy="190" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="94" cy="190" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="86" cy="198" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="94" cy="198" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="90" cy="194" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="gold" cx="90" cy="194" r="1" fill="#b8923a"/>
+          </g>
+          <g class="ink-fruit ink-flower" style="animation-delay:.15s; transform-origin: 470px 195px;">
+            <circle data-color="bloom" cx="466" cy="190" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="474" cy="190" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="466" cy="198" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="474" cy="198" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="bloom" cx="470" cy="194" r="2.6" fill="#c45a3a" opacity=".85"/>
+            <circle data-color="gold" cx="470" cy="194" r="1" fill="#b8923a"/>
+          </g>
+          <g class="ink-fruit ink-flower" style="animation-delay:.3s; transform-origin: 190px 90px;">
+            <circle data-color="bloom" cx="186" cy="86" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="194" cy="86" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="186" cy="94" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="194" cy="94" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="190" cy="90" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="gold" cx="190" cy="90" r=".9" fill="#b8923a"/>
+          </g>
+          <g class="ink-fruit ink-flower" style="animation-delay:.3s; transform-origin: 370px 90px;">
+            <circle data-color="bloom" cx="366" cy="86" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="374" cy="86" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="366" cy="94" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="374" cy="94" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="bloom" cx="370" cy="90" r="2.2" fill="#c45a3a" opacity=".9"/>
+            <circle data-color="gold" cx="370" cy="90" r=".9" fill="#b8923a"/>
+          </g>
+        </g>
+
+        <!-- Falling petals -->
+        <circle class="petal" cx="240" cy="100" r="2" style="--px:-30px; animation-delay:0s"/>
+        <circle class="petal" cx="320" cy="120" r="2" style="--px:24px; animation-delay:.2s"/>
+        <circle class="petal" cx="180" cy="180" r="1.6" style="--px:-40px; animation-delay:.4s"/>
+        <circle class="petal" cx="380" cy="180" r="1.6" style="--px:36px; animation-delay:.6s"/>
+      </g>
+
+      <!-- Ground line -->
+      <line class="ink-stroke s-1" x1="40" y1="540" x2="520" y2="540" stroke-width=".6" stroke-dasharray="2 4" opacity=".4"/>
+
+      <!-- Phase 1: Data drops -->
+      <g>
+        <rect class="data-drop" x="138" y="556" width="14" height="3" rx="1.5" style="animation-delay:0s"/>
+        <rect class="data-drop" x="248" y="556" width="14" height="3" rx="1.5" style="animation-delay:.4s"/>
+        <rect class="data-drop" x="368" y="556" width="14" height="3" rx="1.5" style="animation-delay:.8s"/>
+        <rect class="data-drop" x="80" y="572" width="10" height="2.5" rx="1.2" style="animation-delay:1.2s"/>
+        <rect class="data-drop" x="450" y="572" width="10" height="2.5" rx="1.2" style="animation-delay:1.6s"/>
+        <rect class="data-drop" x="195" y="568" width="10" height="2.5" rx="1.2" style="animation-delay:2s"/>
+        <rect class="data-drop" x="335" y="568" width="10" height="2.5" rx="1.2" style="animation-delay:2.4s"/>
+      </g>
+
+      <!-- Phase 2: Phloem flow (downward) -->
+      <path class="phloem-flow" d="M 276 200 C 274 280, 278 360, 276 480 L 276 540" stroke-width="1.4"/>
+      <path class="phloem-flow" d="M 280 220 L 280 530" stroke-width="1.0" opacity=".7" style="animation-delay:.2s"/>
+
+      <!-- Phase 3: Xylem flow (upward) -->
+      <path class="xylem-flow" d="M 284 540 C 286 460, 282 380, 284 300 L 284 200" stroke-width="1.4"/>
+      <path class="xylem-flow" d="M 280 300 C 240 280, 200 260, 150 230 C 130 220, 110 210, 90 195" stroke-width="1.0" opacity=".8" style="animation-delay:.05s"/>
+      <path class="xylem-flow" d="M 280 300 C 320 280, 360 260, 410 230 C 430 220, 450 210, 470 195" stroke-width="1.0" opacity=".8" style="animation-delay:.05s"/>
+      <path class="xylem-flow" d="M 280 200 C 280 170, 280 140, 280 110 C 280 90, 280 75, 280 60" stroke-width="1.0" opacity=".8" style="animation-delay:.1s"/>
+
+      <!-- Xylem beads -->
+      <g>
+        <circle class="xylem-bead" cx="282" cy="540" r="2"><animate attributeName="cy" values="540;200" dur="3s" begin="6s" repeatCount="indefinite"/></circle>
+        <circle class="xylem-bead" cx="282" cy="540" r="1.8"><animate attributeName="cy" values="540;200" dur="3s" begin="6.5s" repeatCount="indefinite"/></circle>
+        <circle class="xylem-bead" cx="282" cy="540" r="1.6"><animate attributeName="cy" values="540;200" dur="3s" begin="7s" repeatCount="indefinite"/></circle>
+      </g>
+
+      <!-- Phase tags -->
+      <g class="phase-tag" font-family="var(--mono, 'JetBrains Mono'), monospace" font-size="9.5" fill="var(--moss, #3a5a3a)" letter-spacing="2">
+        <text x="40" y="80" opacity=".75">FRUIT &middot; FLOWER</text>
+        <text x="40" y="220" opacity=".75">LEAF &middot; USE</text>
+        <text x="40" y="380" opacity=".75">STEM &middot; FLOW</text>
+        <text x="40" y="600" opacity=".75">ROOT &middot; INSERT</text>
+      </g>
+      <g class="flow-tag" font-family="var(--mono, 'JetBrains Mono'), monospace" font-size="9" fill="var(--bloom, #c45a3a)" text-anchor="end" letter-spacing="2">
+        <text x="520" y="290" opacity=".85">&darr; phloem</text>
+        <text x="520" y="420" opacity=".85">&uarr; xylem</text>
+      </g>
+    </svg>
+
+    <div class="phase-legend" id="phase-legend" aria-hidden="true">
+      <span data-phase="1"><i></i>Root &middot; Insert</span>
+      <span data-phase="2"><i></i>Phloem &middot; Ingest</span>
+      <span data-phase="3"><i></i>Xylem &middot; RAG</span>
+      <span data-phase="4"><i></i>Fruit &middot; Output</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ink-tree-wrap{display:flex;justify-content:center;padding:1rem 0 3.5rem;color:var(--ink,#1f2418)}
+  .ink-tree{position:relative;width:100%;max-width:480px}
+  .ink-tree svg{width:100%;height:auto;display:block}
+
+  .ink-stroke{fill:none;stroke:var(--ink,#1f2418);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:inkDraw 2.6s ease-out forwards}
+  .ink-stroke.s-1{animation-delay:0s}.ink-stroke.s-2{animation-delay:.4s}.ink-stroke.s-3{animation-delay:.7s}
+  .ink-stroke.s-4{animation-delay:1s}.ink-stroke.s-5{animation-delay:1.3s}.ink-stroke.s-6{animation-delay:1.6s}
+  @keyframes inkDraw{0%{stroke-dashoffset:1200;opacity:0}20%{opacity:.9}100%{stroke-dashoffset:0;opacity:1}}
+
+  .ink-wash{filter:blur(6px);opacity:.35}
+  .ink-splat{opacity:0;animation:splat 1.6s ease-out forwards;animation-delay:1.4s}
+  @keyframes splat{0%{opacity:0;transform:scale(.6)}60%{opacity:.55}100%{opacity:.35;transform:scale(1)}}
+
+  @keyframes sway{0%,100%{transform:rotate(-.4deg)}50%{transform:rotate(.4deg)}}
+  .crown-sway{transform-origin:50% 80%;animation:sway 8s ease-in-out infinite}
+
+  .data-drop{fill:var(--moss,#3a5a3a);opacity:0;animation:dropIn 12s linear infinite}
+  @keyframes dropIn{0%{transform:translateY(-120px);opacity:0}4%{opacity:1}14%{transform:translateY(0);opacity:1}22%{transform:translateY(0);opacity:0}100%{transform:translateY(0);opacity:0}}
+
+  .phloem-flow{stroke:var(--bloom,#c45a3a);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-dasharray:4 10;opacity:0;animation:phloem 12s linear infinite}
+  @keyframes phloem{0%,22%{opacity:0;stroke-dashoffset:0}25%{opacity:.85}47%{opacity:.85;stroke-dashoffset:280}50%,100%{opacity:0}}
+
+  .xylem-flow{stroke:var(--moss,#3a5a3a);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-dasharray:4 10;opacity:0;animation:xylem 12s linear infinite}
+  @keyframes xylem{0%,47%{opacity:0;stroke-dashoffset:0}51%{opacity:.9}72%{opacity:.9;stroke-dashoffset:-280}75%,100%{opacity:0}}
+
+  .xylem-bead{fill:var(--moss,#3a5a3a);opacity:0;animation:bead 12s linear infinite}
+  @keyframes bead{0%,47%{opacity:0}50%{opacity:1}72%{opacity:1}75%,100%{opacity:0}}
+
+  .ink-leaf{opacity:0;transform-origin:center;animation:leafIn 12s ease-out infinite}
+  @keyframes leafIn{0%,55%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.05)}72%{opacity:1;transform:scale(1)}85%{opacity:.9}100%{opacity:.9;transform:scale(1)}}
+
+  .ink-fruit{opacity:0;transform-origin:center;animation:fruitBloom 12s ease-out infinite}
+  @keyframes fruitBloom{0%,73%{opacity:0;transform:scale(.2)}80%{opacity:1;transform:scale(1.15)}88%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1)}}
+
+  .petal{fill:var(--bloom,#c45a3a);opacity:0;animation:petal 12s linear infinite}
+  @keyframes petal{0%,85%{opacity:0;transform:translate(0,0) rotate(0)}88%{opacity:.8}100%{opacity:0;transform:translate(var(--px,0),80px) rotate(180deg)}}
+
+  .phase-legend{position:absolute;left:0;right:0;bottom:-2.5rem;display:flex;justify-content:center;gap:1.25rem;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss,#3a5a3a)}
+  .phase-legend [data-phase]{display:inline-flex;align-items:center;gap:6px;opacity:.55;transition:opacity .4s ease,color .4s ease}
+  .phase-legend [data-phase] i{width:7px;height:7px;border-radius:50%;background:var(--moss,#3a5a3a);display:inline-block}
+  .phase-legend [data-phase].on{opacity:1;color:var(--moss,#3a5a3a);font-weight:500}
+
+  @media(max-width:640px){.ink-tree{max-width:340px}.phase-legend{gap:8px;font-size:9px;bottom:-2rem}}
+</style>
+
+<script>
+  (function () {
+    const spans = document.querySelectorAll('#phase-legend span[data-phase]');
+    if (!spans.length) return;
+    const cycle = 12000;
+    const phaseFor = (t: number) => {
+      const p = (t % cycle) / cycle;
+      if (p < 0.25) return 1;
+      if (p < 0.50) return 2;
+      if (p < 0.75) return 3;
+      return 4;
+    };
+    const start = performance.now();
+    let last = 0;
+    const tick = (now: number) => {
+      const cur = phaseFor(now - start);
+      if (cur !== last) {
+        spans.forEach((s) => {
+          const el = s as HTMLElement;
+          const phase = Number(el.dataset.phase);
+          s.classList.toggle('on', phase === cur);
+        });
+        last = cur;
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  })();
+</script>
