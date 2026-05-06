@@ -85,7 +85,7 @@ jobs:
       - name: Add server to known_hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p 4321 -H toji.homes >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keyscan -p 4321 -H toji.homes >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Deploy — restart homepage & gopedia-site
         run: |
@@ -94,6 +94,7 @@ jobs:
 
           ssh -i /tmp/k8s_key \
               -p 4321 \
+              -o StrictHostKeyChecking=accept-new \
               ubuntu@toji.homes \
               "
               set -e
