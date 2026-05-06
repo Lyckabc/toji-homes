@@ -46,9 +46,10 @@ steps:
       KUBECONFIG_B64:
         from_secret: kubeconfig
     commands:
-      - mkdir -p /root/.kube
-      - echo "$KUBECONFIG_B64" | base64 -d > /root/.kube/config
-      - chmod 600 /root/.kube/config
+      - mkdir -p /tmp/.kube
+      - echo "$KUBECONFIG_B64" | base64 -d > /tmp/.kube/config
+      - chmod 600 /tmp/.kube/config
+      - export KUBECONFIG=/tmp/.kube/config
       - |
         echo ">>> Ensuring gopedia-site uses GHCR image..."
         kubectl set image deployment/gopedia-site \
