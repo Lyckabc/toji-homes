@@ -39,6 +39,7 @@
   .gp-nav{
     position:sticky;top:0;z-index:50;
     backdrop-filter:blur(8px);
+    background:rgba(244,241,234,.72);
     background:color-mix(in srgb, var(--paper) 72%, transparent);
     border-bottom:1px solid var(--rule-2);
     transition:background .4s ease;
@@ -165,17 +166,11 @@
       (el as SVGElement).setAttribute('fill', p.bloom);
     });
 
-    // Update fruit colors
-    document.querySelectorAll('#worldtree .ink-fruit').forEach((el) => {
-      const cur = el.getAttribute('fill');
-      if (cur && (cur.startsWith('#c4') || cur.startsWith('#e8') || cur.startsWith('#b8') || cur.startsWith('#8a'))) {
-        // bloom-colored fruits
-        if (cur === '#b8923a' || cur === '#d4b87a' || cur === '#c89a3a' || cur === '#8a7a5a') {
-          (el as SVGElement).setAttribute('fill', p.gold);
-        } else {
-          (el as SVGElement).setAttribute('fill', p.bloom);
-        }
-      }
+    // Update fruit/flower colors via data-color attribute
+    document.querySelectorAll('#worldtree [data-color]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.color!;
+      const color = (p as Record<string, string>)[key];
+      if (color) (el as SVGElement).setAttribute('fill', color);
     });
 
     // Moon gradient
