@@ -20,5 +20,36 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (8 pages, dist/)
+      - name: Build
         run: npm run build
+
+      - name: Verify output pages
+        run: |
+          expected_pages=(
+            dist/index.html
+            dist/about/index.html
+            dist/ko/index.html
+            dist/ko/about/index.html
+            dist/projects/ai-pragma/index.html
+            dist/projects/gopedia/index.html
+            dist/projects/neunexus/index.html
+            dist/ko/projects/ai-pragma/index.html
+            dist/ko/projects/gopedia/index.html
+            dist/ko/projects/neunexus/index.html
+            dist/gopedia-site/index.html
+          )
+
+          all_ok=true
+          for page in "${expected_pages[@]}"; do
+            if [ -f "$page" ]; then
+              echo "  OK  $page"
+            else
+              echo "  MISSING  $page"
+              all_ok=false
+            fi
+          done
+
+          if [ "$all_ok" = false ]; then
+            echo "One or more expected pages are missing."
+            exit 1
+          fi
