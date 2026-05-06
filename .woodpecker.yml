@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Woodpecker CI — Build, Push & Deploy
+#
+# 트리거: main 브랜치 push
+#
+# Steps:
+#   1. build-push  — Docker 이미지 빌드 후 GHCR 푸시
+#   2. deploy      — K8s 디플로이먼트 롤아웃 재시작
+#
+# 필요한 Woodpecker 시크릿:
+#   ghcr_username  — GHCR 로그인 유저명 (예: lyckabc)
+#   ghcr_token     — GitHub PAT (packages:write 권한)
+#   kubeconfig     — base64 인코딩된 kubeconfig
+#                    생성: base64 -w0 ~/.kube/config
+# ─────────────────────────────────────────────────────────────────────────────
+
+when:
+  branch: main
+  event: push
+
+steps:
+  - name: build-push
+    image: woodpeckerci/plugin-docker-buildx
+    settings:
+      registry: ghcr.io
+      repo: ghcr.io/lyckabc/toji-homes
+      username:
+        from_secret: ghcr_username
+      password:
+        from_secret: ghcr_token
+      tags:
+        - main
+        - latest
+      platforms: linux/amd64
+      dockerfile: Dockerfile
+
+  - name: deploy
+    image: bitnami/kubectl:latest
+    environment:
+      KUBECONFIG_B64:
+        from_secret: kubeconfig
+    commands:
+      - mkdir -p /root/.kube
+      - echo "$KUBECONFIG_B64" | base64 -d > /root/.kube/config
+      - chmod 600 /root/.kube/config
+      - |
+        echo ">>> Ensuring gopedia-site uses GHCR image..."
+        kubectl set image deployment/gopedia-site \
+          gopedia-site=ghcr.io/lyckabc/toji-homes:main \
+          -n homepage
+      - |
+        echo ">>> Rolling out homepage & gopedia-site..."
+        kubectl rollout restart \
+          deployment/homepage \
+          deployment/gopedia-site \
+          -n homepage
+      - |
+        echo ">>> Waiting for homepage..."
+        kubectl rollout status deployment/homepage \
+          -n homepage --timeout=120s
+      - |
+        echo ">>> Waiting for gopedia-site..."
+        kubectl rollout status deployment/gopedia-site \
+          -n homepage --timeout=120s
+      - echo ">>> Deploy complete."
