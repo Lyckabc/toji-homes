@@ -1,80 +1,100 @@
-<section id="scenarios" class="gp-scenarios">
-  <div class="gp-wrap">
-    <div class="gp-section-head">
+<section id="scenarios" class="relative z-[2] bg-[var(--paper)] py-20 md:py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-12">
+
+    <!-- Section head -->
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-16 mb-0 items-end">
       <div>
-        <div class="gp-section-num">II &middot; Scenarios</div>
-        <h2 class="gp-section-title" data-ko-block>나무 아래에서<br/>일어나는 <em>다섯 장면</em></h2>
-        <h2 class="gp-section-title" data-en-block>Five scenes<br/>beneath the <em>tree</em></h2>
+        <div class="font-[var(--mono)] text-[11px] tracking-[.3em] text-[var(--moss)] uppercase">II &middot; Scenarios</div>
+        <h2 class="font-[var(--display)] font-normal mt-3 mb-0 leading-[1.05] tracking-[-0.01em] text-[var(--ink)]"
+            style="font-size:clamp(34px,3.8vw,56px)" data-ko-block>
+          나무 아래에서<br/>일어나는 <em class="italic text-[var(--moss)]">다섯 장면</em>
+        </h2>
+        <h2 class="font-[var(--display)] font-normal mt-3 mb-0 leading-[1.05] tracking-[-0.01em] text-[var(--ink)]"
+            style="font-size:clamp(34px,3.8vw,56px)" data-en-block>
+          Five scenes<br/>beneath the <em class="italic text-[var(--moss)]">tree</em>
+        </h2>
       </div>
-      <p class="gp-section-sub" data-ko-block>세계수의 그늘은 모두에게 동등하게 드리웁니다. 신입사원의 첫 질문부터 CTO의 보고 자료까지, Gopedia가 같은 뿌리에서 답을 길어 올립니다.</p>
-      <p class="gp-section-sub" data-en-block>The tree's shade falls on everyone equally — from a new hire's first question to a CTO's board deck. Gopedia draws every answer from the same roots.</p>
+      <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)] max-w-[560px] m-0" data-ko-block>세계수의 그늘은 모두에게 동등하게 드리웁니다. 신입사원의 첫 질문부터 CTO의 보고 자료까지, Gopedia가 같은 뿌리에서 답을 길어 올립니다.</p>
+      <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)] max-w-[560px] m-0" data-en-block>The tree's shade falls on everyone equally — from a new hire's first question to a CTO's board deck. Gopedia draws every answer from the same roots.</p>
     </div>
 
+    <!-- Scenarios -->
+
     <!-- Scenario 1 -->
-    <div class="gp-scenario">
-      <div class="gp-scen-num">01</div>
-      <div class="gp-scen-text">
-        <div class="gp-scen-role" data-ko-block>신규 입사자 &middot; 첫째 주</div>
-        <div class="gp-scen-role" data-en-block>New hire &middot; week one</div>
-        <h3 data-ko-block>"우리 팀의 배포 절차가 뭐였더라?"</h3>
-        <h3 data-en-block>"What's our team's deploy process again?"</h3>
-        <p class="gp-scen-body" data-ko-block>누구에게 물어야 할지 모를 때, 세계수는 가장 오래된 줄기를 따라 답을 길어 올립니다. 관련 문서, 책임자, 최근 변경 이력이 한 화면에 함께 맺힙니다.</p>
-        <p class="gp-scen-body" data-en-block>When you don't know who to ask, the tree traces its oldest stem to find the answer — relevant docs, owners, and recent changes all ripen on a single screen.</p>
+    <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] lg:grid-cols-[96px_1fr_1.1fr] gap-6 lg:gap-12 py-14 border-t border-[var(--rule)] mt-16 items-start">
+      <div class="font-[var(--display)] italic text-[var(--moss)] leading-none text-5xl md:text-[56px]">01</div>
+      <div class="min-w-0">
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-ko-block>신규 입사자 &middot; 첫째 주</div>
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-en-block>New hire &middot; week one</div>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-ko-block>"우리 팀의 배포 절차가 뭐였더라?"</h3>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-en-block>"What's our team's deploy process again?"</h3>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-ko-block>누구에게 물어야 할지 모를 때, 세계수는 가장 오래된 줄기를 따라 답을 길어 올립니다. 관련 문서, 책임자, 최근 변경 이력이 한 화면에 함께 맺힙니다.</p>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-en-block>When you don't know who to ask, the tree traces its oldest stem to find the answer — relevant docs, owners, and recent changes all ripen on a single screen.</p>
       </div>
-      <div class="gp-scen-mock">
-        <span class="gp-scen-label">Ask</span>
-        <div class="gp-q" data-ko-block>Q. 백엔드 팀 배포는 어떻게 진행하나요?</div>
-        <div class="gp-q" data-en-block>Q. How do we run a backend deploy?</div>
-        <div style="height:10px"></div>
-        <div class="gp-a" data-ko-block>A. 매주 화·목 14:00에 <strong>Argo CD</strong>를 통해 자동 배포되며, hotfix는 #be-deploy 채널에서 OnCall 승인 후 진행합니다.</div>
-        <div class="gp-a" data-en-block>A. Auto-deploys via <strong>Argo CD</strong> Tue/Thu at 14:00. Hotfixes run from #be-deploy after the OnCall approval.</div>
-        <div style="height:8px"></div>
-        <div class="gp-meta"><span class="gp-src">Confluence &middot; BE-OPS-12</span><span class="gp-src">Slack #be-deploy &middot; 3d</span><span class="gp-src">runbook.md @ main</span></div>
+      <div class="gp-mock relative bg-[var(--paper-2)] border border-[var(--rule)] p-5 rounded-sm font-[var(--mono)] text-[12px] leading-[1.65] text-[var(--ink-2)] overflow-x-auto min-w-0">
+        <span class="absolute -top-2.5 left-4 bg-[var(--paper)] px-2 font-[var(--display)] italic text-[12px] text-[var(--moss)]">Ask</span>
+        <div class="text-[var(--moss)] break-words" data-ko-block>Q. 백엔드 팀 배포는 어떻게 진행하나요?</div>
+        <div class="text-[var(--moss)] break-words" data-en-block>Q. How do we run a backend deploy?</div>
+        <div class="h-2.5"></div>
+        <div class="text-[var(--ink)] break-words" data-ko-block>A. 매주 화·목 14:00에 <strong>Argo CD</strong>를 통해 자동 배포되며, hotfix는 #be-deploy 채널에서 OnCall 승인 후 진행합니다.</div>
+        <div class="text-[var(--ink)] break-words" data-en-block>A. Auto-deploys via <strong>Argo CD</strong> Tue/Thu at 14:00. Hotfixes run from #be-deploy after the OnCall approval.</div>
+        <div class="h-2"></div>
+        <div class="text-[var(--bark)] text-[11px] flex flex-wrap gap-1.5 mt-1">
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]">Confluence &middot; BE-OPS-12</span>
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]">Slack #be-deploy &middot; 3d</span>
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]">runbook.md @ main</span>
+        </div>
       </div>
     </div>
 
     <!-- Scenario 2 -->
-    <div class="gp-scenario">
-      <div class="gp-scen-num">02</div>
-      <div class="gp-scen-text">
-        <div class="gp-scen-role" data-ko-block>경영진 &middot; 분기 보고 준비</div>
-        <div class="gp-scen-role" data-en-block>Executive &middot; quarterly review</div>
-        <h3 data-ko-block>"이 수치, 어디서 나온 거지?"</h3>
-        <h3 data-en-block>"Where does this number come from?"</h3>
-        <p class="gp-scen-body" data-ko-block>보고서의 한 줄이 어떤 줄기에서 자랐는지 거꾸로 따라갈 수 있습니다. 원자료(Root) &rarr; 분석 노트(Stem) &rarr; 최종 슬라이드(Leaf)까지 한 호흡에 추적됩니다.</p>
-        <p class="gp-scen-body" data-en-block>Trace a single line of the report back to the stem it grew from. Raw data (Root) &rarr; analysis notes (Stem) &rarr; final slide (Leaf), in one breath.</p>
+    <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] lg:grid-cols-[96px_1fr_1.1fr] gap-6 lg:gap-12 py-14 border-t border-[var(--rule)] items-start">
+      <div class="font-[var(--display)] italic text-[var(--moss)] leading-none text-5xl md:text-[56px]">02</div>
+      <div class="min-w-0">
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-ko-block>경영진 &middot; 분기 보고 준비</div>
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-en-block>Executive &middot; quarterly review</div>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-ko-block>"이 수치, 어디서 나온 거지?"</h3>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-en-block>"Where does this number come from?"</h3>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-ko-block>보고서의 한 줄이 어떤 줄기에서 자랐는지 거꾸로 따라갈 수 있습니다. 원자료(Root) &rarr; 분석 노트(Stem) &rarr; 최종 슬라이드(Leaf)까지 한 호흡에 추적됩니다.</p>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-en-block>Trace a single line of the report back to the stem it grew from. Raw data (Root) &rarr; analysis notes (Stem) &rarr; final slide (Leaf), in one breath.</p>
       </div>
-      <div class="gp-scen-mock">
-        <span class="gp-scen-label">Trace</span>
-        <div class="gp-q" data-ko-block>Q. Q3 NRR 117% 의 산출 근거?</div>
-        <div class="gp-q" data-en-block>Q. What's the derivation of Q3 NRR 117%?</div>
-        <div style="height:10px"></div>
-        <div class="gp-a">
-          &boxvr;&mdash; Looker dashboard "NRR-Q3"<br/>
-          &boxv; &nbsp;&boxvr;&mdash; SQL: nrr_quarterly.sql @ data-team<br/>
-          &boxv; &nbsp;&boxur;&mdash; <span data-ko-block>분석 노트: 'Q3 cohort 보정'</span><span data-en-block>Notes: "Q3 cohort adj."</span><br/>
-          &boxur;&mdash; <span data-ko-block>슬라이드 #14, board-deck-2025Q3.pdf</span><span data-en-block>Slide #14, board-deck-2025Q3.pdf</span>
+      <div class="gp-mock relative bg-[var(--paper-2)] border border-[var(--rule)] p-5 rounded-sm font-[var(--mono)] text-[12px] leading-[1.65] text-[var(--ink-2)] overflow-x-auto min-w-0">
+        <span class="absolute -top-2.5 left-4 bg-[var(--paper)] px-2 font-[var(--display)] italic text-[12px] text-[var(--moss)]">Trace</span>
+        <div class="text-[var(--moss)] break-words" data-ko-block>Q. Q3 NRR 117% 의 산출 근거?</div>
+        <div class="text-[var(--moss)] break-words" data-en-block>Q. What's the derivation of Q3 NRR 117%?</div>
+        <div class="h-2.5"></div>
+        <div class="text-[var(--ink)] whitespace-pre-wrap break-words">
+&boxvr;&mdash; Looker dashboard "NRR-Q3"
+&boxv; &nbsp;&boxvr;&mdash; SQL: nrr_quarterly.sql @ data-team
+&boxv; &nbsp;&boxur;&mdash; <span data-ko-block>분석 노트: 'Q3 cohort 보정'</span><span data-en-block>Notes: "Q3 cohort adj."</span>
+&boxur;&mdash; <span data-ko-block>슬라이드 #14, board-deck-2025Q3.pdf</span><span data-en-block>Slide #14, board-deck-2025Q3.pdf</span>
         </div>
       </div>
     </div>
 
     <!-- Scenario 3 -->
-    <div class="gp-scenario">
-      <div class="gp-scen-num">03</div>
-      <div class="gp-scen-text">
-        <div class="gp-scen-role" data-ko-block>개발자 &middot; 코드 변경 직전</div>
-        <div class="gp-scen-role" data-en-block>Engineer &middot; before the change</div>
-        <h3 data-ko-block>"이 함수를 바꾸면 무엇이 흔들릴까?"</h3>
-        <h3 data-en-block>"If I change this function, what shakes?"</h3>
-        <p class="gp-scen-body" data-ko-block>Gopedia는 코드를 단순한 텍스트가 아니라 가지의 일부로 봅니다. 한 함수를 흔들면 그 위에 매달린 RFC·티켓·고객 이슈가 함께 떨립니다.</p>
-        <p class="gp-scen-body" data-en-block>Gopedia treats code as part of the canopy, not just text. Shake one function and every RFC, ticket, and customer issue hanging from it trembles too.</p>
+    <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] lg:grid-cols-[96px_1fr_1.1fr] gap-6 lg:gap-12 py-14 border-t border-[var(--rule)] items-start">
+      <div class="font-[var(--display)] italic text-[var(--moss)] leading-none text-5xl md:text-[56px]">03</div>
+      <div class="min-w-0">
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-ko-block>개발자 &middot; 코드 변경 직전</div>
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-en-block>Engineer &middot; before the change</div>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-ko-block>"이 함수를 바꾸면 무엇이 흔들릴까?"</h3>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-en-block>"If I change this function, what shakes?"</h3>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-ko-block>Gopedia는 코드를 단순한 텍스트가 아니라 가지의 일부로 봅니다. 한 함수를 흔들면 그 위에 매달린 RFC·티켓·고객 이슈가 함께 떨립니다.</p>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-en-block>Gopedia treats code as part of the canopy, not just text. Shake one function and every RFC, ticket, and customer issue hanging from it trembles too.</p>
       </div>
-      <div class="gp-scen-mock">
-        <span class="gp-scen-label">Impact</span>
-        <div class="gp-q" data-ko-block>Q. <code>billing.charge()</code> 시그니처를 바꾸면?</div>
-        <div class="gp-q" data-en-block>Q. Change <code>billing.charge()</code> signature?</div>
-        <div style="height:10px"></div>
-        <div class="gp-a">
+      <div class="gp-mock relative bg-[var(--paper-2)] border border-[var(--rule)] p-5 rounded-sm font-[var(--mono)] text-[12px] leading-[1.65] text-[var(--ink-2)] overflow-x-auto min-w-0">
+        <span class="absolute -top-2.5 left-4 bg-[var(--paper)] px-2 font-[var(--display)] italic text-[12px] text-[var(--moss)]">Impact</span>
+        <div class="text-[var(--moss)] break-words" data-ko-block>Q. <code>billing.charge()</code> 시그니처를 바꾸면?</div>
+        <div class="text-[var(--moss)] break-words" data-en-block>Q. Change <code>billing.charge()</code> signature?</div>
+        <div class="h-2.5"></div>
+        <div class="text-[var(--ink)] break-words">
           <span data-ko-block>&middot; 직접 호출 <strong>17곳</strong> &middot; 간접 의존 <strong>~42</strong></span>
           <span data-en-block>&middot; direct callers <strong>17</strong> &middot; indirect <strong>~42</strong></span><br/>
           &middot; RFC-2024-08 (<span data-ko-block>인보이스 분리</span><span data-en-block>invoice split</span>)<br/>
@@ -84,70 +104,61 @@
     </div>
 
     <!-- Scenario 4 -->
-    <div class="gp-scenario">
-      <div class="gp-scen-num">04</div>
-      <div class="gp-scen-text">
-        <div class="gp-scen-role" data-ko-block>운영 &middot; 현장 매뉴얼 확인</div>
-        <div class="gp-scen-role" data-en-block>Ops &middot; floor manual lookup</div>
-        <h3 data-ko-block>"이 장비, 지금 무엇을 점검해야 하나요?"</h3>
-        <h3 data-en-block>"This machine — what's the check, right now?"</h3>
-        <p class="gp-scen-body" data-ko-block>현장에서 PDF 매뉴얼을 뒤지지 않습니다. 모델명·증상·날씨까지 맥락에 맞춘 가장 가까운 잎을 골라 보여줍니다.</p>
-        <p class="gp-scen-body" data-en-block>No more flipping through PDF manuals on the floor. Gopedia picks the leaf closest to the context — model, symptom, even the weather.</p>
+    <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] lg:grid-cols-[96px_1fr_1.1fr] gap-6 lg:gap-12 py-14 border-t border-[var(--rule)] items-start">
+      <div class="font-[var(--display)] italic text-[var(--moss)] leading-none text-5xl md:text-[56px]">04</div>
+      <div class="min-w-0">
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-ko-block>운영 &middot; 현장 매뉴얼 확인</div>
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-en-block>Ops &middot; floor manual lookup</div>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-ko-block>"이 장비, 지금 무엇을 점검해야 하나요?"</h3>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-en-block>"This machine — what's the check, right now?"</h3>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-ko-block>현장에서 PDF 매뉴얼을 뒤지지 않습니다. 모델명·증상·날씨까지 맥락에 맞춘 가장 가까운 잎을 골라 보여줍니다.</p>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-en-block>No more flipping through PDF manuals on the floor. Gopedia picks the leaf closest to the context — model, symptom, even the weather.</p>
       </div>
-      <div class="gp-scen-mock">
-        <span class="gp-scen-label">Manual</span>
-        <div class="gp-q" data-ko-block>Q. CT-720 압력 알람, 영하일 때 절차?</div>
-        <div class="gp-q" data-en-block>Q. CT-720 pressure alarm, sub-zero procedure?</div>
-        <div style="height:10px"></div>
-        <div class="gp-a" data-ko-block>1. <strong>밸브 V-3</strong> 30초 폐쇄 &rarr; 잔압 확인<br/>2. <strong>히터 H-2</strong> 가동 후 5분 대기<br/>3. 알람 지속 시 OnCall 호출</div>
-        <div class="gp-a" data-en-block>1. Close <strong>valve V-3</strong> for 30 s, check residual<br/>2. Run <strong>heater H-2</strong>, wait 5 min<br/>3. If alarm persists, page OnCall</div>
-        <div style="height:6px"></div>
-        <div class="gp-meta"><span class="gp-src">SOP-CT720-v4 &middot; &sect;3.2</span><span class="gp-src" data-ko-block>현장로그 2024-12</span><span class="gp-src" data-en-block>floor log 2024-12</span></div>
+      <div class="gp-mock relative bg-[var(--paper-2)] border border-[var(--rule)] p-5 rounded-sm font-[var(--mono)] text-[12px] leading-[1.65] text-[var(--ink-2)] overflow-x-auto min-w-0">
+        <span class="absolute -top-2.5 left-4 bg-[var(--paper)] px-2 font-[var(--display)] italic text-[12px] text-[var(--moss)]">Manual</span>
+        <div class="text-[var(--moss)] break-words" data-ko-block>Q. CT-720 압력 알람, 영하일 때 절차?</div>
+        <div class="text-[var(--moss)] break-words" data-en-block>Q. CT-720 pressure alarm, sub-zero procedure?</div>
+        <div class="h-2.5"></div>
+        <div class="text-[var(--ink)] break-words" data-ko-block>1. <strong>밸브 V-3</strong> 30초 폐쇄 &rarr; 잔압 확인<br/>2. <strong>히터 H-2</strong> 가동 후 5분 대기<br/>3. 알람 지속 시 OnCall 호출</div>
+        <div class="text-[var(--ink)] break-words" data-en-block>1. Close <strong>valve V-3</strong> for 30 s, check residual<br/>2. Run <strong>heater H-2</strong>, wait 5 min<br/>3. If alarm persists, page OnCall</div>
+        <div class="h-1.5"></div>
+        <div class="text-[var(--bark)] text-[11px] flex flex-wrap gap-1.5 mt-1">
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]">SOP-CT720-v4 &middot; &sect;3.2</span>
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]" data-ko-block>현장로그 2024-12</span>
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]" data-en-block>floor log 2024-12</span>
+        </div>
       </div>
     </div>
 
     <!-- Scenario 5 -->
-    <div class="gp-scenario">
-      <div class="gp-scen-num">05</div>
-      <div class="gp-scen-text">
-        <div class="gp-scen-role" data-ko-block>고객지원 &middot; 응대 중</div>
-        <div class="gp-scen-role" data-en-block>Support &middot; live ticket</div>
-        <h3 data-ko-block>"비슷한 사례, 우리는 어떻게 풀었지?"</h3>
-        <h3 data-en-block>"How did we solve a case like this before?"</h3>
-        <p class="gp-scen-body" data-ko-block>한 번 맺혔던 열매는 사라지지 않고 줄기에 새겨집니다. 유사 티켓·해결 스레드·내부 공지를 묶어 응대 초안까지 함께 제시합니다.</p>
-        <p class="gp-scen-body" data-en-block>Once a fruit ripens, the tree remembers. Similar tickets, resolution threads, and internal notices come bundled — with a draft reply.</p>
+    <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] lg:grid-cols-[96px_1fr_1.1fr] gap-6 lg:gap-12 py-14 border-t border-b border-[var(--rule)] items-start">
+      <div class="font-[var(--display)] italic text-[var(--moss)] leading-none text-5xl md:text-[56px]">05</div>
+      <div class="min-w-0">
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-ko-block>고객지원 &middot; 응대 중</div>
+        <div class="font-[var(--sans)] text-[11px] tracking-[.25em] uppercase text-[var(--moss)] mb-4" data-en-block>Support &middot; live ticket</div>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-ko-block>"비슷한 사례, 우리는 어떻게 풀었지?"</h3>
+        <h3 class="font-[var(--display)] font-medium leading-[1.15] mt-0 mb-2 text-[var(--ink)]"
+            style="font-size:clamp(20px,2.5vw,30px)" data-en-block>"How did we solve a case like this before?"</h3>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-ko-block>한 번 맺혔던 열매는 사라지지 않고 줄기에 새겨집니다. 유사 티켓·해결 스레드·내부 공지를 묶어 응대 초안까지 함께 제시합니다.</p>
+        <p class="font-[var(--serif)] text-[15px] leading-[1.75] text-[var(--ink-2)]" data-en-block>Once a fruit ripens, the tree remembers. Similar tickets, resolution threads, and internal notices come bundled — with a draft reply.</p>
       </div>
-      <div class="gp-scen-mock">
-        <span class="gp-scen-label">Resolve</span>
-        <div class="gp-q" data-ko-block>Q. SSO 로그인 무한 리다이렉트 (Okta)</div>
-        <div class="gp-q" data-en-block>Q. SSO infinite redirect (Okta)</div>
-        <div style="height:10px"></div>
-        <div class="gp-a" data-ko-block><strong>유사 티켓 4건</strong> 모두 'SAML clock skew &gt; 5min' 으로 해결.<br/>&rarr; 답변 초안 생성됨. <em>"안녕하세요. 동일 사례에서&hellip;"</em></div>
-        <div class="gp-a" data-en-block><strong>4 similar tickets</strong> all resolved by 'SAML clock skew &gt; 5min'.<br/>&rarr; Draft reply ready. <em>"Hi — in similar cases&hellip;"</em></div>
-        <div style="height:6px"></div>
-        <div class="gp-meta"><span class="gp-src">Zendesk #2210, #2244, #2310, #2398</span><span class="gp-src">runbook/sso-okta.md</span></div>
+      <div class="gp-mock relative bg-[var(--paper-2)] border border-[var(--rule)] p-5 rounded-sm font-[var(--mono)] text-[12px] leading-[1.65] text-[var(--ink-2)] overflow-x-auto min-w-0">
+        <span class="absolute -top-2.5 left-4 bg-[var(--paper)] px-2 font-[var(--display)] italic text-[12px] text-[var(--moss)]">Resolve</span>
+        <div class="text-[var(--moss)] break-words" data-ko-block>Q. SSO 로그인 무한 리다이렉트 (Okta)</div>
+        <div class="text-[var(--moss)] break-words" data-en-block>Q. SSO infinite redirect (Okta)</div>
+        <div class="h-2.5"></div>
+        <div class="text-[var(--ink)] break-words" data-ko-block><strong>유사 티켓 4건</strong> 모두 'SAML clock skew &gt; 5min' 으로 해결.<br/>&rarr; 답변 초안 생성됨. <em>"안녕하세요. 동일 사례에서&hellip;"</em></div>
+        <div class="text-[var(--ink)] break-words" data-en-block><strong>4 similar tickets</strong> all resolved by 'SAML clock skew &gt; 5min'.<br/>&rarr; Draft reply ready. <em>"Hi — in similar cases&hellip;"</em></div>
+        <div class="h-1.5"></div>
+        <div class="text-[var(--bark)] text-[11px] flex flex-wrap gap-1.5 mt-1">
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]">Zendesk #2210, #2244, #2310, #2398</span>
+          <span class="border border-[var(--rule)] px-2 py-0.5 rounded-full text-[10.5px] text-[var(--moss)]">runbook/sso-okta.md</span>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
-
-<style>
-  .gp-scenarios{background:var(--paper);padding:100px 0}
-  .gp-scenario{
-    display:grid;grid-template-columns:96px 1fr 1.1fr;gap:48px;
-    padding:56px 0;border-top:1px solid var(--rule);align-items:start;
-  }
-  .gp-scenario:last-child{border-bottom:1px solid var(--rule)}
-  @media(max-width:880px){.gp-scenario{grid-template-columns:1fr;gap:24px}.gp-scen-num{font-size:40px}}
-  .gp-scen-num{font-family:var(--display);font-style:italic;font-size:56px;color:var(--moss);line-height:1}
-  .gp-scen-text h3{font-family:var(--display);font-weight:500;font-size:30px;margin:0 0 8px;line-height:1.15}
-  .gp-scen-role{font-family:var(--sans);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--moss);margin-bottom:16px}
-  .gp-scen-body{font-family:var(--serif);font-size:15.5px;line-height:1.75;color:var(--ink-2)}
-  .gp-scen-mock{
-    background:var(--paper-2);border:1px solid var(--rule);padding:22px;border-radius:2px;
-    font-family:var(--mono);font-size:12.5px;line-height:1.65;color:var(--ink-2);position:relative;
-  }
-  .gp-q{color:var(--moss)}.gp-a{color:var(--ink)}.gp-meta{color:var(--bark);font-size:11px}
-  .gp-src{display:inline-block;border:1px solid var(--rule);padding:2px 8px;margin-right:6px;margin-top:4px;border-radius:999px;font-size:10.5px;color:var(--moss)}
-  .gp-scen-label{position:absolute;top:-10px;left:16px;background:var(--paper);padding:0 8px;font-family:var(--display);font-style:italic;font-size:12px;color:var(--moss)}
-</style>

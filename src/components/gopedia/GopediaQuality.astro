@@ -1,77 +1,134 @@
-<section id="quality" class="gp-quality">
-  <div class="gp-wrap">
-    <div class="gp-section-head">
+<section id="quality" class="relative z-[2] bg-[var(--paper-2)] border-t border-b border-[var(--rule)] py-20 md:py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-12">
+
+    <!-- Section head -->
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-16 mb-16 items-end">
       <div>
-        <div class="gp-section-num">III &middot; Quality</div>
-        <h2 class="gp-section-title" data-ko-block>측정되지 않는 답은<br/><em>맺히지</em> 않습니다</h2>
-        <h2 class="gp-section-title" data-en-block>An answer<br/>that <em>can't be measured</em><br/>doesn't ripen</h2>
+        <div class="font-[var(--mono)] text-[11px] tracking-[.3em] text-[var(--moss)] uppercase">III &middot; Quality</div>
+        <h2 class="font-[var(--display)] font-normal mt-3 mb-0 leading-[1.05] tracking-[-0.01em] text-[var(--ink)]"
+            style="font-size:clamp(34px,3.8vw,56px)" data-ko-block>
+          측정되지 않는 답은<br/><em class="italic text-[var(--moss)]">맺히지</em> 않습니다
+        </h2>
+        <h2 class="font-[var(--display)] font-normal mt-3 mb-0 leading-[1.05] tracking-[-0.01em] text-[var(--ink)]"
+            style="font-size:clamp(34px,3.8vw,56px)" data-en-block>
+          An answer<br/>that <em class="italic text-[var(--moss)]">can't be measured</em><br/>doesn't ripen
+        </h2>
       </div>
-      <p class="gp-section-sub" data-ko-block>Gopedia의 모든 변경은 IR(Information Retrieval) 지표로 검증됩니다. 세계수가 흔들릴 때마다 — 우리는 그 흔들림을 측정합니다.</p>
-      <p class="gp-section-sub" data-en-block>Every change to Gopedia is verified by Information Retrieval metrics. Whenever the World Tree shifts — we measure how it shifts.</p>
+      <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)] max-w-[560px] m-0" data-ko-block>Gopedia의 모든 변경은 IR(Information Retrieval) 지표로 검증됩니다. 세계수가 흔들릴 때마다 — 우리는 그 흔들림을 측정합니다.</p>
+      <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)] max-w-[560px] m-0" data-en-block>Every change to Gopedia is verified by Information Retrieval metrics. Whenever the World Tree shifts — we measure how it shifts.</p>
     </div>
 
-    <div class="gp-ir-grid">
-      <div class="gp-ir-chart" id="ir-chart">
-        <div class="gp-ir-chart-title">
-          <span data-ko-block>RAG 품질 &middot; v1.4 &rarr; v1.7</span>
-          <span data-en-block>RAG quality &middot; v1.4 &rarr; v1.7</span>
-          <span class="gp-ir-scale">0 &mdash; 1.0</span>
+    <!-- IR grid: chart + copy -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+
+      <!-- Chart -->
+      <div id="ir-chart" class="bg-[var(--paper)] border border-[var(--rule)] p-6 md:p-8">
+        <div class="font-[var(--display)] italic text-[16px] text-[var(--moss)] mb-5 flex justify-between items-baseline gap-4">
+          <span>
+            <span data-ko-block>RAG 품질 &middot; v1.4 &rarr; v1.7</span>
+            <span data-en-block>RAG quality &middot; v1.4 &rarr; v1.7</span>
+          </span>
+          <span class="font-[var(--mono)] text-[10.5px] text-[var(--ink-2)] not-italic tracking-[.1em] shrink-0">0 &mdash; 1.0</span>
         </div>
-        <div class="gp-ir-bars">
-          <div class="gp-ir-bar"><div class="gp-ir-name">Recall@10<small>v1.4 baseline</small></div><div class="gp-ir-track"><div class="gp-ir-fill alt" data-w="68"></div></div><div class="gp-ir-v alt">.68</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name">Recall@10<small>v1.7 current</small></div><div class="gp-ir-track"><div class="gp-ir-fill" data-w="89"></div></div><div class="gp-ir-v">.89</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name">nDCG@10<small>v1.4 baseline</small></div><div class="gp-ir-track"><div class="gp-ir-fill alt" data-w="54"></div></div><div class="gp-ir-v alt">.54</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name">nDCG@10<small>v1.7 current</small></div><div class="gp-ir-track"><div class="gp-ir-fill" data-w="81"></div></div><div class="gp-ir-v">.81</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name">Faithfulness<small>v1.4 baseline</small></div><div class="gp-ir-track"><div class="gp-ir-fill alt" data-w="71"></div></div><div class="gp-ir-v alt">.71</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name">Faithfulness<small>v1.7 current</small></div><div class="gp-ir-track"><div class="gp-ir-fill" data-w="94"></div></div><div class="gp-ir-v">.94</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name"><span data-ko-block>인용 정확도</span><span data-en-block>Citation acc.</span><small>v1.4 baseline</small></div><div class="gp-ir-track"><div class="gp-ir-fill alt" data-w="62"></div></div><div class="gp-ir-v alt">.62</div></div>
-          <div class="gp-ir-bar"><div class="gp-ir-name"><span data-ko-block>인용 정확도</span><span data-en-block>Citation acc.</span><small>v1.7 current</small></div><div class="gp-ir-track"><div class="gp-ir-fill" data-w="92"></div></div><div class="gp-ir-v">.92</div></div>
+        <div class="grid gap-5">
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">Recall@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small></div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--bark-2)" data-w="68"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-right" style="color:var(--bark-2)">.68</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">Recall@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small></div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--moss)" data-w="89"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-[var(--moss)] text-right">.89</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small></div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--bark-2)" data-w="54"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-right" style="color:var(--bark-2)">.54</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small></div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--moss)" data-w="81"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-[var(--moss)] text-right">.81</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">Faithfulness<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small></div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--bark-2)" data-w="71"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-right" style="color:var(--bark-2)">.71</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">Faithfulness<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small></div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--moss)" data-w="94"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-[var(--moss)] text-right">.94</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">
+              <span data-ko-block>인용 정확도</span><span data-en-block>Citation acc.</span>
+              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small>
+            </div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--bark-2)" data-w="62"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-right" style="color:var(--bark-2)">.62</div>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_40px] sm:grid-cols-[120px_1fr_48px] gap-2 sm:gap-3.5 items-center">
+            <div class="font-[var(--sans)] text-[11.5px] text-[var(--ink-2)]">
+              <span data-ko-block>인용 정확도</span><span data-en-block>Citation acc.</span>
+              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small>
+            </div>
+            <div class="gp-track h-[22px] relative" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule)">
+              <div class="gp-fill absolute inset-y-0 left-0 bottom-px w-0 transition-[width] duration-[1400ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="background:var(--moss)" data-w="92"></div>
+            </div>
+            <div class="font-[var(--mono)] text-[12px] text-[var(--moss)] text-right">.92</div>
+          </div>
         </div>
-        <div class="gp-ir-legend">
-          <span><i style="background:var(--bark-2)"></i><span data-ko-block>이전 (v1.4)</span><span data-en-block>previous (v1.4)</span></span>
-          <span><i style="background:var(--moss)"></i><span data-ko-block>현재 (v1.7)</span><span data-en-block>current (v1.7)</span></span>
+
+        <!-- Legend -->
+        <div class="flex gap-4 mt-5 font-[var(--sans)] text-[11px] text-[var(--ink-2)]">
+          <span class="flex items-center gap-1.5">
+            <i class="inline-block w-2.5 h-2.5 align-middle not-italic" style="background:var(--bark-2)"></i>
+            <span data-ko-block>이전 (v1.4)</span><span data-en-block>previous (v1.4)</span>
+          </span>
+          <span class="flex items-center gap-1.5">
+            <i class="inline-block w-2.5 h-2.5 align-middle not-italic" style="background:var(--moss)"></i>
+            <span data-ko-block>현재 (v1.7)</span><span data-en-block>current (v1.7)</span>
+          </span>
         </div>
       </div>
 
-      <div class="gp-ir-copy">
-        <h3 data-ko-block>매주 <em>1,200건</em> 의 질문으로<br/>나무를 흔들어 봅니다.</h3>
-        <h3 data-en-block>We shake the tree<br/>with <em>1,200 queries</em><br/>every week.</h3>
-        <p data-ko-block>Gopedia는 자체 평가 데이터셋(<strong>Gold Set</strong>)을 통해 매 릴리스마다 Recall, nDCG, Faithfulness, Citation Accuracy를 측정합니다. 숫자가 떨어지는 변경은 절대 머지되지 않습니다.</p>
-        <p data-en-block>Gopedia maintains its own <strong>Gold Set</strong> evaluation suite — every release is scored on Recall, nDCG, Faithfulness, and Citation Accuracy. A change that drops the numbers never lands.</p>
-        <div class="gp-ir-foot" data-ko-block>* 내부 한국어 + 영어 1,200쿼리 기준 &middot; 2024-12 측정</div>
-        <div class="gp-ir-foot" data-en-block>* internal Korean + English 1,200-query set &middot; measured 2024-12</div>
+      <!-- Copy -->
+      <div class="min-w-0">
+        <h3 class="font-[var(--display)] font-medium leading-[1.1] mt-0 mb-4 text-[var(--ink)]"
+            style="font-size:clamp(24px,3vw,36px)" data-ko-block>
+          매주 <em class="italic text-[var(--moss)]">1,200건</em>의 질문으로<br/>나무를 흔들어 봅니다.
+        </h3>
+        <h3 class="font-[var(--display)] font-medium leading-[1.1] mt-0 mb-4 text-[var(--ink)]"
+            style="font-size:clamp(24px,3vw,36px)" data-en-block>
+          We shake the tree<br/>with <em class="italic text-[var(--moss)]">1,200 queries</em><br/>every week.
+        </h3>
+        <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-ko-block>Gopedia는 자체 평가 데이터셋(<strong>Gold Set</strong>)을 통해 매 릴리스마다 Recall, nDCG, Faithfulness, Citation Accuracy를 측정합니다. 숫자가 떨어지는 변경은 절대 머지되지 않습니다.</p>
+        <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-en-block>Gopedia maintains its own <strong>Gold Set</strong> evaluation suite — every release is scored on Recall, nDCG, Faithfulness, and Citation Accuracy. A change that drops the numbers never lands.</p>
+        <div class="mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-ko-block>* 내부 한국어 + 영어 1,200쿼리 기준 &middot; 2024-12 측정</div>
+        <div class="mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-en-block>* internal Korean + English 1,200-query set &middot; measured 2024-12</div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  .gp-quality{background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:100px 0}
-  .gp-ir-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-  @media(max-width:880px){.gp-ir-grid{grid-template-columns:1fr}}
-  @media(max-width:560px){.gp-ir-bar{grid-template-columns:90px 1fr 40px;gap:8px}.gp-ir-chart{padding:20px}}
-  .gp-ir-chart{background:var(--paper);border:1px solid var(--rule);padding:32px;position:relative}
-  .gp-ir-chart-title{font-family:var(--display);font-style:italic;font-size:16px;color:var(--moss);margin-bottom:20px;display:flex;justify-content:space-between;align-items:baseline}
-  .gp-ir-scale{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);font-style:normal;letter-spacing:.1em}
-  .gp-ir-bars{display:grid;gap:20px}
-  .gp-ir-bar{display:grid;grid-template-columns:130px 1fr 56px;gap:14px;align-items:center}
-  .gp-ir-name{font-family:var(--sans);font-size:12.5px;color:var(--ink-2)}
-  .gp-ir-name small{display:block;font-size:10px;letter-spacing:.12em;color:var(--bark);text-transform:uppercase}
-  .gp-ir-track{height:22px;background:repeating-linear-gradient(90deg,transparent 0,transparent 19px,var(--rule-2) 19px,var(--rule-2) 20px);border-bottom:1px solid var(--rule);position:relative}
-  .gp-ir-fill{position:absolute;top:0;left:0;bottom:1px;background:var(--moss);width:0;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
-  .gp-ir-fill.alt{background:var(--bark-2)}
-  .gp-ir-v{font-family:var(--mono);font-size:12.5px;color:var(--moss);text-align:right}
-  .gp-ir-v.alt{color:var(--bark-2)}
-  .gp-ir-legend{display:flex;gap:18px;margin-top:18px;font-family:var(--sans);font-size:11px;color:var(--ink-2)}
-  .gp-ir-legend i{width:10px;height:10px;display:inline-block;margin-right:6px;vertical-align:middle}
-  .gp-ir-copy h3{font-family:var(--display);font-size:36px;font-weight:500;line-height:1.1;margin:0 0 16px}
-  .gp-ir-copy h3 em{font-style:italic;color:var(--moss)}
-  .gp-ir-copy p{font-family:var(--serif);font-size:16px;line-height:1.7;color:var(--ink-2)}
-  .gp-ir-foot{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--bark);letter-spacing:.04em}
-</style>
-
 <script>
-  const fills = document.querySelectorAll('.gp-ir-fill');
+  const fills = document.querySelectorAll('.gp-fill');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
