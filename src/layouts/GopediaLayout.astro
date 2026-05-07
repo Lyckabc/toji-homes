@@ -88,6 +88,9 @@ const {
 
   a { color: inherit; }
 
+  /* ── Component styles — wrapped in @layer components so Tailwind utilities can override ── */
+  @layer components {
+
   /* ── .wrap container ── */
   .wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 2; }
   @media (max-width: 720px) { .wrap { padding: 0 24px; } }
@@ -557,4 +560,6 @@ const {
     color: rgba(244,241,234,.5);
     letter-spacing: .08em;
   }
+
+  } /* end @layer components */
 </style>
