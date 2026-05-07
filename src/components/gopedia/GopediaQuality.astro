@@ -1,3 +1,61 @@
+---
+// Quality metrics are fetched from gopedia repo at build time.
+// To update the chart, edit doc/quality-metrics.json in the gopedia repo and rebuild.
+const METRICS_URL =
+  'https://raw.githubusercontent.com/tojiuni/gopedia/main/doc/quality-metrics.json';
+
+const FALLBACK = {
+  dataset: 'geneso 100q',
+  measured_at: '2026-05',
+  baseline_label_ko: '초기',
+  baseline_label_en: 'initial',
+  current_label: 'v1.0',
+  chart_title_ko: 'RAG 품질 · geneso 100q · initial → v1.0',
+  chart_title_en: 'RAG quality · geneso 100q · initial → v1.0',
+  footnote_ko: '* geneso 100q · osteon 30q 병행 평가 · 2026-05 측정',
+  footnote_en: '* geneso 100q · osteon 30q parallel evaluation · measured 2026-05',
+  metrics: [
+    { key: 'recall_at_5',       label: 'Recall@5',    baseline: 0.67, current: 0.75 },
+    { key: 'ndcg_at_10',        label: 'nDCG@10',     baseline: 0.54, current: 0.62 },
+    { key: 'context_relevance', label_ko: '문맥 관련도', label_en: 'Context Rel.', baseline: 0.63, current: 0.92 },
+    { key: 'mrr_at_10',         label: 'MRR@10',      baseline: 0.49, current: 0.57 },
+  ],
+};
+
+type Metric = {
+  key: string;
+  label?: string;
+  label_ko?: string;
+  label_en?: string;
+  baseline: number;
+  current: number;
+};
+
+type QualityData = {
+  dataset: string;
+  measured_at: string;
+  baseline_label_ko: string;
+  baseline_label_en: string;
+  current_label: string;
+  chart_title_ko: string;
+  chart_title_en: string;
+  footnote_ko: string;
+  footnote_en: string;
+  metrics: Metric[];
+};
+
+let data: QualityData = FALLBACK;
+try {
+  const res = await fetch(METRICS_URL);
+  if (res.ok) data = await res.json();
+} catch {
+  // fetch failed (e.g. offline build) — use fallback
+}
+
+function pct(v: number) { return Math.round(v * 100); }
+function fmt(v: number) { return '.' + String(pct(v)).padStart(2, '0'); }
+---
+
 <section id="quality" class="relative z-[2] bg-[var(--paper-2)] border-t border-b border-[var(--rule)] py-16 md:py-[100px]">
   <div class="max-w-[1280px] mx-auto px-6 md:px-12">
 
@@ -25,85 +83,63 @@
       <div id="ir-chart" class="ir-chart bg-[var(--paper)] border border-[var(--rule)] p-6 md:p-8">
         <div class="ir-chart-title font-[var(--display)] italic text-[16px] text-[var(--moss)] mb-5 flex justify-between items-baseline gap-4">
           <span>
-            <span data-ko-block>RAG 품질 &middot; geneso 100q &middot; initial &rarr; v1.0</span>
-            <span data-en-block>RAG quality &middot; geneso 100q &middot; initial &rarr; v1.0</span>
+            <span data-ko-block set:html={data.chart_title_ko.replace(/→/g, '&rarr;')} />
+            <span data-en-block set:html={data.chart_title_en.replace(/→/g, '&rarr;')} />
           </span>
           <span class="scale font-[var(--mono)] text-[10.5px] text-[var(--ink-2)] not-italic tracking-[.1em] shrink-0">0 &mdash; 1.0</span>
         </div>
+
         <div class="ir-bars grid gap-5">
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Recall@5<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="67"></div>
-            </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.67</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Recall@5<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="75"></div>
-            </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.75</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="54"></div>
-            </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.54</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="62"></div>
-            </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.62</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">
-              <span data-ko-block>문맥 관련도</span><span data-en-block>Context Rel.</span>
-              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small>
-            </div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="63"></div>
-            </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.63</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">
-              <span data-ko-block>문맥 관련도</span><span data-en-block>Context Rel.</span>
-              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small>
-            </div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="92"></div>
-            </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.92</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">MRR@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="49"></div>
-            </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.49</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">MRR@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="57"></div>
-            </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.57</div>
-          </div>
+          {data.metrics.map((m) => {
+            const hasI18nLabel = m.label_ko && m.label_en;
+            return (
+              <>
+                {/* baseline row */}
+                <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
+                  <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">
+                    {hasI18nLabel
+                      ? <><span data-ko-block>{m.label_ko}</span><span data-en-block>{m.label_en}</span></>
+                      : m.label}
+                    <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">
+                      <span data-ko-block>{data.baseline_label_ko}</span>
+                      <span data-en-block>{data.baseline_label_en}</span>
+                    </small>
+                  </div>
+                  <div class="ir-track gp-track h-[22px] relative">
+                    <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w={pct(m.baseline)} />
+                  </div>
+                  <div class="v alt font-[var(--mono)] text-[12.5px] text-right">{fmt(m.baseline)}</div>
+                </div>
+
+                {/* current row */}
+                <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
+                  <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">
+                    {hasI18nLabel
+                      ? <><span data-ko-block>{m.label_ko}</span><span data-en-block>{m.label_en}</span></>
+                      : m.label}
+                    <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">{data.current_label}</small>
+                  </div>
+                  <div class="ir-track gp-track h-[22px] relative">
+                    <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w={pct(m.current)} />
+                  </div>
+                  <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">{fmt(m.current)}</div>
+                </div>
+              </>
+            );
+          })}
         </div>
 
         <!-- Legend -->
         <div class="ir-legend flex gap-4 mt-5 font-[var(--sans)] text-[11px] text-[var(--ink-2)]">
           <span class="flex items-center gap-1.5">
             <i class="inline-block w-2.5 h-2.5 align-middle not-italic" style="background:var(--bark-2)"></i>
-            <span data-ko-block>초기 (initial)</span><span data-en-block>initial</span>
+            <span data-ko-block>{data.baseline_label_ko}</span>
+            <span data-en-block>{data.baseline_label_en}</span>
           </span>
           <span class="flex items-center gap-1.5">
             <i class="inline-block w-2.5 h-2.5 align-middle not-italic" style="background:var(--moss)"></i>
-            <span data-ko-block>현재 (v1.0)</span><span data-en-block>current (v1.0)</span>
+            <span data-ko-block>현재 ({data.current_label})</span>
+            <span data-en-block>current ({data.current_label})</span>
           </span>
         </div>
       </div>
@@ -120,8 +156,8 @@
         </h3>
         <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-ko-block>Gopedia는 자체 평가 프레임워크 <strong>Gardener</strong>를 통해 매 릴리스마다 Recall@5, nDCG@10, MRR@10, Context Relevance를 측정합니다. 수치가 하락하는 변경은 절대 머지되지 않습니다. 차트는 geneso 코퍼스(153 MD + 13 PY) 100쿼리 기준, 초기 인제스트 대비 최종 v1.0 개선 결과입니다.</p>
         <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-en-block>Gopedia uses its own evaluation framework <strong>Gardener</strong> to score every release on Recall@5, nDCG@10, MRR@10, and Context Relevance. A change that drops the numbers never lands. The chart shows geneso corpus (153 MD + 13 PY) with 100 queries — initial ingest vs final v1.0 improvements.</p>
-        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-ko-block>* geneso 100q &middot; osteon 30q 병행 평가 &middot; 2026-05 측정</div>
-        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-en-block>* geneso 100q &middot; osteon 30q parallel evaluation &middot; measured 2026-05</div>
+        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-ko-block set:html={data.footnote_ko} />
+        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-en-block set:html={data.footnote_en} />
       </div>
     </div>
   </div>
