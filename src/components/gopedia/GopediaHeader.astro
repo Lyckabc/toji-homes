@@ -93,7 +93,11 @@
     if (nav) nav.style.background = p.navBg;
 
     const footer = document.querySelector('.gp-footer') as HTMLElement | null;
-    if (footer) footer.style.background = name === 'twilight' ? '#0d120d' : p.ink;
+    if (footer) {
+      footer.style.background = name === 'twilight' ? '#0d120d' : p.ink;
+      // twilight에서 --paper가 어두운 색으로 바뀌므로 footer 텍스트를 --ink(밝은색)로 명시
+      footer.style.color = name === 'twilight' ? p.ink : p.paper;
+    }
 
     document.querySelectorAll('#worldtree .ink-stroke').forEach((el) => { (el as SVGElement).style.stroke = p.ink; });
     document.querySelectorAll('#worldtree .ink-splat').forEach((el)  => { (el as SVGElement).setAttribute('fill', p.ink); });
