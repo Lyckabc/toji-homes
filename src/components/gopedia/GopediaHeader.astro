@@ -96,7 +96,7 @@
     if (footer) {
       footer.style.background = name === 'twilight' ? '#0d120d' : p.ink;
       // twilight에서 --paper가 어두운 색으로 바뀌므로 footer 텍스트를 --ink(밝은색)로 명시
-      footer.style.color = name === 'twilight' ? p.ink : p.paper;
+      footer.style.color = name === 'twilight' ? '#ffffff' : p.paper;
     }
 
     document.querySelectorAll('#worldtree .ink-stroke').forEach((el) => { (el as SVGElement).style.stroke = p.ink; });
