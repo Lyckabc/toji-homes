@@ -25,73 +25,73 @@
       <div id="ir-chart" class="ir-chart bg-[var(--paper)] border border-[var(--rule)] p-6 md:p-8">
         <div class="ir-chart-title font-[var(--display)] italic text-[16px] text-[var(--moss)] mb-5 flex justify-between items-baseline gap-4">
           <span>
-            <span data-ko-block>RAG 품질 &middot; v1.4 &rarr; v1.7</span>
-            <span data-en-block>RAG quality &middot; v1.4 &rarr; v1.7</span>
+            <span data-ko-block>RAG 품질 &middot; geneso 100q &middot; initial &rarr; v1.0</span>
+            <span data-en-block>RAG quality &middot; geneso 100q &middot; initial &rarr; v1.0</span>
           </span>
           <span class="scale font-[var(--mono)] text-[10.5px] text-[var(--ink-2)] not-italic tracking-[.1em] shrink-0">0 &mdash; 1.0</span>
         </div>
         <div class="ir-bars grid gap-5">
           <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Recall@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small></div>
+            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Recall@5<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small></div>
             <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="68"></div>
+              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="67"></div>
             </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.68</div>
+            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.67</div>
           </div>
           <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Recall@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small></div>
+            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Recall@5<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small></div>
             <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="89"></div>
+              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="75"></div>
             </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.89</div>
+            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.75</div>
           </div>
           <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small></div>
+            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small></div>
             <div class="ir-track gp-track h-[22px] relative">
               <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="54"></div>
             </div>
             <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.54</div>
           </div>
           <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small></div>
+            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">nDCG@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small></div>
             <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="81"></div>
+              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="62"></div>
             </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.81</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Faithfulness<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="71"></div>
-            </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.71</div>
-          </div>
-          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
-            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">Faithfulness<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small></div>
-            <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="94"></div>
-            </div>
-            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.94</div>
+            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.62</div>
           </div>
           <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
             <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">
-              <span data-ko-block>인용 정확도</span><span data-en-block>Citation acc.</span>
-              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.4 baseline</small>
+              <span data-ko-block>문맥 관련도</span><span data-en-block>Context Rel.</span>
+              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small>
             </div>
             <div class="ir-track gp-track h-[22px] relative">
-              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="62"></div>
+              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="63"></div>
             </div>
-            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.62</div>
+            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.63</div>
           </div>
           <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
             <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">
-              <span data-ko-block>인용 정확도</span><span data-en-block>Citation acc.</span>
-              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.7 current</small>
+              <span data-ko-block>문맥 관련도</span><span data-en-block>Context Rel.</span>
+              <small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small>
             </div>
             <div class="ir-track gp-track h-[22px] relative">
               <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="92"></div>
             </div>
             <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.92</div>
+          </div>
+          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
+            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">MRR@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">initial</small></div>
+            <div class="ir-track gp-track h-[22px] relative">
+              <div class="ir-fill alt gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="49"></div>
+            </div>
+            <div class="v alt font-[var(--mono)] text-[12.5px] text-right">.49</div>
+          </div>
+          <div class="ir-bar grid grid-cols-[90px_1fr_44px] sm:grid-cols-[130px_1fr_56px] gap-2 sm:gap-3.5 items-center">
+            <div class="name font-[var(--sans)] text-[12.5px] text-[var(--ink-2)]">MRR@10<small class="block text-[10px] tracking-[.12em] text-[var(--bark)] uppercase">v1.0</small></div>
+            <div class="ir-track gp-track h-[22px] relative">
+              <div class="ir-fill gp-fill absolute inset-y-0 left-0 bottom-px w-0" data-w="57"></div>
+            </div>
+            <div class="v font-[var(--mono)] text-[12.5px] text-[var(--moss)] text-right">.57</div>
           </div>
         </div>
 
@@ -99,11 +99,11 @@
         <div class="ir-legend flex gap-4 mt-5 font-[var(--sans)] text-[11px] text-[var(--ink-2)]">
           <span class="flex items-center gap-1.5">
             <i class="inline-block w-2.5 h-2.5 align-middle not-italic" style="background:var(--bark-2)"></i>
-            <span data-ko-block>이전 (v1.4)</span><span data-en-block>previous (v1.4)</span>
+            <span data-ko-block>초기 (initial)</span><span data-en-block>initial</span>
           </span>
           <span class="flex items-center gap-1.5">
             <i class="inline-block w-2.5 h-2.5 align-middle not-italic" style="background:var(--moss)"></i>
-            <span data-ko-block>현재 (v1.7)</span><span data-en-block>current (v1.7)</span>
+            <span data-ko-block>현재 (v1.0)</span><span data-en-block>current (v1.0)</span>
           </span>
         </div>
       </div>
@@ -112,16 +112,16 @@
       <div class="ir-copy min-w-0">
         <h3 class="font-[var(--display)] font-medium leading-[1.1] mt-0 mb-4 text-[var(--ink)]"
             style="font-size:36px" data-ko-block>
-          매주 <em class="italic text-[var(--moss)]">1,200건</em>의 질문으로<br/>나무를 흔들어 봅니다.
+          매 릴리스마다 <em class="italic text-[var(--moss)]">Gardener</em>로<br/>나무를 흔들어 봅니다.
         </h3>
         <h3 class="font-[var(--display)] font-medium leading-[1.1] mt-0 mb-4 text-[var(--ink)]"
             style="font-size:36px" data-en-block>
-          We shake the tree<br/>with <em class="italic text-[var(--moss)]">1,200 queries</em><br/>every week.
+          Every release, we shake<br/>the tree with <em class="italic text-[var(--moss)]">Gardener</em>.
         </h3>
-        <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-ko-block>Gopedia는 자체 평가 데이터셋(<strong>Gold Set</strong>)을 통해 매 릴리스마다 Recall, nDCG, Faithfulness, Citation Accuracy를 측정합니다. 숫자가 떨어지는 변경은 절대 머지되지 않습니다.</p>
-        <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-en-block>Gopedia maintains its own <strong>Gold Set</strong> evaluation suite — every release is scored on Recall, nDCG, Faithfulness, and Citation Accuracy. A change that drops the numbers never lands.</p>
-        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-ko-block>* 내부 한국어 + 영어 1,200쿼리 기준 &middot; 2024-12 측정</div>
-        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-en-block>* internal Korean + English 1,200-query set &middot; measured 2024-12</div>
+        <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-ko-block>Gopedia는 자체 평가 프레임워크 <strong>Gardener</strong>를 통해 매 릴리스마다 Recall@5, nDCG@10, MRR@10, Context Relevance를 측정합니다. 수치가 하락하는 변경은 절대 머지되지 않습니다. 차트는 geneso 코퍼스(153 MD + 13 PY) 100쿼리 기준, 초기 인제스트 대비 최종 v1.0 개선 결과입니다.</p>
+        <p class="font-[var(--serif)] text-base leading-[1.7] text-[var(--ink-2)]" data-en-block>Gopedia uses its own evaluation framework <strong>Gardener</strong> to score every release on Recall@5, nDCG@10, MRR@10, and Context Relevance. A change that drops the numbers never lands. The chart shows geneso corpus (153 MD + 13 PY) with 100 queries — initial ingest vs final v1.0 improvements.</p>
+        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-ko-block>* geneso 100q &middot; osteon 30q 병행 평가 &middot; 2026-05 측정</div>
+        <div class="ir-foot mt-4 font-[var(--mono)] text-[11px] text-[var(--bark)] tracking-[.04em]" data-en-block>* geneso 100q &middot; osteon 30q parallel evaluation &middot; measured 2026-05</div>
       </div>
     </div>
   </div>
