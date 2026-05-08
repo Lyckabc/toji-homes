@@ -1,0 +1,19 @@
+---
+/**
+ * Dev-mode catch-all for /histories/{id}/ paths.
+ * In production, nginx handles this via try_files (see nginx/default.conf).
+ * getStaticPaths returns [] so no pages are generated at build time.
+ */
+import HistoriesCard from '../../components/HistoriesCard.astro';
+
+export function getStaticPaths() {
+  // In production nginx handles /histories/* → index.html (nginx/default.conf).
+  // This list is for dev-mode routing only — add IDs here when onboarding new people.
+  const cardIds = ['lyckabc'];
+  return cardIds.map((id) => ({ params: { id } }));
+}
+
+const cardApiOrigin = import.meta.env.PUBLIC_CARD_API_ORIGIN ?? 'https://toji.homes';
+---
+
+<HistoriesCard cardApiOrigin={cardApiOrigin} />
