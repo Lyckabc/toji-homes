@@ -1,0 +1,208 @@
+---
+interface Props {
+  cardApiOrigin: string;
+}
+const { cardApiOrigin } = Astro.props;
+import ProfileLayout from '../layouts/ProfileLayout.astro';
+---
+
+<ProfileLayout>
+  <!-- Loading skeleton -->
+  <div id="card-loading" class="w-full max-w-sm mx-auto">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-8 flex flex-col items-center gap-5 animate-pulse">
+      <div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div class="w-40 h-5 rounded bg-gray-200 dark:bg-gray-700"></div>
+      <div class="w-28 h-4 rounded bg-gray-200 dark:bg-gray-700"></div>
+      <div class="w-full h-12 rounded-xl bg-gray-200 dark:bg-gray-700 mt-2"></div>
+    </div>
+  </div>
+
+  <!-- Profile card (hidden until data loads) -->
+  <div id="card-content" class="w-full max-w-sm mx-auto hidden">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
+      <!-- Brand strip -->
+      <div class="h-1.5 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+
+      <div class="p-8 flex flex-col items-center gap-5">
+        <!-- Avatar -->
+        <div class="relative">
+          <img
+            id="profile-photo"
+            src=""
+            alt=""
+            class="w-24 h-24 rounded-full object-cover border-2 border-gray-100 dark:border-gray-800 hidden"
+          />
+          <div
+            id="profile-initials"
+            class="w-24 h-24 rounded-full bg-blue-100 dark:bg-blue-950 flex items-center justify-center text-2xl font-bold text-blue-700 dark:text-blue-300 border-2 border-gray-100 dark:border-gray-800"
+          ></div>
+        </div>
+
+        <!-- Identity -->
+        <div class="text-center">
+          <h1 id="profile-name" class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-0.5"></h1>
+          <p id="profile-name-ko" class="text-sm text-gray-400 dark:text-gray-500 hidden mb-1"></p>
+          <p id="profile-role" class="text-sm font-medium text-blue-600 dark:text-blue-400"></p>
+          <p id="profile-org" class="text-xs text-gray-400 dark:text-gray-500 mt-0.5 hidden"></p>
+        </div>
+
+        <!-- Contact details -->
+        <div id="profile-contacts" class="w-full flex flex-col gap-2"></div>
+
+        <!-- Links -->
+        <div id="profile-links" class="w-full flex flex-wrap gap-2 justify-center hidden"></div>
+
+        <!-- CTA -->
+        <div class="w-full mt-1">
+          <a
+            id="save-contact-btn"
+            href="#"
+            class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold transition-colors shadow-sm shadow-blue-200 dark:shadow-blue-950"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M13 8V2H7v6H3l7 7 7-7h-4zM0 18h20v2H0v-2z"/>
+            </svg>
+            Save Contact
+          </a>
+          <!-- Android hint: vCard downloads as a file, not auto-opened -->
+          <p class="text-xs text-center text-gray-400 dark:text-gray-500 mt-2 px-2 android-hint hidden">
+            Tap the downloaded file in the notification bar to import.
+          </p>
+        </div>
+
+        <!-- TOJI watermark -->
+        <div class="pt-2 border-t border-gray-100 dark:border-gray-800 w-full flex justify-center">
+          <a href="https://toji.homes" class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-500 transition-colors">
+            <img src="/toji_only_logo_rev4_black.png" class="h-8 w-auto dark:hidden" alt="" />
+            <img src="/toji_only_logo_rev4_white.png" class="h-8 w-auto hidden dark:block" alt="" />
+            TOJI
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error state (hidden until error) -->
+  <div id="card-error" class="w-full max-w-sm mx-auto hidden">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-8 flex flex-col items-center gap-4 text-center">
+      <div class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div>
+        <p class="font-semibold text-gray-800 dark:text-gray-200">명함을 찾을 수 없습니다</p>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">유효하지 않거나 만료된 링크입니다.</p>
+      </div>
+      <a href="/" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">TOJI 홈으로</a>
+    </div>
+  </div>
+</ProfileLayout>
+
+<script define:vars={{ cardApiOrigin }}>
+  const CARD_API_ORIGIN = cardApiOrigin;
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const cardId = segments[1]; // ['histories', 'lyckabc'] → 'lyckabc'
+
+  const elLoading = document.getElementById('card-loading');
+  const elContent = document.getElementById('card-content');
+  const elError = document.getElementById('card-error');
+
+  function show(el) {
+    elLoading?.classList.add('hidden');
+    elContent?.classList.add('hidden');
+    elError?.classList.add('hidden');
+    el?.classList.remove('hidden');
+  }
+
+  function getInitials(name) {
+    return name.trim().split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  function isAndroid() {
+    return /android/i.test(navigator.userAgent);
+  }
+
+  async function loadCard(id) {
+    if (!id) { show(elError); return; }
+    try {
+      const res = await fetch(`${CARD_API_ORIGIN}/card/${id}`);
+      if (!res.ok) { show(elError); return; }
+      renderCard(await res.json());
+    } catch {
+      show(elError);
+    }
+  }
+
+  function renderCard(data) {
+    if (data.photo) {
+      const img = document.getElementById('profile-photo');
+      img.src = data.photo;
+      img.alt = data.name;
+      img.classList.remove('hidden');
+      document.getElementById('profile-initials')?.classList.add('hidden');
+    } else {
+      const initials = document.getElementById('profile-initials');
+      if (initials) initials.textContent = getInitials(data.name || 'T');
+    }
+
+    const nameEl = document.getElementById('profile-name');
+    if (nameEl) nameEl.textContent = data.name_en || data.name || '';
+
+    const nameKoEl = document.getElementById('profile-name-ko');
+    if (nameKoEl && data.name_en && data.name) {
+      nameKoEl.textContent = data.name;
+      nameKoEl.classList.remove('hidden');
+    }
+
+    const roleEl = document.getElementById('profile-role');
+    if (roleEl) roleEl.textContent = data.role || '';
+
+    if (data.org) {
+      const orgEl = document.getElementById('profile-org');
+      if (orgEl) { orgEl.textContent = data.org; orgEl.classList.remove('hidden'); }
+    }
+
+    const contactsEl = document.getElementById('profile-contacts');
+    if (contactsEl) {
+      const contacts = [];
+      if (data.phone) contacts.push({ icon: 'phone', label: data.phone, href: `tel:${data.phone.replace(/[^+\d]/g, '')}` });
+      if (data.email) contacts.push({ icon: 'email', label: data.email, href: `mailto:${data.email}` });
+      contactsEl.innerHTML = contacts.map(({ icon, label, href }) => `
+        <a href="${href}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors group">
+          <span class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-950 shrink-0">
+            ${icon === 'phone'
+              ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>'
+              : '<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>'
+            }
+          </span>
+          <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors truncate">${label}</span>
+        </a>
+      `).join('');
+    }
+
+    if (data.links?.length) {
+      const linksEl = document.getElementById('profile-links');
+      if (linksEl) {
+        linksEl.innerHTML = data.links.map(({ label, url }) =>
+          `<a href="${url}" target="_blank" rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 hover:border-blue-300 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            ${label}
+          </a>`
+        ).join('');
+        linksEl.classList.remove('hidden');
+      }
+    }
+
+    const btn = document.getElementById('save-contact-btn');
+    if (btn) btn.href = `${CARD_API_ORIGIN}/card/${data.id}/vcard`;
+
+    if (isAndroid()) {
+      document.querySelector('.android-hint')?.classList.remove('hidden');
+    }
+
+    show(elContent);
+  }
+
+  loadCard(cardId);
+</script>
