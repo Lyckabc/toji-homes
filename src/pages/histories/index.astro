@@ -46,7 +46,8 @@ const CARD_API_ORIGIN = import.meta.env.PUBLIC_CARD_API_ORIGIN ?? 'https://toji.
 
         <!-- Identity -->
         <div class="text-center">
-          <h1 id="profile-name" class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1"></h1>
+          <h1 id="profile-name" class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-0.5"></h1>
+          <p id="profile-name-ko" class="text-sm text-gray-400 dark:text-gray-500 hidden mb-1"></p>
           <p id="profile-role" class="text-sm font-medium text-blue-600 dark:text-blue-400"></p>
           <p id="profile-org" class="text-xs text-gray-400 dark:text-gray-500 mt-0.5 hidden"></p>
         </div>
@@ -67,17 +68,19 @@ const CARD_API_ORIGIN = import.meta.env.PUBLIC_CARD_API_ORIGIN ?? 'https://toji.
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
               <path d="M13 8V2H7v6H3l7 7 7-7h-4zM0 18h20v2H0v-2z"/>
             </svg>
-            연락처 저장
+            Save Contact
           </a>
           <!-- Android hint: vCard downloads as a file, not auto-opened -->
           <p class="text-xs text-center text-gray-400 dark:text-gray-500 mt-2 px-2 android-hint hidden">
-            다운로드 완료 후 상단 알림의 파일을 탭해 주세요.
+            Tap the downloaded file in the notification bar to import.
           </p>
         </div>
 
         <!-- TOJI watermark -->
         <div class="pt-2 border-t border-gray-100 dark:border-gray-800 w-full flex justify-center">
-          <a href="/" class="text-xs text-gray-400 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-500 transition-colors">
+          <a href="https://toji.homes" class="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-500 transition-colors">
+            <img src="/toji_only_logo_rev4_black.png" class="h-4 w-auto dark:hidden" alt="" />
+            <img src="/toji_only_logo_rev4_white.png" class="h-4 w-auto hidden dark:block" alt="" />
             TOJI
           </a>
         </div>
@@ -160,7 +163,13 @@ const CARD_API_ORIGIN = import.meta.env.PUBLIC_CARD_API_ORIGIN ?? 'https://toji.
 
     // Identity
     const nameEl = document.getElementById('profile-name');
-    if (nameEl) nameEl.textContent = data.name || '';
+    if (nameEl) nameEl.textContent = data.name_en || data.name || '';
+
+    const nameKoEl = document.getElementById('profile-name-ko');
+    if (nameKoEl && data.name_en && data.name) {
+      nameKoEl.textContent = data.name;
+      nameKoEl.classList.remove('hidden');
+    }
 
     const roleEl = document.getElementById('profile-role');
     if (roleEl) roleEl.textContent = data.role || '';
