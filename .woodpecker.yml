@@ -51,6 +51,11 @@ steps:
       - chmod 600 /tmp/.kube/config
       - export KUBECONFIG=/tmp/.kube/config
       - |
+        echo ">>> Syncing homepage nginx ConfigMap..."
+        kubectl create configmap homepage-nginx-conf \
+          --from-file=default.conf=nginx/default.conf \
+          -n homepage --dry-run=client -o yaml | kubectl apply -f -
+      - |
         echo ">>> Syncing gopedia-site nginx ConfigMap..."
         kubectl create configmap gopedia-site-nginx-conf \
           --from-file=default.conf=nginx/gopedia-site.conf \
