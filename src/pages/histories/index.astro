@@ -1,7 +1,7 @@
 ---
 /**
  * Digital business card landing page.
- * Served for all /p/{id}/ URLs via nginx fallback (see nginx/default.conf).
+ * Served for all /histories/{id}/ URLs via nginx fallback (see nginx/default.conf).
  * The card ID is extracted from window.location.pathname client-side.
  *
  * Intentionally not indexed (ProfileLayout sets noindex, nofollow).
@@ -105,7 +105,7 @@ const CARD_API_ORIGIN = import.meta.env.PUBLIC_CARD_API_ORIGIN ?? 'https://api.t
 <script define:vars={{ CARD_API_ORIGIN }}>
   // Extract card ID from /p/{id}/ path
   const segments = window.location.pathname.split('/').filter(Boolean);
-  const cardId = segments[1]; // ['p', 'abc123'] → 'abc123'
+  const cardId = segments[1]; // ['histories', 'lyckabc'] → 'lyckabc'
 
   const elLoading = document.getElementById('card-loading');
   const elContent = document.getElementById('card-content');
