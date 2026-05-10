@@ -1,0 +1,21 @@
+---
+import SupportLayout from '../../../../layouts/SupportLayout.astro';
+import StandaloneTicketForm from '../../../../components/support/StandaloneTicketForm';
+import { getSupportStrings } from '../../../../lib/support/i18n';
+
+const locale = 'ko' as const;
+const t = getSupportStrings(locale);
+---
+
+<SupportLayout
+  title={`${t.ticketForm.title} — TOJI Helpdesk`}
+  description="TOJI 지원 티켓을 새로 등록합니다."
+  lang={locale}
+>
+  <article class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
+    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 mb-8">
+      {t.ticketForm.title}
+    </h1>
+    <StandaloneTicketForm client:only="react" locale={locale} />
+  </article>
+</SupportLayout>

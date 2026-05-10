@@ -1,0 +1,85 @@
+{
+  "launcher": {
+    "open": "Need help?",
+    "close": "Close"
+  },
+  "panel": {
+    "title": "How can we help?",
+    "searchPlaceholder": "Ask anything…",
+    "suggestions": "💡 Suggested answers",
+    "noResults": "No matching answers.",
+    "searching": "Searching…",
+    "fallbackPrompt": "Didn't find what you needed?",
+    "openTicketCta": "Open a ticket →",
+    "resolved": "This helped",
+    "notResolved": "Not really"
+  },
+  "ticketForm": {
+    "back": "← Back",
+    "title": "Contact support",
+    "category": "Category",
+    "categoryGeneral": "General",
+    "categoryAccount": "Account",
+    "categoryBilling": "Billing",
+    "categoryBug": "Bug report",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "Briefly describe your issue",
+    "body": "Details",
+    "bodyPlaceholder": "Tell us what happened",
+    "consent": "I agree to the processing of personal data",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "successTitle": "✓ Ticket created",
+    "successHint": "We've also emailed you a link.",
+    "viewTicket": "View status →",
+    "errorGeneric": "Could not submit. Please try again later.",
+    "errorEmailRequired": "Email is required",
+    "errorEmailInvalid": "Please enter a valid email",
+    "errorSubjectRequired": "Subject is required",
+    "errorBodyRequired": "Details are required",
+    "errorConsentRequired": "Please confirm consent"
+  },
+  "thread": {
+    "loading": "Loading…",
+    "statusLabel": "Status",
+    "createdLabel": "Created",
+    "customer": "You",
+    "staff": "Support",
+    "status": {
+      "open": "📨 Received",
+      "in_progress": "⏳ In progress",
+      "waiting": "⏸ Waiting",
+      "resolved": "✓ Resolved",
+      "closed": "🔒 Closed"
+    },
+    "resolvedBanner": "This ticket has been resolved.",
+    "errorLoad": "Could not load this ticket.",
+    "notFound": "Ticket not found or access denied."
+  },
+  "reply": {
+    "placeholder": "Write a reply…",
+    "send": "Send",
+    "sending": "Sending…",
+    "errorSend": "Could not send."
+  },
+  "auth": {
+    "magicTitle": "Sign in with email",
+    "magicHint": "Enter the email you used when filing the ticket. We'll email you a sign-in link.",
+    "emailLabel": "Email",
+    "send": "Send link",
+    "sending": "Sending…",
+    "successTitle": "✓ Check your inbox",
+    "successBody": "Click the link in the email to come back to this page.",
+    "errorSend": "Could not send the email.",
+    "exchanging": "Signing you in…",
+    "exchangeError": "This link is expired or invalid."
+  },
+  "landing": {
+    "title": "TOJI Helpdesk",
+    "lead": "We're here to help — reach out any time.",
+    "openTicket": "Open a new ticket",
+    "faqTitle": "Frequently asked"
+  }
+}

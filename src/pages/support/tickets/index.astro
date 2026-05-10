@@ -1,0 +1,16 @@
+---
+import SupportLayout from '../../../layouts/SupportLayout.astro';
+import TicketThread from '../../../components/support/TicketThread';
+
+const locale = 'en' as const;
+---
+
+<SupportLayout
+  title="Ticket — TOJI Helpdesk"
+  description="Track and reply to your TOJI support ticket."
+  lang={locale}
+>
+  <article class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
+    <TicketThread client:only="react" locale={locale} />
+  </article>
+</SupportLayout>

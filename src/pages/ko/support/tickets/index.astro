@@ -1,0 +1,16 @@
+---
+import SupportLayout from '../../../../layouts/SupportLayout.astro';
+import TicketThread from '../../../../components/support/TicketThread';
+
+const locale = 'ko' as const;
+---
+
+<SupportLayout
+  title="티켓 상태 — TOJI Helpdesk"
+  description="TOJI 헬프데스크 티켓 상태를 확인하고 답글을 남기세요."
+  lang={locale}
+>
+  <article class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
+    <TicketThread client:only="react" locale={locale} />
+  </article>
+</SupportLayout>

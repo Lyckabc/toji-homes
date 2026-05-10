@@ -1,0 +1,16 @@
+---
+import SupportLayout from '../../../layouts/SupportLayout.astro';
+import CallbackHandler from '../../../components/support/CallbackHandler';
+
+const locale = 'en' as const;
+---
+
+<SupportLayout
+  title="Signing you in — TOJI Helpdesk"
+  description="Completing magic-link sign in."
+  lang={locale}
+>
+  <article class="max-w-md mx-auto px-6 py-16 text-center">
+    <CallbackHandler client:only="react" locale={locale} />
+  </article>
+</SupportLayout>
