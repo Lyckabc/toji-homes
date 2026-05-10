@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { normalizePathname } from '../lib/i18n';
+import type { Locale } from '../content/siteContent';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Locale;
+}
+
+const { title, description, lang } = Astro.props;
+const pathname = normalizePathname(Astro.url.pathname);
+---
+
+<BaseLayout title={title} description={description} lang={lang} pathname={pathname}>
+  <div class="flex flex-col min-h-screen">
+    <Header locale={lang} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={lang} />
+  </div>
+</BaseLayout>

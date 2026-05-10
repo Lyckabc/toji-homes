@@ -1,0 +1,12 @@
+---
+import type { Locale } from '../../content/siteContent';
+import HelpWidget from './HelpWidget.tsx';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<HelpWidget client:idle locale={locale} />

@@ -1,0 +1,16 @@
+---
+import SupportLayout from '../../../../layouts/SupportLayout.astro';
+import CallbackHandler from '../../../../components/support/CallbackHandler';
+
+const locale = 'ko' as const;
+---
+
+<SupportLayout
+  title="로그인 처리 중 — TOJI Helpdesk"
+  description="매직 링크 로그인 처리를 완료합니다."
+  lang={locale}
+>
+  <article class="max-w-md mx-auto px-6 py-16 text-center">
+    <CallbackHandler client:only="react" locale={locale} />
+  </article>
+</SupportLayout>

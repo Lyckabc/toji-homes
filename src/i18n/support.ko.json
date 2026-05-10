@@ -1,0 +1,85 @@
+{
+  "launcher": {
+    "open": "도움이 필요하세요?",
+    "close": "닫기"
+  },
+  "panel": {
+    "title": "도움이 필요하세요?",
+    "searchPlaceholder": "무엇을 도와드릴까요?",
+    "suggestions": "💡 추천 답변",
+    "noResults": "추천 답변이 없습니다.",
+    "searching": "검색 중…",
+    "fallbackPrompt": "답을 찾지 못하셨나요?",
+    "openTicketCta": "티켓 생성 →",
+    "resolved": "해결되었어요",
+    "notResolved": "아니에요"
+  },
+  "ticketForm": {
+    "back": "← 뒤로",
+    "title": "문의하기",
+    "category": "카테고리",
+    "categoryGeneral": "일반 문의",
+    "categoryAccount": "계정",
+    "categoryBilling": "결제",
+    "categoryBug": "버그 리포트",
+    "email": "이메일",
+    "emailPlaceholder": "you@example.com",
+    "subject": "제목",
+    "subjectPlaceholder": "문의 제목을 입력하세요",
+    "body": "내용",
+    "bodyPlaceholder": "자세한 내용을 적어주세요",
+    "consent": "개인정보 처리에 동의합니다",
+    "submit": "제출",
+    "submitting": "제출 중…",
+    "successTitle": "✓ 티켓이 등록되었습니다",
+    "successHint": "이메일로도 링크가 발송됩니다",
+    "viewTicket": "상태 페이지 →",
+    "errorGeneric": "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+    "errorEmailRequired": "이메일을 입력해 주세요",
+    "errorEmailInvalid": "유효한 이메일 형식이 아닙니다",
+    "errorSubjectRequired": "제목을 입력해 주세요",
+    "errorBodyRequired": "내용을 입력해 주세요",
+    "errorConsentRequired": "개인정보 처리에 동의해 주세요"
+  },
+  "thread": {
+    "loading": "불러오는 중…",
+    "statusLabel": "상태",
+    "createdLabel": "생성",
+    "customer": "고객",
+    "staff": "지원팀",
+    "status": {
+      "open": "📨 접수됨",
+      "in_progress": "⏳ 처리중",
+      "waiting": "⏸ 대기중",
+      "resolved": "✓ 해결됨",
+      "closed": "🔒 종료됨"
+    },
+    "resolvedBanner": "이 문의는 해결되었습니다.",
+    "errorLoad": "티켓을 불러올 수 없습니다.",
+    "notFound": "티켓을 찾을 수 없거나 접근 권한이 없습니다."
+  },
+  "reply": {
+    "placeholder": "답글을 입력하세요…",
+    "send": "전송",
+    "sending": "전송 중…",
+    "errorSend": "전송에 실패했습니다."
+  },
+  "auth": {
+    "magicTitle": "이메일로 로그인",
+    "magicHint": "티켓 등록 시 입력한 이메일을 적어주세요. 접속 링크가 전송됩니다.",
+    "emailLabel": "이메일",
+    "send": "링크 전송",
+    "sending": "전송 중…",
+    "successTitle": "✓ 메일을 확인해 주세요",
+    "successBody": "수신함에서 접속 링크를 클릭하면 다시 이 페이지로 돌아옵니다.",
+    "errorSend": "메일 발송에 실패했습니다.",
+    "exchanging": "인증 중…",
+    "exchangeError": "이 링크는 만료되었거나 유효하지 않습니다."
+  },
+  "landing": {
+    "title": "TOJI Helpdesk",
+    "lead": "도움이 필요하시면 언제든지 알려주세요.",
+    "openTicket": "새 문의 열기",
+    "faqTitle": "자주 묻는 질문"
+  }
+}

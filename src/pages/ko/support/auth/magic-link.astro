@@ -1,0 +1,18 @@
+---
+import SupportLayout from '../../../../layouts/SupportLayout.astro';
+import MagicLinkForm from '../../../../components/support/MagicLinkForm';
+import { getSupportStrings } from '../../../../lib/support/i18n';
+
+const locale = 'ko' as const;
+const t = getSupportStrings(locale);
+---
+
+<SupportLayout
+  title={`${t.auth.magicTitle} — TOJI Helpdesk`}
+  description="이메일로 TOJI 헬프데스크 티켓에 접근합니다."
+  lang={locale}
+>
+  <article class="max-w-md mx-auto px-6 py-12 sm:py-16">
+    <MagicLinkForm client:only="react" locale={locale} />
+  </article>
+</SupportLayout>
