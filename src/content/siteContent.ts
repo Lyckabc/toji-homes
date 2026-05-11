@@ -140,6 +140,7 @@ export const ui = {
       aiPragma: 'ai-pragma',
       git: 'Git',
       enquiry: '문의',
+      support: '도움말',
     },
     cta: {
       exploreServices: '로드맵 보기',
@@ -202,6 +203,7 @@ export const ui = {
       aiPragma: 'ai-pragma',
       git: 'Git',
       enquiry: 'Enquiry',
+      support: 'Help',
     },
     cta: {
       exploreServices: 'View roadmap',
