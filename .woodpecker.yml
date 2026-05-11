@@ -29,6 +29,9 @@ when:
   event: push
 
 steps:
+  # NOTE: shell loops live in ci/*.sh files (not inline) because Woodpecker
+  # pre-substitutes `${VAR}` patterns in YAML `commands:` bodies before the
+  # container starts — see neunexus runbook §"variable pre-substitution".
   - name: vault-fetch
     image: hashicorp/vault:latest
     environment:
@@ -36,15 +39,7 @@ steps:
       VAULT_TOKEN:
         from_secret: vault_token
     commands:
-      - |
-        set -eu
-        : > .vault-build-args
-        for f in goquest_key cs_workspace_id cs_project_web gopedia_key; do
-          val=$(vault kv get -field="$f" secret/toji-homes/helpdesk 2>/dev/null || echo "")
-          echo "${f}=${val}" >> .vault-build-args
-        done
-        # Log presence (not values) so failures are diagnosable
-        awk -F= '{print $1": "(length($2)>0?"set":"empty")}' .vault-build-args
+      - sh ci/vault-fetch.sh
 
   - name: build-push
     image: gcr.io/kaniko-project/executor:debug
@@ -59,26 +54,14 @@ steps:
         printf '{"auths":{"ghcr.io":{"auth":"%s"}}}' \
           "$(printf '%s:%s' "$GHCR_USERNAME" "$GHCR_TOKEN" | base64 | tr -d '\n')" \
           > /kaniko/.docker/config.json
-      - |
-        BUILD_ARGS=""
-        if [ -f .vault-build-args ]; then
-          while IFS='=' read -r k v; do
-            case "$k" in
-              goquest_key)      KEY=PUBLIC_GOQUEST_KEY ;;
-              cs_workspace_id)  KEY=PUBLIC_CS_WORKSPACE_ID ;;
-              cs_project_web)   KEY=PUBLIC_CS_PROJECT_WEB ;;
-              gopedia_key)      KEY=PUBLIC_GOPEDIA_KEY ;;
-              *) continue ;;
-            esac
-            BUILD_ARGS="$BUILD_ARGS --build-arg ${KEY}=${v}"
-          done < .vault-build-args
-        fi
-        /kaniko/executor \
-          --context=dir://$CI_WORKSPACE \
-          --dockerfile=$CI_WORKSPACE/Dockerfile \
-          $BUILD_ARGS \
-          --destination=ghcr.io/lyckabc/toji-homes:main \
-          --destination=ghcr.io/lyckabc/toji-homes:latest \
+      # Avoid `${VAR}` here too; expand build-args via ci/build-args.sh which
+      # the YAML preprocessor leaves alone (it's a $(…) at runtime).
+      - /kaniko/executor
+          --context=dir://$(pwd)
+          --dockerfile=$(pwd)/Dockerfile
+          $(sh ci/build-args.sh)
+          --destination=ghcr.io/lyckabc/toji-homes:main
+          --destination=ghcr.io/lyckabc/toji-homes:latest
           --cache=true
 
   - name: deploy
