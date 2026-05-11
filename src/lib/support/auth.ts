@@ -36,7 +36,7 @@ export function clearSession(ticketId: string): void {
 
 export async function exchangeMagicToken(ticketId: string, token: string): Promise<HelpdeskSession> {
   if (!isGoquestConfigured()) throw new Error('helpdesk_not_configured');
-  const res = await fetch(`${publicEnv('PUBLIC_GOQUEST_BASE')}/auth/magic-exchange`, {
+  const res = await fetch(`${publicEnv('PUBLIC_GOQUEST_BASE')}/auth/magic-link/exchange`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export async function exchangeMagicToken(ticketId: string, token: string): Promi
 
 export async function requestMagicLink(ticketId: string, email: string): Promise<void> {
   if (!isGoquestConfigured()) throw new Error('helpdesk_not_configured');
-  const res = await fetch(`${publicEnv('PUBLIC_GOQUEST_BASE')}/auth/magic-request`, {
+  const res = await fetch(`${publicEnv('PUBLIC_GOQUEST_BASE')}/auth/magic-link/request`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
