@@ -3,6 +3,19 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Astro inlines `import.meta.env.PUBLIC_*` at build time, so these values must
+# be present *during* `npm run build`. The CI step fetches them from Vault and
+# passes them via `--build-arg`; locally they default to empty (widget then
+# degrades gracefully — `isGoquestConfigured()` returns false).
+ARG PUBLIC_GOQUEST_KEY=
+ARG PUBLIC_CS_WORKSPACE_ID=
+ARG PUBLIC_CS_PROJECT_WEB=
+ARG PUBLIC_GOPEDIA_KEY=
+ENV PUBLIC_GOQUEST_KEY=$PUBLIC_GOQUEST_KEY \
+    PUBLIC_CS_WORKSPACE_ID=$PUBLIC_CS_WORKSPACE_ID \
+    PUBLIC_CS_PROJECT_WEB=$PUBLIC_CS_PROJECT_WEB \
+    PUBLIC_GOPEDIA_KEY=$PUBLIC_GOPEDIA_KEY
+
 # 의존성 먼저 복사 → 레이어 캐시 활용 (소스 변경 시 재설치 불필요)
 COPY package*.json ./
 RUN npm ci
