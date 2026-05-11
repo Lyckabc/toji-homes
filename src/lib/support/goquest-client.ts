@@ -47,13 +47,6 @@ class HelpdeskNotConfiguredError extends Error {
 export const isNotConfigured = (e: unknown): e is HelpdeskNotConfiguredError =>
   e instanceof Error && e.name === 'HelpdeskNotConfiguredError';
 
-function ticketsBase(): string {
-  const base = publicEnv('PUBLIC_GOQUEST_BASE');
-  const wid = publicEnv('PUBLIC_CS_WORKSPACE_ID');
-  const pid = publicEnv('PUBLIC_CS_PROJECT_WEB');
-  return `${base}/workspaces/${wid}/projects/${pid}`;
-}
-
 function authedHeaders(token?: string): HeadersInit {
   const h: Record<string, string> = {
     'X-API-Key': publicEnv('PUBLIC_GOQUEST_KEY'),
@@ -65,7 +58,12 @@ function authedHeaders(token?: string): HeadersInit {
 
 export async function createTicket(input: CreateTicketInput): Promise<CreateTicketResult> {
   if (!isGoquestConfigured()) throw new HelpdeskNotConfiguredError();
-  const res = await fetch(`${ticketsBase()}/tickets`, {
+  // goquest's ticket-create route is global (`POST /api/v1/tickets`) and takes
+  // `project_id` in the body. The workspace-scoped path the prototype spec
+  // hinted at only exists for admin routes (api-keys, members, etc.).
+  // `requester_email` + `channel` aren't top-level fields yet — they live in
+  // `metadata` until the backend adds them (see prototype §10).
+  const res = await fetch(`${publicEnv('PUBLIC_GOQUEST_BASE')}/tickets`, {
     method: 'POST',
     headers: authedHeaders(),
     body: JSON.stringify({
@@ -73,14 +71,18 @@ export async function createTicket(input: CreateTicketInput): Promise<CreateTick
       description: input.description,
       type: input.type ?? 'request',
       priority: input.priority ?? 'normal',
-      channel: input.channel ?? 'web',
-      category: input.category,
-      requester_email: input.requester_email,
-      metadata: input.metadata ?? {},
+      project_id: publicEnv('PUBLIC_CS_PROJECT_WEB'),
+      metadata: {
+        ...(input.metadata ?? {}),
+        requester_email: input.requester_email,
+        channel: input.channel ?? 'web',
+        ...(input.category ? { category: input.category } : {}),
+      },
     }),
   });
   if (!res.ok) throw new Error(`createTicket_failed_${res.status}`);
-  return (await res.json()) as CreateTicketResult;
+  const data = (await res.json()) as { id: string; public_token?: string };
+  return { id: data.id, public_token: data.public_token ?? '' };
 }
 
 export async function getTicket(id: string, token: string): Promise<Ticket> {
