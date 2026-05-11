@@ -4,14 +4,24 @@
 # 트리거: main 브랜치 push
 #
 # Steps:
-#   1. build-push  — Docker 이미지 빌드 후 GHCR 푸시
-#   2. deploy      — K8s 디플로이먼트 롤아웃 재시작
+#   1. vault-fetch — Vault에서 helpdesk용 PUBLIC_* 값들을 가져와 build-args 파일 생성
+#   2. build-push  — Docker 이미지 빌드 후 GHCR 푸시 (Astro가 PUBLIC_*을 inline)
+#   3. deploy      — K8s 디플로이먼트 롤아웃 재시작
 #
 # 필요한 Woodpecker 시크릿:
 #   ghcr_username  — GHCR 로그인 유저명 (예: lyckabc)
 #   ghcr_token     — GitHub PAT (packages:write 권한)
 #   kubeconfig     — base64 인코딩된 kubeconfig
 #                    생성: base64 -w0 ~/.kube/config
+#   vault_token    — `secret/data/toji-homes/helpdesk` 읽기 권한 가진 Vault 토큰
+#
+# Vault path (kv v2): `secret/toji-homes/helpdesk`
+# Fields:
+#   goquest_key       — gqk_* customer-support public key (ticket.create scope)
+#   cs_workspace_id   — customer-support workspace UUID
+#   cs_project_web    — web-inquiries project UUID
+#   gopedia_key       — gopedia public search key
+# (값이 비어있어도 빌드는 성공 — 위젯이 graceful degrade)
 # ─────────────────────────────────────────────────────────────────────────────
 
 when:
@@ -19,6 +29,23 @@ when:
   event: push
 
 steps:
+  - name: vault-fetch
+    image: hashicorp/vault:latest
+    environment:
+      VAULT_ADDR: https://vault.toji.homes
+      VAULT_TOKEN:
+        from_secret: vault_token
+    commands:
+      - |
+        set -eu
+        : > .vault-build-args
+        for f in goquest_key cs_workspace_id cs_project_web gopedia_key; do
+          val=$(vault kv get -field="$f" secret/toji-homes/helpdesk 2>/dev/null || echo "")
+          echo "${f}=${val}" >> .vault-build-args
+        done
+        # Log presence (not values) so failures are diagnosable
+        awk -F= '{print $1": "(length($2)>0?"set":"empty")}' .vault-build-args
+
   - name: build-push
     image: gcr.io/kaniko-project/executor:debug
     environment:
@@ -33,9 +60,23 @@ steps:
           "$(printf '%s:%s' "$GHCR_USERNAME" "$GHCR_TOKEN" | base64 | tr -d '\n')" \
           > /kaniko/.docker/config.json
       - |
+        BUILD_ARGS=""
+        if [ -f .vault-build-args ]; then
+          while IFS='=' read -r k v; do
+            case "$k" in
+              goquest_key)      KEY=PUBLIC_GOQUEST_KEY ;;
+              cs_workspace_id)  KEY=PUBLIC_CS_WORKSPACE_ID ;;
+              cs_project_web)   KEY=PUBLIC_CS_PROJECT_WEB ;;
+              gopedia_key)      KEY=PUBLIC_GOPEDIA_KEY ;;
+              *) continue ;;
+            esac
+            BUILD_ARGS="$BUILD_ARGS --build-arg ${KEY}=${v}"
+          done < .vault-build-args
+        fi
         /kaniko/executor \
           --context=dir://$CI_WORKSPACE \
           --dockerfile=$CI_WORKSPACE/Dockerfile \
+          $BUILD_ARGS \
           --destination=ghcr.io/lyckabc/toji-homes:main \
           --destination=ghcr.io/lyckabc/toji-homes:latest \
           --cache=true
