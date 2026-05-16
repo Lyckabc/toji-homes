@@ -32,7 +32,7 @@
     "submit": "제출",
     "submitting": "제출 중…",
     "successTitle": "✓ 티켓이 등록되었습니다",
-    "successHint": "이메일로도 링크가 발송됩니다",
+    "successHint": "아래 링크로 접수된 티켓 상태를 확인할 수 있습니다.",
     "viewTicket": "상태 페이지 →",
     "errorGeneric": "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.",
     "errorEmailRequired": "이메일을 입력해 주세요",
@@ -48,11 +48,12 @@
     "customer": "고객",
     "staff": "지원팀",
     "status": {
-      "open": "📨 접수됨",
+      "pending": "📨 접수됨",
+      "assigned": "👤 담당자 배정",
       "in_progress": "⏳ 처리중",
-      "waiting": "⏸ 대기중",
-      "resolved": "✓ 해결됨",
-      "closed": "🔒 종료됨"
+      "completed": "✓ 해결됨",
+      "failed": "⚠ 처리 실패",
+      "cancelled": "🔒 종료됨"
     },
     "resolvedBanner": "이 문의는 해결되었습니다.",
     "errorLoad": "티켓을 불러올 수 없습니다.",

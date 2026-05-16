@@ -156,9 +156,9 @@ export default function TicketThread({ locale: localeProp }: Props) {
   }
 
   const ticket = phase.ticket;
-  const statusKey = (ticket.status ?? 'open') as TicketStatus;
+  const statusKey = (ticket.status ?? 'pending') as TicketStatus;
   const statusLabel = strings.thread.status[statusKey] ?? ticket.status;
-  const isResolved = statusKey === 'resolved' || statusKey === 'closed';
+  const isResolved = statusKey === 'completed' || statusKey === 'cancelled';
 
   return (
     <div className="flex flex-col gap-6">

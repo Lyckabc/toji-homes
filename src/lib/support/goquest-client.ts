@@ -1,6 +1,6 @@
 import { publicEnv, isGoquestConfigured } from './env';
 
-export type TicketStatus = 'open' | 'in_progress' | 'waiting' | 'resolved' | 'closed';
+export type TicketStatus = 'pending' | 'assigned' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
 
 export interface TicketComment {
   id: string;

@@ -32,7 +32,7 @@
     "submit": "Submit",
     "submitting": "Submitting…",
     "successTitle": "✓ Ticket created",
-    "successHint": "We've also emailed you a link.",
+    "successHint": "Save the link below to check your ticket status.",
     "viewTicket": "View status →",
     "errorGeneric": "Could not submit. Please try again later.",
     "errorEmailRequired": "Email is required",
@@ -48,11 +48,12 @@
     "customer": "You",
     "staff": "Support",
     "status": {
-      "open": "📨 Received",
+      "pending": "📨 Received",
+      "assigned": "👤 Assigned",
       "in_progress": "⏳ In progress",
-      "waiting": "⏸ Waiting",
-      "resolved": "✓ Resolved",
-      "closed": "🔒 Closed"
+      "completed": "✓ Resolved",
+      "failed": "⚠ Failed",
+      "cancelled": "🔒 Closed"
     },
     "resolvedBanner": "This ticket has been resolved.",
     "errorLoad": "Could not load this ticket.",
