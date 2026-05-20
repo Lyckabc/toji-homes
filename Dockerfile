@@ -1,3 +1,7 @@
+# syntax=docker/dockerfile:1
+# CACHE: RUN --mount=type=cache 로 의존성 재사용. --no-cache/--pull 로 빌드하지 말 것
+# (둘 다 cache mount 를 폐기해 매 빌드 전부 재다운로드함).
+
 # ── Build stage ───────────────────────────────────────────────────────────────
 FROM node:20-alpine AS builder
 
@@ -18,7 +22,7 @@ ENV PUBLIC_GOQUEST_KEY=$PUBLIC_GOQUEST_KEY \
 
 # 의존성 먼저 복사 → 레이어 캐시 활용 (소스 변경 시 재설치 불필요)
 COPY package*.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci
 
 # 소스 복사 후 Astro 정적 빌드 (dist/ 생성)
 COPY . .
